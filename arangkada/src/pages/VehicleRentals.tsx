@@ -25,10 +25,22 @@ const VehicleRentals = () => {
     {id: 5, businessName: "Business XX", operatorName: "John Doe", route: "01k", vehicleType: "Jeepney", makeModel: "Model 1", rentalFee: 500},
   ]);
   
+  const handleFilterSubmit = (businessName: string, operatorName: string, location: string) => {
+    console.log(businessName);
+    console.log(operatorName);
+    console.log(location);
+
+    // filter vehicles here
+  }
+
+  const handleFilterClear = () => {
+    // clear filters here
+  }
+
   return ( 
     <Box sx={{ padding: "12px 0 0" }}>
       <PageHeader title="Vehicle Rentals" />
-      <VehicleFilterForm />
+      <VehicleFilterForm handleFilterSubmit={handleFilterSubmit} handleFilterClear={handleFilterClear} />
       <VehicleCardList vehicles={vehicles} />
       <Footer name="Faith Rosalijos" course="BSIT" section="G1"/>
     </Box>

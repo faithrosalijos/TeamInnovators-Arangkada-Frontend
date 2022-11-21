@@ -4,8 +4,12 @@ import SearchIcon from '@mui/icons-material/Search';
 import PersonIcon from '@mui/icons-material/Person';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 
+type VehicleFilterFormProps = {
+  handleFilterSubmit: (businessName: string, operatorName: string, location: string) => void,
+  handleFilterClear: () => void,
+}
 
-const VehicleFilterForm = () => {
+const VehicleFilterForm = ({ handleFilterSubmit, handleFilterClear }: VehicleFilterFormProps) => {
   const [businessName, setBusinessName] = useState("");
   const [operatorName, setOperatorName] = useState("");
   const [location, setLocation] = useState("");
@@ -22,14 +26,16 @@ const VehicleFilterForm = () => {
     setLocation(event.target.value);
   }
 
-  const handleSubmit = (event: React.SyntheticEvent) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    handleFilterSubmit(businessName, operatorName, location);
   }
 
   const handleClear = (event: React.MouseEvent) => {
     setBusinessName("");
     setOperatorName("");
     setLocation("");
+    handleFilterClear();
   }
 
   return ( 
