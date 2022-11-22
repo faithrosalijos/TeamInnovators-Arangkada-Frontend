@@ -1,4 +1,4 @@
-import { Badge, Box, IconButton, Toolbar, Typography } from "@mui/material";
+import { Badge, Box, IconButton, Toolbar } from "@mui/material";
 import { AppBar } from "../styles/TopbarStyles";
 import Logo from '../images/logo.svg';
 import MenuIcon from '@mui/icons-material/Menu';

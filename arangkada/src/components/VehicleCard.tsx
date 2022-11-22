@@ -1,4 +1,4 @@
-import { Button, Card, CardActions, CardContent, CardHeader, Divider, Paper, Typography } from "@mui/material";
+import { Button, Card, CardActions, CardContent, CardHeader, Divider, Typography } from "@mui/material";
 import { Vehicle } from "../pages/VehicleRentals";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 

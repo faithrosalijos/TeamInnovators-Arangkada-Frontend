@@ -1,5 +1,4 @@
 import { Grid } from "@mui/material"
-import { useState } from "react";
 import VehicleCard from "../components/VehicleCard";
 import { Vehicle } from "../pages/VehicleRentals";
 
