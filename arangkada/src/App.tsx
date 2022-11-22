@@ -30,11 +30,11 @@ const App = () => {
     <ThemeProvider theme={theme}>
       {/* Uncomment for driver pages
           Comment out if you will modify other pages. */}
-      <DriverMainLayout /> 
+      {/* <DriverMainLayout /> */}
 
       {/* Uncomment for operator pages
-          Comment out if you will modify other pages. 
-      <OperatorMainLayout /> */}
+          Comment out if you will modify other pages. */}
+      <OperatorMainLayout />
 
       {/* For landing page, registration, login, etc.
           Comment out if you will modify other pages. */}

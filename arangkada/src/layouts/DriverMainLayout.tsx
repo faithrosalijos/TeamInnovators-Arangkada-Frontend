@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { DrawerHeader } from '../styles/NavbarStyles';
 import Navbar from '../components/Navbar';
 import Topbar from '../components/Topbar';
-import VehicleRentals from '../pages/VehicleRentals';
+import VehicleRentals from '../pages/faith/VehicleRentals';
 
 
 const DriverMainLayout = () => {
@@ -27,9 +27,6 @@ const DriverMainLayout = () => {
       <Box component="main" sx={{ flexGrow: 1, p: 3, padding: "0 32px" }}>
         <DrawerHeader />
         {/* Your driver pages goes here. */}
-
-        {/* Comment out if you won't use */}
-        <VehicleRentals />
         
       </Box>
     </Box>
