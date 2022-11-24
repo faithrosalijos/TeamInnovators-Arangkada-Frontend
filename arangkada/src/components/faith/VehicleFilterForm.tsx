@@ -39,7 +39,7 @@ const VehicleFilterForm = ({ handleFilterSubmit, handleFilterClear }: VehicleFil
   }
 
   return (
-    <Grid container spacing={2} onSubmit={handleSubmit} component="form" sx={{ marginTop: "0", padding: "12px 0" }}>
+    <Grid container spacing={2} onSubmit={handleSubmit} component="form">
       <Grid item xs={12} md={3}>
         <TextField onChange={handleBusinessNameChange} value={businessName} label="Search by Business Name" size="small" fullWidth InputProps={{ startAdornment: (<InputAdornment position="start"> <SearchIcon /> </InputAdornment>) }} />
       </Grid>

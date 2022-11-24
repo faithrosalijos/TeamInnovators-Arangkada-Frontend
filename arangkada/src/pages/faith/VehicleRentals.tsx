@@ -84,7 +84,9 @@ const VehicleRentals = () => {
   return (
     <Box sx={{ padding: "12px 0 0" }}>
       <PageHeader title="Vehicle Rentals" />
+      <br></br>
       <VehicleFilterForm handleFilterSubmit={handleFilterSubmit} handleFilterClear={handleFilterClear} />
+      <br></br>
       {
         vehicles.length !== 0 ?
           <VehicleCardList vehicles={vehicles} /> :
