@@ -7,15 +7,15 @@ type VehicleCardListProps = {
 }
 
 const VehicleCardList = ({ vehicles }: VehicleCardListProps) => {
-  return ( 
+  return (
     <Grid container spacing={2} sx={{ padding: "12px 0" }}>
       {vehicles.map((vehicle) => (
-        <Grid xs={12} md={6} lg={3} item key={vehicle.id}>
+        <Grid xs={12} md={6} lg={3} item key={vehicle.vehicleId}>
           <VehicleCard vehicle={vehicle} />
         </Grid>
       ))}
     </Grid>
-   );
+  );
 }
- 
+
 export default VehicleCardList;

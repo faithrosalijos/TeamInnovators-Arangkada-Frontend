@@ -7,11 +7,15 @@ type VehicleCardProps = {
 }
 
 const VehicleCard = ({ vehicle }: VehicleCardProps) => {
+  const subtitle = <>{vehicle.operator.account.firstname + " " + vehicle.operator.account.lastname} <br /> {vehicle.operator.account.contactNumber}</>;
+
   return (
     <Card>
-      <CardHeader title={vehicle.businessName} subheader={vehicle.operatorName} />
+      <CardHeader title={vehicle.operator.businessName} subheader={subtitle} />
       <Divider />
       <CardContent>
+        <Typography variant="body1">Vehicle ID: <b>{vehicle.vehicleId}</b> </Typography>
+        <Typography variant="body1">Plate Number: <b>{vehicle.plateNumber}</b></Typography>
         <Typography variant="body1">Vehicle Type: <b>{vehicle.vehicleType}</b> </Typography>
         <Typography variant="body1">Vehicle Make: <b>{vehicle.makeModel}</b></Typography>
         <Typography variant="body1">Route: <b>{vehicle.route}</b></Typography>
