@@ -89,6 +89,7 @@ const VehicleRentals = () => {
       <br></br>
       {vehicles.length !== 0 && <VehicleCardList vehicles={vehicles} />}
       {vehicles.length === 0 && <Typography variant="body1" color="text.secondary">No available vehicles.</Typography>}
+      <br></br>
       {/* <Footer name="Faith Rosalijos" course="BSIT" section="G1"/> */}
     </Box>
   );

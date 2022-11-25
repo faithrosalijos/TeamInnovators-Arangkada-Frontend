@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Button, Grid, InputAdornment, TextField } from "@mui/material";
-import SearchIcon from '@mui/icons-material/Search';
-import PersonIcon from '@mui/icons-material/Person';
-import LocationOnIcon from '@mui/icons-material/LocationOn';
+import { Search, Person, LocationOn } from "@mui/icons-material";
+
 
 type VehicleFilterFormProps = {
   handleFilterSubmit: (businessName: string, operatorName: string, route: string) => void,
@@ -41,13 +40,13 @@ const VehicleFilterForm = ({ handleFilterSubmit, handleFilterClear }: VehicleFil
   return (
     <Grid container spacing={2} onSubmit={handleSubmit} component="form">
       <Grid item xs={12} md={3}>
-        <TextField onChange={handleBusinessNameChange} value={businessName} label="Search by Business Name" size="small" fullWidth InputProps={{ startAdornment: (<InputAdornment position="start"> <SearchIcon /> </InputAdornment>) }} />
+        <TextField onChange={handleBusinessNameChange} value={businessName} label="Search by Business Name" size="small" fullWidth InputProps={{ startAdornment: (<InputAdornment position="start"> <Search /> </InputAdornment>) }} />
       </Grid>
       <Grid item xs={12} md={3}>
-        <TextField onChange={handleOperatorNameChange} value={operatorName} label="Operator Name" size="small" fullWidth InputProps={{ startAdornment: (<InputAdornment position="start"> <PersonIcon /> </InputAdornment>) }} />
+        <TextField onChange={handleOperatorNameChange} value={operatorName} label="Operator Name" size="small" fullWidth InputProps={{ startAdornment: (<InputAdornment position="start"> <Person /> </InputAdornment>) }} />
       </Grid>
       <Grid item xs={12} md={3}>
-        <TextField onChange={handleLocationChange} value={route} label="Route" size="small" fullWidth InputProps={{ startAdornment: (<InputAdornment position="start"> <LocationOnIcon /> </InputAdornment>) }} />
+        <TextField onChange={handleLocationChange} value={route} label="Route" size="small" fullWidth InputProps={{ startAdornment: (<InputAdornment position="start"> <LocationOn /> </InputAdornment>) }} />
       </Grid>
       <Grid item xs={12} md={3}>
         <Button type="submit" fullWidth variant="contained" >Search</Button>

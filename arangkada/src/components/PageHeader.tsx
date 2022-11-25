@@ -6,7 +6,7 @@ type PageHeaderProps = {
 
 const PageHeader = ({ title }: PageHeaderProps) => {
   return (
-    <Box sx={{ padding: "12px 0" }}>
+    <Box p="12px 0">
       <Typography variant="h4" component="h1">{title}</Typography>
       <Divider sx={{ bgcolor: "primary.main", marginTop: "24px" }}></Divider>
     </Box>

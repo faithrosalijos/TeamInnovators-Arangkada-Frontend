@@ -1,9 +1,7 @@
 import { Badge, Box, IconButton, Toolbar } from "@mui/material";
 import { AppBar } from "../styles/TopbarStyles";
 import Logo from '../images/logo.svg';
-import MenuIcon from '@mui/icons-material/Menu';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import LogoutIcon from '@mui/icons-material/Logout';
+import { Menu, Notifications, Logout } from "@mui/icons-material";
 
 
 type TopbarProps = {
@@ -16,18 +14,18 @@ const Topbar = ({ open, handleDrawerOpen }: TopbarProps) => {
     <AppBar position="fixed" open={open} sx={{ backgroundColor: "primary.dark", alignItem: "center" }}>
       <Toolbar>
         <IconButton color="inherit" aria-label="open drawer" onClick={handleDrawerOpen} edge="start" sx={{ marginRight: 5, ...(open && { display: 'none' }), }}>
-          <MenuIcon />
+          <Menu />
         </IconButton>
         <Box sx={{ width: "100%" }}>
           <img src={Logo} alt={"arangkada logo"} />
         </Box>
         <IconButton color="inherit">
           <Badge badgeContent={4} color="secondary">
-            <NotificationsIcon />
+            <Notifications />
           </Badge>
         </IconButton>
         <IconButton color="inherit">
-          <LogoutIcon />
+          <Logout />
         </IconButton>
       </Toolbar>
     </AppBar>

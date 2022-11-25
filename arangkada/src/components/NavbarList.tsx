@@ -6,15 +6,15 @@ type NavbarListProps = {
 };
 
 const NavbarList = ({ open, list }: NavbarListProps) => {
-  return ( 
+  return (
     <List>
       {list.map((listItem, index) => (
         <ListItem key={index} disablePadding sx={{ display: 'block' }}>
-          <ListItemButton sx={{ 
+          <ListItemButton sx={{
             color: "primary.contrastText",
-            minHeight: 48, 
-            justifyContent: open ? 'initial' : 'center', px: 2.5, 
-            "&.Mui-selected": {backgroundColor: "primary.dark"},
+            minHeight: 48,
+            justifyContent: open ? 'initial' : 'center', px: 2.5,
+            "&.Mui-selected": { backgroundColor: "primary.dark" },
           }}>
             <ListItemIcon sx={{ color: "primary.contrastText", minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }}>
               {listItem.icon}
@@ -24,7 +24,7 @@ const NavbarList = ({ open, list }: NavbarListProps) => {
         </ListItem>
       ))}
     </List>
-   );
+  );
 }
- 
+
 export default NavbarList;
