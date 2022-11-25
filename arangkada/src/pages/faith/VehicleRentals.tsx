@@ -82,16 +82,13 @@ const VehicleRentals = () => {
   }
 
   return (
-    <Box sx={{ padding: "12px 0 0" }}>
+    <Box mt="12px">
       <PageHeader title="Vehicle Rentals" />
       <br></br>
       <VehicleFilterForm handleFilterSubmit={handleFilterSubmit} handleFilterClear={handleFilterClear} />
       <br></br>
-      {
-        vehicles.length !== 0 ?
-          <VehicleCardList vehicles={vehicles} /> :
-          <Typography variant="body1" color="text.secondary">No available vehicles.</Typography>
-      }
+      {vehicles.length !== 0 && <VehicleCardList vehicles={vehicles} />}
+      {vehicles.length === 0 && <Typography variant="body1" color="text.secondary">No available vehicles.</Typography>}
       {/* <Footer name="Faith Rosalijos" course="BSIT" section="G1"/> */}
     </Box>
   );
