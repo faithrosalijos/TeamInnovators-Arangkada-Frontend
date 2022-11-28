@@ -1,5 +1,5 @@
 import { Button, Card, CardActions, CardContent, CardHeader, Divider, Typography } from "@mui/material";
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { ArrowForward } from "@mui/icons-material/";
 import { Vehicle } from "../../pages/faith/VehicleRentals";
 
 type VehicleCardProps = {
@@ -7,11 +7,11 @@ type VehicleCardProps = {
 }
 
 const VehicleCard = ({ vehicle }: VehicleCardProps) => {
-  const subheader = <>Operator: {vehicle.operator.account.firstname + " " + vehicle.operator.account.lastname} <br />Contact Number: {vehicle.operator.account.contactNumber}</>;
+  const subheader = <>Operator: {vehicle.operator.account.firstname + " " + vehicle.operator.account.lastname} <br />Contact: {vehicle.operator.account.contactNumber}</>;
 
   return (
     <Card>
-      <CardHeader title={"Operator: " + vehicle.operator.businessName} subheader={subheader} />
+      <CardHeader title={vehicle.operator.businessName} subheader={subheader} />
       <Divider />
       <CardContent>
         <Typography variant="body1">Vehicle ID: <b>{vehicle.vehicleId}</b> </Typography>
@@ -22,7 +22,7 @@ const VehicleCard = ({ vehicle }: VehicleCardProps) => {
         <Typography variant="body1">Rental Fee: <b>PHP {vehicle.rentalFee}</b></Typography>
       </CardContent>
       <CardActions sx={{ justifyContent: "end" }}>
-        <Button endIcon={<ArrowForwardIcon />}>Rent Vehicle</Button>
+        <Button endIcon={<ArrowForward />}>Rent Vehicle</Button>
       </CardActions>
     </Card>
   );

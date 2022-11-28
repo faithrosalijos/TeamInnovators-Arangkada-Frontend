@@ -49,10 +49,10 @@ const VehicleFilterForm = ({ handleFilterSubmit, handleFilterClear }: VehicleFil
         <TextField onChange={handleLocationChange} value={route} label="Route" size="small" fullWidth InputProps={{ startAdornment: (<InputAdornment position="start"> <LocationOn /> </InputAdornment>) }} />
       </Grid>
       <Grid item xs={12} md={3}>
-        <Button type="submit" fullWidth variant="contained" >Search</Button>
+        <Button type="submit" fullWidth variant="contained" color="secondary">Search</Button>
       </Grid>
       <Grid item xs={12} md={3}>
-        <Button onClick={handleClear}>Clear Filters</Button>
+        <Button onClick={handleClear} color="error" size="small">Clear Filters</Button>
       </Grid>
     </Grid>
   );
