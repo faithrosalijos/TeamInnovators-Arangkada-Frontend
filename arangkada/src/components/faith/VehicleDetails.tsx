@@ -1,5 +1,5 @@
 import { Typography } from "@mui/material";
-import { Vehicle } from "../../pages/faith/VehicleRentals";
+import { Vehicle } from "../../api/dataTypes";
 
 type VehicleDetailsProps = {
   vehicle: Vehicle,

@@ -1,5 +1,5 @@
 import { Grid } from "@mui/material";
-import { Vehicle } from "../../pages/faith/VehicleRentals";
+import { Vehicle } from "../../api/dataTypes";
 import VehicleCard from "./VehicleCard";
 
 type VehicleCardListProps = {

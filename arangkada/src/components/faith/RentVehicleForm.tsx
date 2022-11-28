@@ -6,6 +6,7 @@ import { useState } from "react";
 
 
 const RentVehicleForm = () => {
+  const currentDate = new Date(new Date().setHours(0, 0, 0, 0));
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [startDateError, setStartDateError] = useState<string | null>(null);
@@ -26,8 +27,14 @@ const RentVehicleForm = () => {
 
     if (startDate === null)
       setStartDateError("Please enter a start date.");
+    else if (startDate.toString() === "Invalid Date")
+      setStartDateError("Invalid date.")
+    else if (startDate < currentDate)
+      setStartDateError("Start date must be today or later.")
     else if (endDate === null)
       setEndDateError("Please enter an end date.");
+    else if (endDate.toString() === "Invalid Date")
+      setEndDateError("Invalid end date.");
     else if (endDate < startDate)
       setEndDateError("End date must not be before the start date.");
     else {
@@ -41,16 +48,14 @@ const RentVehicleForm = () => {
       <Stack spacing={3} component="form" onSubmit={handleSubmit}>
         <DesktopDatePicker
           label="Start Date"
-          inputFormat="MM/dd/yyyy"
-          minDate={new Date()}
+          minDate={currentDate}
           value={startDate}
           onChange={handleStartDateChange}
           renderInput={(params) => <TextField {...params} size="small" error={startDateError !== null} helperText={startDateError} />}
         />
         <DesktopDatePicker
           label="End Date"
-          inputFormat="MM/dd/yyyy"
-          minDate={startDate !== null ? startDate : new Date()}
+          minDate={startDate === null ? currentDate : startDate}
           value={endDate}
           onChange={handleEndDateChange}
           renderInput={(params) => <TextField size="small" {...params} error={endDateError !== null} helperText={endDateError} />}
