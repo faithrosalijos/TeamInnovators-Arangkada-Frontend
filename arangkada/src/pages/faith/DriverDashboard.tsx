@@ -2,7 +2,7 @@ import { Box, Grid, Paper, Typography } from "@mui/material";
 import DashboardCard from "../../components/faith/DashboardCard";
 import PageHeader from "../../components/PageHeader";
 import { useEffect, useState } from "react";
-import { CarRental, Commute, Cancel, DoneAll, Api } from "@mui/icons-material";
+import { CarRental, Commute, Cancel, DoneAll } from "@mui/icons-material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import RentalService from "../../api/RentalService";
 import { Rental } from "../../api/dataTypes";
@@ -35,7 +35,7 @@ const DriverDashboard = () => {
   return (
     <>
       <Box mt="12px" sx={{ minHeight: "80vh" }}>
-        <PageHeader title={"Welcome, " + "Name" + "!"} />
+        <PageHeader title={"Welcome, Name!"} />
         <br></br>
         <Grid container spacing={2}>
           <Grid item xs={12} md={6} lg={3}>
