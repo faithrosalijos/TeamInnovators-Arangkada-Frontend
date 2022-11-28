@@ -29,7 +29,7 @@ const RentVehicleForm = () => {
     else if (endDate === null)
       setEndDateError("Please enter an end date.");
     else if (endDate < startDate)
-      setEndDateError("End date must be before the start date.");
+      setEndDateError("End date must not be before the start date.");
     else {
       console.log(startDate);
       console.log(endDate);
