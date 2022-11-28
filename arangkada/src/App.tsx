@@ -2,6 +2,7 @@ import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
 import DriverMainLayout from './layouts/DriverMainLayout';
 import OperatorMainLayout from './layouts/OperatorMainLayout';
+import './styles/SupportStyles.css';
 
 
 /* Customize default mui theme */
