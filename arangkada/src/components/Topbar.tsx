@@ -1,7 +1,7 @@
 import { Badge, Box, IconButton, Toolbar } from "@mui/material";
 import { AppBar } from "../styles/TopbarStyles";
 import Logo from '../images/logo.svg';
-import { Menu, Notifications, Logout } from "@mui/icons-material";
+import { Menu, Notifications } from "@mui/icons-material";
 
 
 type TopbarProps = {
@@ -24,9 +24,9 @@ const Topbar = ({ open, handleDrawerOpen }: TopbarProps) => {
             <Notifications />
           </Badge>
         </IconButton>
-        <IconButton color="inherit">
+        {/* <IconButton color="inherit">
           <Logout />
-        </IconButton>
+        </IconButton> */}
       </Toolbar>
     </AppBar>
   );
