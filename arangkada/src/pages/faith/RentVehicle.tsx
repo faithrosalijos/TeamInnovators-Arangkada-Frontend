@@ -4,7 +4,9 @@ import Instructions from "../../components/faith/Instructions";
 import RentVehicleForm from "../../components/faith/RentVehicleForm";
 import VehicleDetails from "../../components/faith/VehicleDetails";
 import PageHeader from "../../components/PageHeader";
-import { Vehicle } from "./VehicleRentals";
+import { Vehicle } from "../../api/dataTypes";
+import Footer from "../../components/Footer";
+
 
 const RentVehicle = () => {
   const [vehicle, setVehicle] = useState<Vehicle>(
@@ -16,21 +18,22 @@ const RentVehicle = () => {
       }
     }
   );
-  
-  return ( 
-  <Box mt="12px">
-    <PageHeader title="Rent Vehicle" />
-    <br></br>
-    <Instructions header="Please provide the details needed for rental." subheader="It might take a few days before the operator can respond to your application. You can still modify the start and end date until then."/>
-    <br></br>
-    <VehicleDetails vehicle={vehicle} />
-    <br></br>
-    <br></br>
-    <RentVehicleForm />
-    <br></br>
-    {/* <Footer name="Faith Rosalijos" course="BSIT" section="G1"/> */}
-  </Box>
+
+  return (
+    <>
+      <Box mt="12px" sx={{ minHeight: "80vh" }}>
+        <PageHeader title="Rent Vehicle" />
+        <br></br>
+        <Instructions header="Please provide the details needed for rental." subheader="It might take a few days before the operator can respond to your application. You can still modify the start and end date until then." />
+        <br></br>
+        <VehicleDetails vehicle={vehicle} />
+        <br></br>
+        <br></br>
+        <RentVehicleForm />
+      </Box>
+      <Footer name="Faith Rosalijos" course="BSIT" section="G1" />
+    </>
   );
 }
- 
+
 export default RentVehicle;

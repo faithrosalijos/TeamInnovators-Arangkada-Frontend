@@ -1,40 +1,11 @@
 import { Box, Typography } from "@mui/material";
 import { useState } from "react";
+import { Vehicle } from "../../api/dataTypes";
 import VehicleCardList from "../../components/faith/VehicleCardList";
 import VehicleFilterForm from "../../components/faith/VehicleFilterForm";
 import PageHeader from "../../components/PageHeader";
+import Footer from "../../components/Footer";
 
-
-export type Vehicle = {
-  vehicleId: number,
-  plateNumber: string,
-  route: string,
-  vehicleType: string,
-  makeModel: string,
-  vin: number,
-  orStatus: string,
-  vehicleCondition: string,
-  rentalFee: number,
-  operator: {
-    operatorId: number,
-    businessName: string,
-    permitNumber: string,
-    account: {
-      accountId: number,
-      firstname: string,
-      middlename: string,
-      lastname: string,
-      birthdate: string,
-      age: number,
-      contactNumber: string,
-      address: string,
-      gender: string,
-      username: string,
-      password: string,
-      accountType: string,
-    }
-  }
-}
 
 const VehicleRentals = () => {
   /* Sample data */
@@ -82,16 +53,17 @@ const VehicleRentals = () => {
   }
 
   return (
-    <Box mt="12px">
-      <PageHeader title="Vehicle Rentals" />
-      <br></br>
-      <VehicleFilterForm handleFilterSubmit={handleFilterSubmit} handleFilterClear={handleFilterClear} />
-      <br></br>
-      {vehicles.length !== 0 && <VehicleCardList vehicles={vehicles} />}
-      {vehicles.length === 0 && <Typography variant="body1" color="text.secondary">No available vehicles.</Typography>}
-      <br></br>
-      {/* <Footer name="Faith Rosalijos" course="BSIT" section="G1"/> */}
-    </Box>
+    <>
+      <Box mt="12px" sx={{ minHeight: "80vh" }}>
+        <PageHeader title="Vehicle Rentals" />
+        <br></br>
+        <VehicleFilterForm handleFilterSubmit={handleFilterSubmit} handleFilterClear={handleFilterClear} />
+        <br></br>
+        {vehicles.length !== 0 && <VehicleCardList vehicles={vehicles} />}
+        {vehicles.length === 0 && <Typography variant="body1" color="text.secondary">No available vehicles.</Typography>}
+      </Box>
+      <Footer name="Faith Rosalijos" course="BSIT" section="G1" />
+    </>
   );
 }
 
