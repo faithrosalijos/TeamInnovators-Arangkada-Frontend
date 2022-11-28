@@ -4,6 +4,10 @@ import { DrawerHeader } from '../styles/NavbarStyles';
 import Navbar from '../components/Navbar';
 import Topbar from '../components/Topbar';
 import VehicleRentals from '../pages/faith/VehicleRentals';
+import RentVehicle from '../pages/faith/RentVehicle';
+import MyRental from '../pages/faith/MyRental';
+import CancelRental from '../pages/faith/CancelRental';
+import DriverDashboard from '../pages/faith/DriverDashboard';
 
 
 const DriverMainLayout = () => {
@@ -27,7 +31,11 @@ const DriverMainLayout = () => {
       <Box component="main" sx={{ flexGrow: 1, p: 3, padding: "0 32px" }}>
         <DrawerHeader />
         {/* Your driver pages goes here. */}
-        
+        <DriverDashboard />
+        {/* <VehicleRentals /> */}
+        {/* <RentVehicle /> */}
+        {/* <MyRental /> */}
+        {/* <CancelRental /> */}
       </Box>
     </Box>
   );
