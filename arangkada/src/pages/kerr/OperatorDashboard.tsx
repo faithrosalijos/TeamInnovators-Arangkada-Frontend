@@ -35,7 +35,7 @@ const OperatorDashboard = () => {
         <Box mt="12px" sx={{ minHeight: "80vh" }}>
           <PageHeader title={"Welcome, Name!"} />
           <br></br>
-          <Grid container spacing={2}>
+          <Grid container spacing={2} alignItems="center" justifyContent="center" >
             <Grid item xs={12} md={6} lg={3}>
               <DashboardCard title="Total Vehicles Rented" count={rentals.filter((rental) => rental.vehicle.vehicleCondition === "OCCUPIED").length}>
                 <Commute fontSize="large" color="secondary" />
