@@ -16,7 +16,8 @@ const Navbar = ({ user, open, handleDrawerClose }: NavbarProps) => {
     { text: "Add Vehicles", icon: <DriveEta />, link: "" },
     { text: "Drivers Renting", icon: <People />, link: "" },
     { text: "Approval Request", icon: <Mail />, link: "" },
-    // Add or remove page link in here
+    // Add or remove page link for operator in here
+    // P.S Ayaw lng mo pag add og 'My' (e.g. 'My Rental') kay pangit hahaha 
   ];
 
   const driverList: { text: string, icon: React.ReactNode, link: string }[] = [
@@ -24,6 +25,8 @@ const Navbar = ({ user, open, handleDrawerClose }: NavbarProps) => {
     { text: "Vehicle Rentals", icon: <Commute />, link: "" },
     { text: "Rental", icon: <DriveEta />, link: "" },
     { text: "Payments", icon: <Payment />, link: "" },
+    // Add or remove page link for driver in here
+    // P.S. Ayaw lng mo pag add og 'My' (e.g. 'My Rental') kay pangit hahaha
   ];
 
   return (
