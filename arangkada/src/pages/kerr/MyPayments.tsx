@@ -1,6 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
-import { Payment, Rental } from "../../api/dataTypes";
+import { Payment } from "../../api/dataTypes";
 import PageHeader from "../../components/PageHeader";
 import Footer from "../../components/Footer";
 import PaymentService from "../../api/PaymentService";
