@@ -1,4 +1,5 @@
-import { Button, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, TextField } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Button, FormControl, IconButton, InputAdornment, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, TextField } from "@mui/material";
 import { useState } from "react";
 
 
@@ -7,8 +8,6 @@ export default function OperatorInfo() {
     const [firstname, setFirstname] = useState("");
     const [middlename, setMiddlename] = useState("");
     const [lastname, setLastname] = useState("");
-    const [checkedOp, setCheckedOp] = useState(false);
-    const [checkedDv, setCheckedDv] = useState(false);
     const [contactNumber, setContactNumber] = useState("");
     const [birthdate, setBirthdate] = useState("");
     const [age, setAge] = useState("");
@@ -32,14 +31,6 @@ export default function OperatorInfo() {
 
     const handleLastnameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setLastname(event.target.value);
-    };
-
-    const handleTypeOperatorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setCheckedOp(event.target.checked);
-    };
-
-    const handleTypeDriverChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setCheckedDv(event.target.checked);
     };
 
     const handleContactNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,16 +73,16 @@ export default function OperatorInfo() {
                 <hr className="line"></hr><br></br>
             </div>
             <div className="three">
-                <TextField required id="outlined-required" label="Firstname" defaultValue="John" sx={{margin: 2}}/>
-                <TextField required id="outlined-required" label="Middlename" defaultValue="Santos" sx={{margin: 2}}/>
-                <TextField required id="outlined-required" label="Lastname" defaultValue="Doe" sx={{margin: 2}}/>
+                <TextField required id="outlined-required" label="Firstname" defaultValue="John" onChange={handleFirstnameChange} sx={{margin: 2}}/>
+                <TextField required id="outlined-required" label="Middlename" defaultValue="Santos" onChange={handleMiddlenameChange} sx={{margin: 2}}/>
+                <TextField required id="outlined-required" label="Lastname" defaultValue="Doe" onChange={handleLastnameChange} sx={{margin: 2}}/>
             </div>
             <div className="two">
-                <TextField required id="outlined-required" label="Contact Number" defaultValue="09231819397" sx={{margin: 2}}/>
-                <TextField required id="outlined-required" label="Birthdate" defaultValue="2001-10-23" sx={{margin: 2}}/>
+                <TextField required id="outlined-required" label="Contact Number" defaultValue="09231819397" onChange={handleContactNumberChange} sx={{margin: 2}}/>
+                <TextField required id="outlined-required" label="Birthdate" defaultValue="2001-10-23" onChange={handleBirthdateChange} sx={{margin: 2}}/>
             </div>
             <div className="two">
-                <TextField required id="outlined-required" label="Age" defaultValue="30" sx={{margin: 2}}/>
+                <TextField required id="outlined-required" label="Age" defaultValue="30" onChange={handleAgeChange} sx={{margin: 2}}/>
                 <FormControl>
                     <InputLabel id="demo-simple-select-label" sx={{margin: 2}}>Gender</InputLabel>
                     <Select
@@ -99,6 +90,7 @@ export default function OperatorInfo() {
                     id="demo-simple-select"
                     label="Gender"
                     defaultValue="Male"
+                    onChange={handleGenderChange}
                     sx={{margin: 2}}
                     >
                     <MenuItem value={'Male'}>Male</MenuItem>
@@ -107,10 +99,11 @@ export default function OperatorInfo() {
                 </FormControl>
             </div>
             <div className="one">
-                <TextField required id="outlined-required" label="Address" defaultValue="Natalio B. Bacalso Ave, Cebu City, 6000 Cebu" sx={{margin: 2}}/>
-                <TextField required id="outlined-required" label="Username" defaultValue="johndoe123" sx={{margin: 2}}/>
-                <TextField required id="outlined-required" label="Business Name" defaultValue="TriWheels" sx={{margin: 2}}/>
-                <TextField required id="outlined-required" label="Business Permit Number" defaultValue="001492" sx={{margin: 2}}/>
+                <TextField required id="outlined-required" label="Address" defaultValue="Natalio B. Bacalso Ave, Cebu City, 6000 Cebu" onChange={handleAddressChange} sx={{margin: 2}}/>
+                <TextField required id="outlined-required" label="Username" defaultValue="johndoe123" onChange={handleUsernameChange} sx={{margin: 2}}/>
+                <TextField required id="outlined-required" label="Password" defaultValue="qwerty00" onChange={handlePasswordChange} sx={{margin: 2}}/>
+                <TextField required id="outlined-required" label="Business Name" defaultValue="TriWheels" onChange={handleBusinessNameChange} sx={{margin: 2}}/>
+                <TextField required id="outlined-required" label="Business Permit Number" defaultValue="001492" onChange={handlePermitNumberChange} sx={{margin: 2}}/>
             </div>
             {/*<Stack direction="row" justifyContent="end">
                 <Button variant="contained" style={{backgroundColor: '#D2A857', marginTop: 25, paddingInline: 40, marginLeft: 15}}>Edit Personal Information</Button>

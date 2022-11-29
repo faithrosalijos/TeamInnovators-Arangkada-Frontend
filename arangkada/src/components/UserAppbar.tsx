@@ -35,12 +35,6 @@ export default function DrawerAppBar() {
           </Box>
         </Toolbar>
       </AppBar>
-      {/*<Box component="main" sx={{ p: 6 }}>
-        <Toolbar />
-        <Typography>
-          <OperatorInfo></OperatorInfo>
-        </Typography>
-      </Box>*/}
     </Box>
   );
 }

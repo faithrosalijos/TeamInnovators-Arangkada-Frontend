@@ -16,7 +16,7 @@ export default function RegisterOperator() {
     }
 
     return (
-        <div className="contain">
+        <div className="contain2">
            <h3>You are a PUV Operator!</h3>
            <img src={Op} style={{width: 210, height: 210, marginLeft:'150px', marginRight:'150px'}}/>
            <i><p style={{fontSize: '15px'}}>Please fill further information</p></i>

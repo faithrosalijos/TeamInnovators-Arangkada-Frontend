@@ -8,7 +8,6 @@ export default function RegistrationOne() {
     return (
       <div>
         <ContactUs></ContactUs>
-        <Footer name="Cara Carmel Encabo" course="BSIT" section="G2"/>
       </div>
       
     )
