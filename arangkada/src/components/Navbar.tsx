@@ -1,6 +1,6 @@
 import { Divider, IconButton } from '@mui/material';
 import { Drawer, DrawerHeader } from '../styles/NavbarStyles';
-import { ChevronLeft, Dashboard, Person, Payment, Commute, People, Mail, DriveEta } from '@mui/icons-material';
+import { ChevronLeft, Dashboard, Payment, Commute, People, Mail, DriveEta } from '@mui/icons-material';
 import NavbarList from './NavbarList';
 
 type NavbarProps = {
@@ -12,18 +12,17 @@ type NavbarProps = {
 const Navbar = ({ user, open, handleDrawerClose }: NavbarProps) => {
   const operatorList: { text: string, icon: React.ReactNode, link: string }[] = [
     { text: "Dashboard", icon: <Dashboard />, link: "" },
-    { text: "Profile", icon: <Person />, link: "" },
-    { text: "My Vehicles", icon: <Commute />, link: "" },
+    { text: "Vehicles", icon: <Commute />, link: "" },
+    { text: "Add Vehicles", icon: <DriveEta />, link: "" },
     { text: "Drivers Renting", icon: <People />, link: "" },
     { text: "Approval Request", icon: <Mail />, link: "" },
-    { text: "Transactions", icon: <Payment />, link: "" },
+    // Add or remove page link in here
   ];
 
   const driverList: { text: string, icon: React.ReactNode, link: string }[] = [
     { text: "Dashboard", icon: <Dashboard />, link: "" },
-    { text: "Profile", icon: <Person />, link: "" },
     { text: "Vehicle Rentals", icon: <Commute />, link: "" },
-    { text: "My Rental", icon: <DriveEta />, link: "" },
+    { text: "Rental", icon: <DriveEta />, link: "" },
     { text: "Payments", icon: <Payment />, link: "" },
   ];
 
