@@ -2,6 +2,9 @@ import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
 import DriverMainLayout from './layouts/DriverMainLayout';
 import OperatorMainLayout from './layouts/OperatorMainLayout';
+import './styles/SupportStyles.css';
+import RegisterDriver1 from './pages/karylle/RegisterDriver1';
+
 
 
 /* Customize default mui theme */
@@ -34,11 +37,13 @@ const App = () => {
 
       {/* Uncomment for operator pages
           Comment out if you will modify other pages. */}
-      <OperatorMainLayout />
+      {/*<OperatorMainLayout />
 
       {/* For landing page, registration, login, etc.
           Comment out if you will modify other pages. */}
 
+
+    <RegisterDriver1/>
     </ThemeProvider>
   );
 }
