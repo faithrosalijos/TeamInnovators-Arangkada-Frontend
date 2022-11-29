@@ -3,7 +3,6 @@ import { useState } from 'react';
 import { DrawerHeader } from '../styles/NavbarStyles';
 import Navbar from '../components/Navbar';
 import Topbar from '../components/Topbar';
-import MyVehicles from '../pages/mariel/MyVehicles';
 
 
 const OperatorMainLayout = () => {
@@ -27,7 +26,7 @@ const OperatorMainLayout = () => {
       <Box component="main" sx={{ flexGrow: 1, p: 3, padding: "0 32px" }}>
         <DrawerHeader />
         {/* Your operator pages goes here. */}
-        
+
       </Box>
     </Box>
   );

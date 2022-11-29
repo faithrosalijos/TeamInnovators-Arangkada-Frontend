@@ -3,15 +3,16 @@ import { DesktopDatePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { useState } from "react";
-import { Rental } from "../../pages/faith/MyRental";
+import { Rental } from "../../api/dataTypes";
 
 type UpdateRentalFormProps = {
   rental: Rental,
 }
 
 const UpdateRentalForm = ({ rental }: UpdateRentalFormProps) => {
+  const currentDate = new Date(new Date().setHours(0, 0, 0, 0));
   const [startDate, setStartDate] = useState<Date | null>(new Date(rental.startDate));
-  const [endDate, setEndDate] = useState<Date | null>(new Date(rental.startDate));
+  const [endDate, setEndDate] = useState<Date | null>(new Date(rental.endDate));
   const [startDateError, setStartDateError] = useState<string | null>(null);
   const [endDateError, setEndDateError] = useState<string | null>(null);
 
@@ -30,10 +31,16 @@ const UpdateRentalForm = ({ rental }: UpdateRentalFormProps) => {
 
     if (startDate === null)
       setStartDateError("Please enter a start date.");
+    else if (startDate.toString() === "Invalid Date")
+      setStartDateError("Invalid date.")
+    else if (startDate < currentDate)
+      setStartDateError("Start date must be today or later.")
     else if (endDate === null)
       setEndDateError("Please enter an end date.");
+    else if (endDate.toString() === "Invalid Date")
+      setEndDateError("Invalid end date.");
     else if (endDate < startDate)
-      setEndDateError("End date must be before the start date.");
+      setEndDateError("End date must not be before the start date.");
     else {
       console.log(startDate);
       console.log(endDate);
@@ -54,8 +61,7 @@ const UpdateRentalForm = ({ rental }: UpdateRentalFormProps) => {
         <DesktopDatePicker
           readOnly={rental.status === "APPROVED"}
           label="Start Date"
-          inputFormat="MM/dd/yyyy"
-          minDate={new Date()}
+          minDate={currentDate}
           value={startDate}
           onChange={handleStartDateChange}
           renderInput={(params) => <TextField {...params} size="small" error={startDateError !== null} helperText={startDateError} />}
@@ -63,8 +69,7 @@ const UpdateRentalForm = ({ rental }: UpdateRentalFormProps) => {
         <DesktopDatePicker
           readOnly={rental.status === "APPROVED"}
           label="End Date"
-          inputFormat="MM/dd/yyyy"
-          minDate={startDate !== null ? startDate : new Date()}
+          minDate={startDate !== null ? currentDate : new Date()}
           value={endDate}
           onChange={handleEndDateChange}
           renderInput={(params) => <TextField size="small" {...params} error={endDateError !== null} helperText={endDateError} />}

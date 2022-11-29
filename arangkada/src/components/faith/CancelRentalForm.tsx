@@ -15,31 +15,31 @@ const CancelRentalForm = () => {
     event.preventDefault();
     setPasswordError(null);
 
-    if(password === "") {
+    if (password === "") {
       setPasswordError("Please enter your password to confirm cancellation.")
-    } else if(password !== "password"){
+    } else if (password !== "password") {
       setPasswordError("Password is incorrect.")
     } else {
       console.log(password);
     }
   }
-  
+
   const handlePasswordShow = () => {
     setShowPassword(!showPassword);
   }
 
   return (
     <Stack spacing={3} component="form" onSubmit={handleSubmit}>
-      <TextField 
+      <TextField
         onChange={handlePasswordChange}
-        type={showPassword? "text": "password"} 
-        value={password} 
-        label="Password" 
-        size="small" 
-        fullWidth 
+        type={showPassword ? "text" : "password"}
+        value={password}
+        label="Password"
+        size="small"
+        fullWidth
         error={passwordError !== null}
         helperText={passwordError}
-        InputProps={{ endAdornment: (<InputAdornment position="end"> <IconButton onClick={handlePasswordShow}>{showPassword? <VisibilityOff />: <Visibility />}</IconButton> </InputAdornment>) }} 
+        InputProps={{ endAdornment: (<InputAdornment position="end"> <IconButton onClick={handlePasswordShow}>{showPassword ? <VisibilityOff /> : <Visibility />}</IconButton> </InputAdornment>) }}
       />
       <Stack spacing={3} direction={{ xs: "column-reverse", md: "row" }} sx={{ justifyContent: "end" }}>
         <Button color="secondary" variant="contained" sx={{ width: "250px" }}>No, Go Back</Button>

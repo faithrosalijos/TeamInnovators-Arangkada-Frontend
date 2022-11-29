@@ -1,6 +1,6 @@
 import { Button, Card, CardActions, CardContent, CardHeader, Divider, Typography } from "@mui/material";
 import { ArrowForward } from "@mui/icons-material/";
-import { Vehicle } from "../../pages/faith/VehicleRentals";
+import { Vehicle } from "../../api/dataTypes";
 
 type VehicleCardProps = {
   vehicle: Vehicle,
