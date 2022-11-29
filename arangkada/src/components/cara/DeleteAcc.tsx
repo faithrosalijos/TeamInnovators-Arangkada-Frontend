@@ -1,14 +1,20 @@
-import { Button, Stack, TextField } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Button, IconButton, InputAdornment, Stack, TextField } from "@mui/material";
 import { useState } from "react";
 
 
 export default function DeleteAcc() {
 
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
 
     const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(event.target.value);
     };
+
+    const handlePasswordShow = () => {
+        setShowPassword(!showPassword);
+    }
 
 
     return (
@@ -19,7 +25,14 @@ export default function DeleteAcc() {
             <h5 style={{textAlign: 'left', color: '#90794C', fontSize: 20}}>Re-enter your password:</h5>
 
             <Stack direction="row" justifyContent="start">
-                <TextField id="outlined-basic" label="Password" variant="outlined" value={password} onChange={handlePasswordChange} sx={{margin: 1, width: {sm: 300, md: 300}}}/>
+                <TextField 
+                    onChange={handlePasswordChange}
+                    type={showPassword? "text": "password"} 
+                    value={password} 
+                    label="Password" 
+                    sx={{margin: 1, width: {sm: 300, md: 300}}}
+                    InputProps={{ endAdornment: (<InputAdornment position="end"> <IconButton onClick={handlePasswordShow}>{showPassword? <VisibilityOff />: <Visibility />}</IconButton> </InputAdornment>) }} 
+                />
             </Stack>
             
             <p style={{textAlign: 'left', fontSize: '20px'}}>If you choose to continue, your profile, account details, and other related data will be <br></br> permanently deleted. You won't be visible on Arangkada between now and then.  </p>
