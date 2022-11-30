@@ -11,7 +11,7 @@ const MyVehicleCardList = ({ myVehicle }: MyVehicleCardListProps) => {
   return ( 
     <Grid container spacing={2} sx={{ padding: "12px 0" }}>
       {myVehicle.map((myVehicle) => (
-        <Grid xs={12} item key={myVehicle.id}>
+        <Grid  item key={myVehicle.id}>
           <MyVehicleCard myVehicle={myVehicle} />
         </Grid>
       ))}
