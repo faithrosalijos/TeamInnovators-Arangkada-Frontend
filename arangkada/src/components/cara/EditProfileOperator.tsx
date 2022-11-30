@@ -14,8 +14,6 @@ export default function OperatorInfo() {
     const [address, setAddress] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [businessName, setBusinessName] = useState("");
-    const [permitNumber, setPermitNumber] = useState("");
 
     const handleGenderChange = (event: SelectChangeEvent) => {
         setGender(event.target.value as string);
@@ -57,13 +55,6 @@ export default function OperatorInfo() {
         setPassword(event.target.value);
     };
 
-    const handleBusinessNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setBusinessName(event.target.value);
-    }
-
-    const handlePermitNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPermitNumber(event.target.value);
-    }
 
     
     return (
@@ -79,15 +70,15 @@ export default function OperatorInfo() {
             </div>
             <div className="two">
                 <TextField required id="outlined-required" label="Contact Number" defaultValue="09231819397" onChange={handleContactNumberChange} sx={{margin: 2}}/>
-                <TextField required id="outlined-required" label="Birthdate" defaultValue="2001-10-23" onChange={handleBirthdateChange} sx={{margin: 2}}/>
+                <TextField disabled id="outlined-disabled" label="Birthdate" defaultValue="2001-10-23" sx={{margin: 2}}/>
             </div>
             <div className="two">
-                <TextField required id="outlined-required" label="Age" defaultValue="30" onChange={handleAgeChange} sx={{margin: 2}}/>
-                <FormControl>
-                    <InputLabel id="demo-simple-select-label" sx={{margin: 2}}>Gender</InputLabel>
+                <TextField disabled id="outlined-disabled" label="Age" defaultValue="30" sx={{margin: 2}}/>
+                <FormControl disabled>
+                    <InputLabel id="demo-simple-select-disabled-label" sx={{margin: 2}}>Gender</InputLabel>
                     <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
+                    labelId="demo-simple-select-disabled-label"
+                    id="demo-simple-select-disabled"
                     label="Gender"
                     defaultValue="Male"
                     onChange={handleGenderChange}
@@ -102,12 +93,7 @@ export default function OperatorInfo() {
                 <TextField required id="outlined-required" label="Address" defaultValue="Natalio B. Bacalso Ave, Cebu City, 6000 Cebu" onChange={handleAddressChange} sx={{margin: 2}}/>
                 <TextField required id="outlined-required" label="Username" defaultValue="johndoe123" onChange={handleUsernameChange} sx={{margin: 2}}/>
                 <TextField required id="outlined-required" label="Password" defaultValue="qwerty00" onChange={handlePasswordChange} sx={{margin: 2}}/>
-                <TextField required id="outlined-required" label="Business Name" defaultValue="TriWheels" onChange={handleBusinessNameChange} sx={{margin: 2}}/>
-                <TextField required id="outlined-required" label="Business Permit Number" defaultValue="001492" onChange={handlePermitNumberChange} sx={{margin: 2}}/>
             </div>
-            {/*<Stack direction="row" justifyContent="end">
-                <Button variant="contained" style={{backgroundColor: '#D2A857', marginTop: 25, paddingInline: 40, marginLeft: 15}}>Edit Personal Information</Button>
-            </Stack>*/}
             
             <Stack direction="row" justifyContent="end" padding={7}>
                 <Button variant="contained" style={{backgroundColor: '#828E99', marginTop: 25, paddingInline: 40}}>Cancel</Button>
