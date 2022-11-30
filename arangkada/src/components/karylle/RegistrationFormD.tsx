@@ -1,6 +1,6 @@
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { Button, Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, InputAdornment, IconButton } from "@mui/material"
+import { Button, Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Select, SelectChangeEvent, TextField } from "@mui/material"
 import React, { useState } from "react";
+import Footer from "../Footer"
 
 
 export default function RegistrationForm() {
@@ -16,11 +16,6 @@ export default function RegistrationForm() {
     const [address, setAddress] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [showPassword, setShowPassword] = useState(false);
-
-    const handlePasswordShow = () => {
-        setShowPassword(!showPassword);
-    }
 
     const handleGenderChange = (event: SelectChangeEvent) => {
         setGender(event.target.value as string);
@@ -72,6 +67,14 @@ export default function RegistrationForm() {
     
 
     return (
+        <div className="App">
+        <div className="bstyle">
+          <div className='contain'>
+            <div className='wrapper'>
+              <div className='left'>
+            <img src={'./images/logobrown.png'} alt={"arangkada logo"} style={{width: 500, height: 350}}/>
+            <br></br>
+                </div>
         <div className="regform">
             <strong><p style={{color: '#646464', textAlign: 'left', lineHeight: '.2em'}}>Registration</p></strong>
             <hr className="line"></hr>
@@ -108,20 +111,19 @@ export default function RegistrationForm() {
 
                 <TextField id="outlined-basic" label="Address" variant="outlined" value={address} onChange={handleAddressChange} sx={{margin: 1, width:{sd: 700, md: 700}}}/><br></br>
                 <TextField id="outlined-basic" label="Username" variant="outlined" value={username} onChange={handleUsernameChange} sx={{margin: 1, width:{sd: 700, md: 700}}}/><br></br>
-                <TextField 
-                    onChange={handlePasswordChange}
-                    type={showPassword? "text": "password"} 
-                    value={password} 
-                    label="Password" 
-                    sx={{margin: 1, width:{sd: 700, md: 700}}} 
-                    InputProps={{ endAdornment: (<InputAdornment position="end"> <IconButton onClick={handlePasswordShow}>{showPassword? <VisibilityOff />: <Visibility /> }</IconButton> </InputAdornment>) }} 
-                />
+                <TextField id="outlined-basic" label="Password" variant="outlined" value={password} onChange={handlePasswordChange} sx={{margin: 1, width:{sd: 700, md: 700}}}/><br></br>
             </form>
             <Button variant="contained" style={{backgroundColor: '#D2A857', marginTop: 25, paddingInline: 40}}>Continue</Button><br></br>
-            <p style={{color: 'gray', fontSize: '15px'}}>By continuing, you agree to Arangkadas's <a href="https://www.facebook.com/cara.q.encabo"  className="links">Terms of Service</a> and acknowledge you've read our <a href="https://www.facebook.com/cara.q.encabo" className="links">Privacy Policy</a></p>
+            <p style={{color: 'gray', fontSize: '15px'}}>By continuing, you agree to Arangkadas's <a href="https://www.youtube.com"  className="links">Terms of Service</a> and acknowledge you've read our <a href="https://www.youtube.com" className="links">Privacy Policy</a></p>
 
-            <strong><a href="https://www.facebook.com/cara.q.encabo"  className="links" style={{fontSize: '18px'}}>Have an account? Log in</a></strong>
+            <strong><a href="https://www.youtube.com"  className="links" style={{fontSize: '18px'}}>Have an account? Log in</a></strong>
             
         </div>
+        </div>
+        </div>
+        </div>
+      </div>
+
+
     )
 }
