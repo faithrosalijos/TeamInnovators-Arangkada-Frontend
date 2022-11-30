@@ -2,9 +2,9 @@ import { Box, Grid, Button } from "@mui/material";
 import { useState } from "react";
 import Footer from "../../components/Footer";
 import PageHeader from "../../components/PageHeader";
-import MyVehicleCardList from "../../components/operator/MyVehicleCardList";
-import MyVehicleSearch from "../../components/operator/MyVehicleSearch";
-import MyVehicleInfoCard from "../../components/operator/AddVehicle";
+import MyVehicleCardList from "../../components/mariel/MyVehicleCardList";
+import MyVehicleSearch from "../../components/mariel/MyVehicleSearch";
+import MyVehicleInfoCard from "../../components/mariel/AddVehicle";
 
 export type MyVehicle = {
   id: number,

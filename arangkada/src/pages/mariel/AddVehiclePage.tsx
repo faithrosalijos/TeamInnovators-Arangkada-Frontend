@@ -1,7 +1,7 @@
 import { Box, Divider } from "@mui/material";
 import { useState } from "react";
 import Footer from "../../components/Footer";
-import DeleteVehicle from "../../components/operator/DeleteVehicle";
+import AddVehicle from "../../components/mariel/AddVehicle";
 import PageHeader from "../../components/PageHeader";
 
 
@@ -11,12 +11,11 @@ const MyVehicles = () => {
  
   return ( 
     <Box sx={{ padding: "12px 0 0" }}>
-      <PageHeader title="Delete Vehicle"/>
-      <DeleteVehicle/>
+      <PageHeader title="Add Vehicle"/>
+      <AddVehicle/>
       <Divider/>
       <Footer name="Mariel Genodiala" course="BSIT" section="G3"/>
     </Box>
    );
 }
- 
 export default MyVehicles;

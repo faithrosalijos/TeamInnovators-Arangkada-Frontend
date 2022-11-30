@@ -1,5 +1,4 @@
 import { Button, Card, CardActions, CardContent, CardHeader, Divider, Grid, Paper, Typography } from "@mui/material";
-<<<<<<< Updated upstream:arangkada/src/components/operator/MyVehicleCard.tsx
 import { MyVehicle } from "../../pages/operator/MyVehicles";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 =======

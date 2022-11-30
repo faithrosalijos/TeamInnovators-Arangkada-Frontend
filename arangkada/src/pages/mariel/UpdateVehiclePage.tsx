@@ -1,12 +1,7 @@
 import { Box, Divider } from "@mui/material";
 import { useState } from "react";
 import Footer from "../../components/Footer";
-<<<<<<< Updated upstream:arangkada/src/pages/operator/UpdateVehiclePage.tsx
 import ViewVehicle from "../../components/operator/ViewVehicle";
-=======
-import UpdateVehicle from "../../components/mariel/UpdateVehicle";
-import ViewVehicle from "../../components/mariel/ViewVehicle";
->>>>>>> Stashed changes:arangkada/src/pages/mariel/UpdateVehiclePage.tsx
 import PageHeader from "../../components/PageHeader";
 
 

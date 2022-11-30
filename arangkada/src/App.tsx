@@ -2,6 +2,7 @@ import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
 import DriverMainLayout from './layouts/DriverMainLayout';
 import OperatorMainLayout from './layouts/OperatorMainLayout';
+import './styles/SupportStyles.css';
 
 
 /* Customize default mui theme */
@@ -30,11 +31,11 @@ const App = () => {
     <ThemeProvider theme={theme}>
       {/* Uncomment for driver pages
           Comment out if you will modify other pages. */}
-      <DriverMainLayout /> 
+      <DriverMainLayout />
 
       {/* Uncomment for operator pages
-          Comment out if you will modify other pages. 
-      <OperatorMainLayout /> */}
+          Comment out if you will modify other pages. */}
+      {/* <OperatorMainLayout /> */}
 
       {/* For landing page, registration, login, etc.
           Comment out if you will modify other pages. */}
