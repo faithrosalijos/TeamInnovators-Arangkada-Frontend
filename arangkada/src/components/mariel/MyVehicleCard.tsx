@@ -1,9 +1,7 @@
 import { Button, Card, CardActions, CardContent, CardHeader, Divider, Grid, Paper, Typography } from "@mui/material";
-import { MyVehicle } from "../../pages/operator/MyVehicles";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-=======
 import { MyVehicle } from "../../pages/mariel/MyVehicles";
->>>>>>> Stashed changes:arangkada/src/components/mariel/MyVehicleCard.tsx
+
 
 type MyVehicleCardProps = {
   myVehicle: MyVehicle,

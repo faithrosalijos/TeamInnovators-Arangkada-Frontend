@@ -1,7 +1,7 @@
 import { Box, Divider } from "@mui/material";
 import { useState } from "react";
 import Footer from "../../components/Footer";
-import ViewVehicle from "../../components/operator/ViewVehicle";
+import ViewVehicle from "../../components/mariel/ViewVehicle";
 import PageHeader from "../../components/PageHeader";
 
 
