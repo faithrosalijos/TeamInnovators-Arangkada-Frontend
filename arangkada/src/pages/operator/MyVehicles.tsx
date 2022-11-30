@@ -32,14 +32,14 @@ const MyVehicles = () => {
       <PageHeader title="My Vehicle" />
       <MyVehicleSearch />
       <MyVehicleCardList myVehicle={myVehicles} />
-      <Grid item xs={60} md={50}>
+      {/* <Grid item xs={60} md={50}>
       <Button 
           id="AddBtn"
           type="submit" 
           variant="contained"  
           sx={{marginLeft:135, height: "65px",width: "65px",borderRadius: "100px", marginTop: 4,marginRight: 2, marginBottom: 5}}>
           <h1>+</h1></Button>
-      </Grid>
+      </Grid> */}
       <Footer name="Mariel Genodiala" course="BSIT" section="G3"/>
     </Box>
    );

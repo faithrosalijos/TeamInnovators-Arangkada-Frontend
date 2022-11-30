@@ -1,6 +1,10 @@
 import { Button, Card, CardActions, CardContent, CardHeader, Divider, Grid, Paper, Typography } from "@mui/material";
+<<<<<<< Updated upstream:arangkada/src/components/operator/MyVehicleCard.tsx
 import { MyVehicle } from "../../pages/operator/MyVehicles";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+=======
+import { MyVehicle } from "../../pages/mariel/MyVehicles";
+>>>>>>> Stashed changes:arangkada/src/components/mariel/MyVehicleCard.tsx
 
 type MyVehicleCardProps = {
   myVehicle: MyVehicle,
@@ -13,6 +17,16 @@ const MyVehicleCard = ({ myVehicle }: MyVehicleCardProps) => {
       <CardHeader 
         title={myVehicle.plateNumber} 
         subheader={myVehicle.route} 
+        action={
+          <Button 
+            type="submit" 
+            variant="text" 
+            fullWidth
+            size="small"
+            sx={{color: "gray",marginTop:5,}} >
+          View
+          </Button>
+        }
       />
       <Divider />
       <CardContent>
@@ -23,7 +37,7 @@ const MyVehicleCard = ({ myVehicle }: MyVehicleCardProps) => {
               variant="body1">Make and Model: <b>{myVehicle.makeModel}</b>
           </Typography>
           <Typography 
-              variant="body1">VIN: <b>{myVehicle.route}</b>
+              variant="body1">VIN: <b>{myVehicle.vin}</b>
           </Typography>
           <Typography 
               variant="body1">OR, CR Status: <b>{myVehicle.orStatus}</b>
@@ -36,14 +50,14 @@ const MyVehicleCard = ({ myVehicle }: MyVehicleCardProps) => {
         <Button 
           size="small" 
           variant="outlined"
-          sx={{marginLeft: 128, color:'##D2A857',fontWeight: "bold"}}>
+          sx={{ color:'##D2A857',fontWeight: "bold"}}>
           Update
         </Button>
         <Button 
           size="small" 
           variant="outlined" 
           className='remove'
-          sx={{marginLeft: 5 , color:'#D62828', fontWeight: "bold"}}>
+          sx={{ color:'#D62828', fontWeight: "bold"}}>
           Remove
         </Button>
       </CardActions>
