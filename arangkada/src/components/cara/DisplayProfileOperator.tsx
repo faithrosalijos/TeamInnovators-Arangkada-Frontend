@@ -39,13 +39,13 @@ export default function OperatorInfo() {
                 <TextField id="outlined-read-only-input" label="Address" defaultValue="Natalio B. Bacalso Ave, Cebu City, 6000 Cebu" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
                 <TextField id="outlined-read-only-input" label="Username" defaultValue="johndoe123" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
                 <TextField id="outlined-read-only-input" label="Password" defaultValue="qwerty00" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
-                {/*<Stack direction="row" justifyContent="end">
-                    <Button variant="contained" style={{backgroundColor: '#D2A857', marginTop: 25, marginLeft: 15, marginRight: 15}}>Edit User Info</Button>
+                <Stack direction="row" justifyContent="end">
+                    <Button variant="contained" style={{backgroundColor: '#D2A857', marginTop: 25, marginLeft: 15, marginRight: 15, paddingInline: 60}}>Edit</Button>
                 </Stack>
                 <div>
                     <h2 style={{textAlign: 'left', color: '#90794C'}}>Business Information</h2>
                     <hr className="line"></hr><br></br>
-                </div>*/}
+                </div>
                 <TextField id="outlined-read-only-input" label="Business Name" defaultValue="TriWheels" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
                 <TextField id="outlined-read-only-input" label="Business Permit Number" defaultValue="001492" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
             </div>
