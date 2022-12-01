@@ -1,30 +1,80 @@
-import { Button, Card, CardActions, CardContent, CardHeader, Divider, Typography } from "@mui/material";
-import { ArrowForward } from "@mui/icons-material/";
-import { Vehicle } from "../../api/dataTypes";
+import { Button, Card, CardContent, Divider, Typography, Stack, Dialog, DialogActions, DialogContentText, DialogTitle, DialogContent } from "@mui/material";
+import { BusinessCenter, Person, Phone } from "@mui/icons-material/";
+import { Rental, Vehicle } from "../../api/dataTypes";
+import RentalService from "../../api/RentalService";
+import { useState } from "react";
+
 
 type VehicleCardProps = {
   vehicle: Vehicle,
 }
 
 const VehicleCard = ({ vehicle }: VehicleCardProps) => {
-  const subheader = <>Operator: {vehicle.operator.account.firstname + " " + vehicle.operator.account.lastname} <br />Contact: {vehicle.operator.account.contactNumber}</>;
+  const [openRentDialog, setOpenRentDialog] = useState(false);
+
+  const handleRentVehicle = () => {
+    RentalService.getCurrentRental("2").then((response) => {
+      const currentRental: Rental | null = response.data;
+      if (currentRental !== null) {
+        setOpenRentDialog(true);
+      } else {
+
+      }
+    })
+  }
 
   return (
-    <Card>
-      <CardHeader title={vehicle.operator.businessName} subheader={subheader} />
-      <Divider />
-      <CardContent>
-        <Typography variant="body1">Vehicle ID: <b>{vehicle.vehicleId}</b> </Typography>
-        <Typography variant="body1">Plate Number: <b>{vehicle.plateNumber}</b></Typography>
-        <Typography variant="body1">Vehicle Type: <b>{vehicle.vehicleType}</b> </Typography>
-        <Typography variant="body1">Vehicle Make: <b>{vehicle.makeModel}</b></Typography>
-        <Typography variant="body1">Route: <b>{vehicle.route}</b></Typography>
-        <Typography variant="body1">Rental Fee: <b>PHP {vehicle.rentalFee}</b></Typography>
-      </CardContent>
-      <CardActions sx={{ justifyContent: "end" }}>
-        <Button endIcon={<ArrowForward />}>Rent Vehicle</Button>
-      </CardActions>
-    </Card>
+    <>
+      <Card>
+        <CardContent>
+          <Typography variant="h5">Vehicle ID: {vehicle.vehicleId}</Typography>
+          {/* Operator Information */}
+          <Stack spacing={{ xs: 1, sm: 2 }} direction={{ xs: "column", sm: "row" }}>
+            <Stack spacing={0.5} direction="row" alignItems="center">
+              <BusinessCenter sx={{ color: "text.secondary" }} /> <Typography variant="body1">{vehicle.operator.businessName}</Typography>
+            </Stack>
+            <Stack spacing={0.5} direction="row" alignItems="center">
+              <Person sx={{ color: "text.secondary" }} /> <Typography variant="body1">{vehicle.operator.account.firstname + " " + vehicle.operator.account.lastname}</Typography>
+            </Stack>
+            <Stack spacing={0.5} direction="row" alignItems="center">
+              <Phone sx={{ color: "text.secondary" }} /> <Typography variant="body1">{vehicle.operator.account.contactNumber}</Typography>
+            </Stack>
+          </Stack>
+        </CardContent>
+        <Divider />
+
+        {/* Vehicle Information */}
+        <CardContent>
+          <Typography variant="body1">Plate Number: {vehicle.plateNumber}</Typography>
+          <Typography variant="body1">Vehicle Type: {vehicle.vehicleType} </Typography>
+          <Typography variant="body1">Vehicle Make: {vehicle.makeModel}</Typography>
+          <Typography variant="body1">Route: {vehicle.route}</Typography>
+        </CardContent>
+
+        <CardContent >
+          <Stack direction="row" alignItems="center" justifyContent="space-between" width="100%">
+            {/* Vehicle Rental Fee */}
+            <Typography variant="h6"><strong>PHP {vehicle.rentalFee}</strong><Typography variant="body2">per rent</Typography></Typography>
+            <Button variant="contained" sx={{ width: "150px" }} onClick={handleRentVehicle}>Rent Vehicle</Button>
+          </Stack>
+        </CardContent>
+      </Card>
+
+      {/* Current Rental Notice Dialog */}
+      <Dialog open={openRentDialog} onClose={() => setOpenRentDialog(false)}>
+        <DialogTitle >
+          {"You have an ogoing or pending rental."}
+        </DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            You can only have one rental at a time. Finish or cancel your ongoing or pending rental first.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenRentDialog(false)}>Close</Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 }
 

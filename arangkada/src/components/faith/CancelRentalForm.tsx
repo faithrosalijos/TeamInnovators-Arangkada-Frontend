@@ -2,14 +2,11 @@ import { Button, Stack, TextField, InputAdornment, IconButton } from "@mui/mater
 import { useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
+
 const CancelRentalForm = () => {
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState(false);
   const [passwordError, setPasswordError] = useState<string | null>(null);
-
-  const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setPassword(event.target.value);
-  }
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -31,7 +28,7 @@ const CancelRentalForm = () => {
   return (
     <Stack spacing={3} component="form" onSubmit={handleSubmit}>
       <TextField
-        onChange={handlePasswordChange}
+        onChange={(event) => setPassword(event.target.value)}
         type={showPassword ? "text" : "password"}
         value={password}
         label="Password"

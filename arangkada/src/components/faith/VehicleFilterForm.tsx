@@ -13,18 +13,6 @@ const VehicleFilterForm = ({ handleFilterSubmit, handleFilterClear }: VehicleFil
   const [operatorName, setOperatorName] = useState("");
   const [route, setRoute] = useState("");
 
-  const handleBusinessNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setBusinessName(event.target.value);
-  }
-
-  const handleOperatorNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setOperatorName(event.target.value);
-  }
-
-  const handleLocationChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setRoute(event.target.value);
-  }
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     handleFilterSubmit(businessName, operatorName, route);
@@ -40,13 +28,33 @@ const VehicleFilterForm = ({ handleFilterSubmit, handleFilterClear }: VehicleFil
   return (
     <Grid container spacing={2} onSubmit={handleSubmit} component="form">
       <Grid item xs={12} md={3}>
-        <TextField onChange={handleBusinessNameChange} value={businessName} label="Search by Business Name" size="small" fullWidth InputProps={{ startAdornment: (<InputAdornment position="start"> <Search /> </InputAdornment>) }} />
+        <TextField
+          onChange={(event) => setBusinessName(event.target.value)}
+          value={businessName}
+          label="Search by Business Name"
+          size="small"
+          fullWidth
+          InputProps={{ startAdornment: (<InputAdornment position="start"> <Search /> </InputAdornment>) }}
+        />
       </Grid>
       <Grid item xs={12} md={3}>
-        <TextField onChange={handleOperatorNameChange} value={operatorName} label="Operator Name" size="small" fullWidth InputProps={{ startAdornment: (<InputAdornment position="start"> <Person /> </InputAdornment>) }} />
+        <TextField
+          onChange={(event) => setOperatorName(event.target.value)}
+          value={operatorName}
+          label="Operator Name"
+          size="small"
+          fullWidth
+          InputProps={{ startAdornment: (<InputAdornment position="start"> <Person /> </InputAdornment>) }}
+        />
       </Grid>
       <Grid item xs={12} md={3}>
-        <TextField onChange={handleLocationChange} value={route} label="Route" size="small" fullWidth InputProps={{ startAdornment: (<InputAdornment position="start"> <LocationOn /> </InputAdornment>) }} />
+        <TextField
+          onChange={(event) => setRoute(event.target.value)}
+          value={route}
+          label="Route"
+          size="small"
+          fullWidth InputProps={{ startAdornment: (<InputAdornment position="start"> <LocationOn /> </InputAdornment>) }}
+        />
       </Grid>
       <Grid item xs={12} md={3}>
         <Button type="submit" fullWidth variant="contained" color="secondary">Search</Button>
