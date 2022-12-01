@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, FormControl, Grid, InputAdornment, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, } from "@mui/material";
+import { Button, FormControl, Grid,  InputLabel, MenuItem, Select, SelectChangeEvent, Stack, TextField, } from "@mui/material";
 import React from "react";
 
 
@@ -58,7 +58,7 @@ const ViewandUpdateVehicle  = (props:MyVehicleType) =>{
 
   return ( 
     <>
-    <Grid container spacing={2} onSubmit={handleSubmit} component="form" sx={{marginTop: 2}}>
+    <Grid container spacing={2} onSubmit={handleSubmit} component="form" sx={{marginTop: 2,  marginBottom: 5}}>
     <Grid item xs={12} md={4}>
        <TextField 
             disabled
@@ -104,15 +104,21 @@ const ViewandUpdateVehicle  = (props:MyVehicleType) =>{
         </TextField>
     </Grid>
     <Grid item xs={12} md={6}>
-        <TextField 
-            value={props.operatorID}
-            disabled
-            label="Operator ID" 
-            size="small" 
-            variant="outlined" 
-            fullWidth
-            sx={{margin: 1}}>
-        </TextField>
+        <FormControl fullWidth >
+            <InputLabel id="demo-simple-select-label" sx={{margin: 1}}>Vehicle Status</InputLabel>
+                <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={props.vehicleStatus}
+                    label="Vehicle Status"
+                    size="small"
+                    onChange={handleConditionChange}
+                    sx={{margin: 1}}>
+                        <MenuItem value={'Still on the Road'}>Rented</MenuItem>
+                        <MenuItem value={'Available'}>Available</MenuItem> 
+                {/* {myVehicle.condition} */}
+                </Select>  
+        </FormControl> 
     </Grid>
     <Grid item xs={12} md={6}>
       <FormControl fullWidth>
@@ -172,52 +178,12 @@ const ViewandUpdateVehicle  = (props:MyVehicleType) =>{
                 sx={{margin: 1,}}>
             </TextField>
         </Grid>
-        <Grid item xs={12} md={6}>
-            <TextField 
-                onChange={handleDriverNameChange} 
-                value={props.driverName}
-                contentEditable
-                label="Driver's Name" 
-                size="small" 
-                variant="outlined"
-                fullWidth
-                sx={{margin: 1,}}>
-            </TextField>
-        </Grid>
-        <Grid item xs={12} md={6}>
-        <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label" sx={{margin: 1}}>Vehicle Status</InputLabel>
-                    <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
-                        value={props.vehicleStatus}
-                        label="Vehicle Status"
-                        size="small"
-                        onChange={handleVehicleStatusChange}
-                        sx={{margin: 1}}>
-                            <MenuItem value={'Updated'}>Not Used</MenuItem>
-                            <MenuItem value={'Renewed'}>Still On the Road</MenuItem>
-                            <MenuItem value={'Expired'}>Reserved</MenuItem> 
-                    {/* {myVehicle.orStatus} */}
-                    </Select>  
-            </FormControl> 
-     </Grid>
 
-        <Grid item xs={12} md={2} >
-            <Button 
-                type="submit" 
-                variant="contained"  
-                fullWidth
-                sx={{marginTop:5,}}>
-                Save Changes</Button>
-        </Grid>
-        <Grid item xs={12} md={2} >
-            <Button 
-                type="submit" 
-                variant="contained"  
-                fullWidth
-                sx={{marginTop:5,backgroundColor: "gray",marginBottom: 5}}>
-                Cancel</Button>
+     <Grid item xs={12} >
+        <Stack spacing={3} direction={{ xs: "column-reverse", md: "row" }} sx={{ justifyContent: "end" }}>
+          <Button color="secondary" variant="contained" sx={{ width: "250px" }}>Cancel</Button>
+          <Button type="submit" variant="contained" sx={{ width: "250px"}}>Save Changes</Button>
+        </Stack>
         </Grid>
     </Grid>
     </>

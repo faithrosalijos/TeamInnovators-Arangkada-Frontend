@@ -33,6 +33,7 @@ const MyVehicleSearch = () => {
         <Button 
           type="submit" 
           variant="contained"  
+          color ="secondary"
           fullWidth
           sx={{margin: 1,}}>
           Search

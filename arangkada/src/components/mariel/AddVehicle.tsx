@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, FormControl, Grid,  InputLabel, MenuItem,  Select, SelectChangeEvent, TextField, } from "@mui/material";
+import { Button, FormControl, Grid,  InputLabel, MenuItem,  Select, SelectChangeEvent, Stack, TextField, } from "@mui/material";
 import React from "react";
 
 
@@ -55,7 +55,7 @@ const MyVehicleForm  = () =>{
 
   return ( 
     <>
-    <Grid container spacing={2} onSubmit={handleSubmit} component="form" sx={{marginTop: 2}}>
+    <Grid container spacing={2} onSubmit={handleSubmit} component="form" sx={{marginTop: 2, marginBottom: 5}}>
     <Grid item xs={12} md={4}>
        <TextField 
             onChange={handlePlateNumberChange} 
@@ -173,7 +173,7 @@ const MyVehicleForm  = () =>{
                 sx={{margin: 1, marginRight:25, height:"8vh" }}>
             </TextField>
         </Grid>
-        <Grid item xs={12} md={2} >
+        {/* <Grid item xs={12} md={2}  >
             <Button 
                 type="submit" 
                 variant="contained" 
@@ -188,8 +188,16 @@ const MyVehicleForm  = () =>{
                 fullWidth
                 sx={{marginTop:4,backgroundColor: "gray",marginBottom: 5}}>
                 Cancel</Button>
+        </Grid> */}
+        <Grid item xs={12} >
+        <Stack spacing={3} direction={{ xs: "column-reverse", md: "row" }} sx={{ justifyContent: "end" }}>
+          <Button color="secondary" variant="contained" sx={{ width: "250px" }}>Cancel</Button>
+          <Button type="submit" variant="contained" sx={{ width: "250px"}}>Add Vehicle</Button>
+        </Stack>
         </Grid>
     </Grid>
+        
+    
     </>
    );
 }

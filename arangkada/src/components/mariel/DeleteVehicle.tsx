@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Button, FormControl, Grid, InputAdornment, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, Typography } from "@mui/material";
+import { Button, FormControl, Grid,  MenuItem, Select, SelectChangeEvent, Stack, TextField,} from "@mui/material";
 import React from "react";
 
 
@@ -23,7 +23,7 @@ const MyVehicleDeleteForm  = () =>{
 
   return ( 
     <>
-    <Grid container spacing={2} component="form" sx={{marginTop: 2, marginLeft: 20,}}>
+    <Grid container spacing={2} onSubmit={handleSubmit} component="form" sx={{marginTop: 2, marginBottom: 5}}>
     <Grid item xs={12} md={6} sx={{marginLeft: 20, marginTop: 3}}>
       <FormControl fullWidth>
             <h2 style={{fontFamily:"sans-serif"}}> Reason for deletion: </h2>
@@ -63,26 +63,12 @@ const MyVehicleDeleteForm  = () =>{
             Are you sure you want to delete this vehicle?
         </h3>
     </Grid>
-        <Grid item xs={12} md={2} sx={{marginLeft: 21}}>
-            <Button 
-                type="submit" 
-                variant="contained"  
-                fullWidth
-                sx={{ backgroundColor: "#D62828",marginTop:2,}} >
-                Delete
-            </Button>
-        </Grid>
-        <Grid item xs={12} md={2} >
-            <Button 
-                type="submit" 
-                variant="contained" 
-                contentEditable
-                fullWidth
-                sx={{backgroundColor: "gray",marginTop:2,marginBottom: 5}} >
-                Cancel
-            </Button>
-   
-    </Grid>
+    
+        <Stack spacing={3} direction={{ xs: "column-reverse", md: "row" }} sx={{ marginTop:2, justifyContent: "end", marginLeft: "180px" }}>
+          <Button type="submit" color="error" variant="contained" sx={{ width: "250px" }}>Delete</Button>
+          <Button  color="primary"variant="contained" sx={{ width: "250px"}}>Cancel</Button>
+        </Stack>
+        
     </Grid>
     </>
     );
