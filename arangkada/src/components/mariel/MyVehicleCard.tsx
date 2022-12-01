@@ -1,6 +1,7 @@
 import { Button, Card, CardActions, CardContent, CardHeader, Divider, Grid, Paper, Typography } from "@mui/material";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { MyVehicle } from "../../pages/mariel/MyVehicles";
+import RouteIcon from '@mui/icons-material/Route';
 
 
 type MyVehicleCardProps = {
@@ -13,7 +14,7 @@ const MyVehicleCard = ({ myVehicle }: MyVehicleCardProps) => {
     <Card>
       <CardHeader 
         title={myVehicle.plateNumber} 
-        subheader={myVehicle.route} 
+        subheader={"Route: " + myVehicle.route} 
         action={
           <Button 
             type="submit" 
@@ -46,16 +47,17 @@ const MyVehicleCard = ({ myVehicle }: MyVehicleCardProps) => {
       <CardActions sx={{ justifyContent: "end" }}>
         <Button 
           size="small" 
-          variant="outlined"
-          sx={{ color:'##D2A857',fontWeight: "bold"}}>
-          Update
+          variant="contained" 
+          className='remove'
+          color="error"
+          sx={{width:"150px"}}>
+          Remove
         </Button>
         <Button 
           size="small" 
-          variant="outlined" 
-          className='remove'
-          sx={{ color:'#D62828', fontWeight: "bold"}}>
-          Remove
+          variant="contained"
+          sx={{width:"150px"}}>
+          Update
         </Button>
       </CardActions>
     </Card>
