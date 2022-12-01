@@ -9,7 +9,7 @@ type StatusProps = {
 
 const Status = ({ status, message }: StatusProps) => {
   return (
-    <Stack spacing={2} direction="row">
+    <Stack spacing={2} direction="row" width="100%">
       {status === "Pending" && <PendingOutlined fontSize="large" color="action" />}
       {status === "Approved" && <CheckCircle fontSize="large" color="success" />}
       <div>
