@@ -9,6 +9,7 @@ import DriverDashboard from '../pages/faith/DriverDashboard';
 import MyRental from '../pages/faith/MyRental';
 import RentVehicle from '../pages/faith/RentVehicle';
 import MyPayments from '../pages/kerr/MyPayments';
+import PayRent from '../pages/kerr/PayRent';
 
 
 const DriverMainLayout = () => {
@@ -38,6 +39,7 @@ const DriverMainLayout = () => {
           <VehicleRentals></VehicleRentals>
           <CancelRental></CancelRental>
           <MyPayments></MyPayments>
+          <PayRent></PayRent>
       </Box>
     </Box>
   );
