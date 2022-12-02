@@ -13,7 +13,7 @@ const PayRent = () => {
         rentalId: 1, 
         startDate: "2022-12-01", 
         endDate: "2022-12-02",
-        status: "Paid",
+        status: "PENDING",
 
         vehicle: {
             vehicleId: 1, 
