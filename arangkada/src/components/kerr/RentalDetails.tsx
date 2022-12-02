@@ -10,7 +10,7 @@ type RentalDetailsProps = {
     return (
       <div>
         <Typography variant="h5">{rental.driver.account.firstname + " " + rental.driver.account.lastname}</Typography>
-        <Typography variant="body1" color="text.secondary">Operator: {rental.vehicle.operator.account.firstname + " " + rent.vehicle.operator.account.firstname}</Typography>
+        <Typography variant="body1" color="text.secondary">Operator: {rental.vehicle.operator.account.firstname + " " + rental.vehicle.operator.account.firstname}</Typography>
         <Typography variant="body1" color="text.secondary">Contact Number: {rental.driver.account.contactNumber}</Typography>
         <br></br>
         <Typography variant="body1">Rental ID: <b>{rental.rentalId}</b> </Typography>
