@@ -50,7 +50,7 @@ export default function OperatorInfo() {
                 <TextField id="outlined-read-only-input" label="Business Permit Number" defaultValue="001492" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
             </div>
             
-            <Stack direction="row" justifyContent="end" padding={7}>
+            <Stack direction="row" justifyContent="end" paddingBottom={7}>
                 <Button variant="contained" style={{backgroundColor: '#D76666', marginTop: 25}}>Delete Account</Button>
                 <Button variant="contained" style={{backgroundColor: '#D2A857', marginTop: 25, marginLeft: 15, marginRight: 15, paddingInline: 60}}>Edit</Button>
             </Stack>
