@@ -6,7 +6,7 @@ import Topbar from '../components/Topbar';
 import VehicleRentals from '../pages/faith/VehicleRentals';
 import CancelRental from '../pages/faith/CancelRental';
 import DriverDashboard from '../pages/faith/DriverDashboard';
-import MyRental from '../pages/faith/MyRental';
+import Rental from '../pages/faith/Rental';
 import RentVehicle from '../pages/faith/RentVehicle';
 import MyPayments from '../pages/kerr/MyPayments';
 import PayRent from '../pages/kerr/PayRent';
@@ -34,7 +34,7 @@ const DriverMainLayout = () => {
         <DrawerHeader />
         {/* Your driver pages goes here. */}
           <DriverDashboard></DriverDashboard>
-          <MyRental></MyRental>
+          <Rental></Rental>
           <RentVehicle></RentVehicle>
           <VehicleRentals></VehicleRentals>
           <CancelRental></CancelRental>
