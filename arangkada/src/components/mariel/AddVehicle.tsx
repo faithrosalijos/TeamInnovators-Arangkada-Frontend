@@ -1,8 +1,7 @@
 import { useState } from "react";
-import { Button, FormControl, Grid, InputAdornment, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, Typography } from "@mui/material";
+import { Button, FormControl, Grid,  InputLabel, MenuItem,  Select, SelectChangeEvent, Stack, TextField, } from "@mui/material";
 import React from "react";
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
+
 
 
 
@@ -56,65 +55,74 @@ const MyVehicleForm  = () =>{
 
   return ( 
     <>
-    <Grid container spacing={2} onSubmit={handleSubmit} rowSpacing={1} component="form" sx={{ marginTop: "0", padding: "12px 0" }}>
-    <Grid item xs={60} md={50}>
+    <Grid container spacing={2} onSubmit={handleSubmit} component="form" sx={{marginTop: 2, marginBottom: 5}}>
+    <Grid item xs={12} md={4}>
        <TextField 
             onChange={handlePlateNumberChange} 
             value={plateNumber} 
             label="Plate Number" 
             size="small"
-            variant="outlined" 
+            fullWidth 
             required
-            sx={{margin: 1, width:"25%", marginBottom: 3}}>
+            sx={{margin: 1, }}>
         </TextField> 
+    </Grid>
+    <Grid item xs={12} md={4}>
        <TextField 
             onChange={handleRouteChange} 
             value={route} 
             label="Route" 
             size="small" 
-            variant="outlined" 
+            fullWidth 
             required
-            sx={{margin: 1, marginLeft:5, width:"25%"}}> 
+            sx={{margin: 1,  }}> 
         </TextField>
+    </Grid>
+    <Grid item xs={12} md={4}>
        <TextField 
             onChange={handleVehicleTypeChange} 
             value={vehicleType}
             label="Vehicle Type" 
             size="small" 
-            variant="outlined" 
             required
-            sx={{margin: 1,marginLeft:5, width:"25%"}} >
+            fullWidth 
+            sx={{margin: 1, }} >
        </TextField>
     </Grid>
-    <Grid item xs={60} md={50}>
+    <Grid item xs={12} md={6}>
         <TextField 
             onChange={handleVinChange} 
             value={vin}
             label="VIN" 
             size="small" 
             variant="outlined" 
+            fullWidth
             required
-            sx={{margin: 1, width:"35%"}}>
+            sx={{margin: 1, }}>
         </TextField>
+        </Grid>
+    <Grid item xs={12} md={6}>
         <TextField 
             value={operator}
             disabled
             label="Operator ID" 
             size="small" 
+            fullWidth
             variant="outlined" 
             defaultValue={operator}
-            sx={{margin: 1,marginLeft:5, width:"35%", marginRight:25, marginBottom: 3}}>
+            sx={{margin: 1,}}>
         </TextField>
     </Grid>
-    <Grid item xs={60} md={50}>
-      <FormControl sx={{ width:"36.3%", marginBottom: 3}}>
-            <InputLabel id="demo-simple-select-label" sx={{margin: 1}}>OR, CR Status</InputLabel>
+    <Grid item xs={12} md={6}>
+      <FormControl fullWidth>
+            <InputLabel id="demo-simple-select-label" >OR, CR Status</InputLabel>
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     value={orStatus}
                     label="OR, CR Status"
                     required
+                    size="small" 
                     onChange={handleOrStatusChange}
                     sx={{margin: 1}}>
                         <MenuItem value={'Updated'}>Updated</MenuItem>
@@ -123,14 +131,17 @@ const MyVehicleForm  = () =>{
                 {/* {myVehicle.orStatus} */}
                 </Select>  
         </FormControl> 
-        <FormControl sx={{ marginLeft: 4,width:"36.3%"}} >
-            <InputLabel id="demo-simple-select-label" sx={{margin: 1}}>Vehicle Condition</InputLabel>
+    </Grid>
+    <Grid item xs={12} md={6}>
+        <FormControl fullWidth >
+            <InputLabel id="demo-simple-select-label" >Vehicle Condition</InputLabel>
                 <Select
                     labelId="demo-simple-select-label"
                     id="demo-simple-select"
                     value={condition}
                     label="Vehicle Condition"
                     required
+                    size="small" 
                     onChange={handleConditionChange}
                     sx={{margin: 1}}>
                         <MenuItem value={'Ready To Use'}>Ready To Use</MenuItem>
@@ -138,16 +149,19 @@ const MyVehicleForm  = () =>{
                 {/* {myVehicle.condition} */}
                 </Select>  
         </FormControl> 
-        </Grid>
-        <Grid item xs={60} md={50}>
+    </Grid>
+        <Grid item xs={12} md={6}>
             <TextField 
                 onChange={handleMakeAndModelChange} 
                 value={makeModel}label="Make and Model" 
                 size="small" 
                 variant="outlined" 
                 required
-                sx={{margin: 1, width:"35%", height:"8vh"}}>
+                fullWidth
+                sx={{margin: 1,  height:"8vh"}}>
             </TextField>
+            </Grid>
+            <Grid item xs={12} md={6}>
             <TextField 
                 onChange={handleRentalFeeChange} 
                 value={renatlFee}
@@ -155,22 +169,35 @@ const MyVehicleForm  = () =>{
                 size="small" 
                 variant="outlined"
                 required 
-                sx={{margin: 1,marginLeft:5, width:"35%", marginRight:25, height:"8vh" }}>
+                fullWidth
+                sx={{margin: 1, marginRight:25, height:"8vh" }}>
             </TextField>
         </Grid>
-        <Grid item xs={60} md={50}>
+        {/* <Grid item xs={12} md={2}  >
             <Button 
                 type="submit" 
-                variant="contained"  
-                sx={{marginLeft:100, marginTop: 4,width: '13%',marginRight: 2, marginBottom: 5}}>
+                variant="contained" 
+                fullWidth 
+                sx={{ marginTop: 4 ,}}>
                 Add Vehicle</Button>
+        </Grid>
+        <Grid item xs={12} md={2} >
             <Button 
                 type="submit" 
                 variant="contained"  
-                sx={{marginTop:4,width: '13%',backgroundColor: "gray",marginBottom: 5}}>
+                fullWidth
+                sx={{marginTop:4,backgroundColor: "gray",marginBottom: 5}}>
                 Cancel</Button>
+        </Grid> */}
+        <Grid item xs={12} >
+        <Stack spacing={3} direction={{ xs: "column-reverse", md: "row" }} sx={{ justifyContent: "end" }}>
+          <Button color="secondary" variant="contained" sx={{ width: "250px" }}>Cancel</Button>
+          <Button type="submit" variant="contained" sx={{ width: "250px"}}>Add Vehicle</Button>
+        </Stack>
         </Grid>
     </Grid>
+        
+    
     </>
    );
 }
