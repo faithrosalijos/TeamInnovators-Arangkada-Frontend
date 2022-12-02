@@ -18,7 +18,7 @@ type RentalDetailsProps = {
         <Typography variant="body1">End Date: <b>{rental.endDate}</b> </Typography>
         <Typography variant="body1">Status: <b>{rental.status}</b> </Typography>
         <Typography variant="body1">Vehicle ID: <b>{rental.vehicle.vehicleId}</b> </Typography>
-        <Typography variant="body1">Driver ID: <b>{rental.driver.driverId}</b> </Typography>
+        <Typography variant="body1">Driver ID: <b>{rental.driver.driverid}</b> </Typography>
       </div>
     );
   }
