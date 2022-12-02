@@ -46,7 +46,7 @@ const VehicleRentals = () => {
   }, [vehicles])
 
   const handleFilterSubmit = (businessName: string, operatorName: string, route: string) => {
-    const temp = vehicles.filter((vehicle) => 
+    const temp = vehicles.filter((vehicle) =>
       vehicle.operator.businessName.toLowerCase().includes(businessName.toLowerCase()) &&
       (vehicle.operator.account.firstname + " " + vehicle.operator.account.lastname).toLowerCase().includes(operatorName.toLowerCase()) &&
       vehicle.route.toLowerCase().includes(route.toLowerCase())

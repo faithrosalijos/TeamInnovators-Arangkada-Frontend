@@ -8,7 +8,7 @@ const CancelRental = () => {
   return (
     <>
       <Box mt="12px" sx={{ minHeight: "80vh" }}>
-        <PageHeader title="My Rental" />
+        <PageHeader title="Cancel Rental" />
         <br></br>
         <Typography variant="h5">Rental ID: {1}</Typography>
         <br></br>

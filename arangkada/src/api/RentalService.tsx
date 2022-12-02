@@ -12,6 +12,10 @@ class RentalService {
     return axios.get(RENTAL_BASE_URL+"/getCurrentRentalByDriverId/"+id);
   }
 
+  getRentalsByOperatorAndStatus(id: string, status: string) {
+    return axios.get(RENTAL_BASE_URL+"/getRentalsByStatusAndVehicleOperatorId/"+id+"?status="+status);
+  }
+
 }
 
 export default new RentalService();

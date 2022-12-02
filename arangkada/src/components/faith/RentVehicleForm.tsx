@@ -12,14 +12,6 @@ const RentVehicleForm = () => {
   const [startDateError, setStartDateError] = useState<string | null>(null);
   const [endDateError, setEndDateError] = useState<string | null>(null);
 
-  const handleStartDateChange = (date: Date | null) => {
-    setStartDate(date);
-  }
-
-  const handleEndDateChange = (date: Date | null) => {
-    setEndDate(date);
-  }
-
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setEndDateError(null);
@@ -50,14 +42,14 @@ const RentVehicleForm = () => {
           label="Start Date"
           minDate={currentDate}
           value={startDate}
-          onChange={handleStartDateChange}
+          onChange={(date) => setStartDate(date)}
           renderInput={(params) => <TextField {...params} size="small" error={startDateError !== null} helperText={startDateError} />}
         />
         <DesktopDatePicker
           label="End Date"
           minDate={startDate === null ? currentDate : startDate}
           value={endDate}
-          onChange={handleEndDateChange}
+          onChange={(date) => setEndDate(date)}
           renderInput={(params) => <TextField size="small" {...params} error={endDateError !== null} helperText={endDateError} />}
         />
         <Stack spacing={3} direction={{ xs: "column-reverse", md: "row" }} sx={{ justifyContent: "end" }}>

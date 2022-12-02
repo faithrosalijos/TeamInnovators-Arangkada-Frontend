@@ -21,7 +21,7 @@ export type Operator = {
 }
 
 export type Driver = {
-  driverId: number,
+  driverid: number,
   licensenumber: string,
   licensecode: string,
   account: Account,

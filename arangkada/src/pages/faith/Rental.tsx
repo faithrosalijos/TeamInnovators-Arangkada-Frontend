@@ -23,7 +23,7 @@ const MyRental = () => {
   return (
     <>
       <Box mt="12px" sx={{ minHeight: "80vh" }}>
-        <PageHeader title="My Rental" />
+        <PageHeader title="Rental" />
         <br></br>
         {
           currentRental ?
