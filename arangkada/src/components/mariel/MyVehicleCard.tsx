@@ -1,11 +1,11 @@
 import { Button, Card, CardActions, CardContent, CardHeader, Divider, Grid, Paper, Typography } from "@mui/material";
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { MyVehicle } from "../../pages/mariel/MyVehicles";
-import RouteIcon from '@mui/icons-material/Route';
+import { Vehicle } from "../../api/dataTypes";
+
 
 
 type MyVehicleCardProps = {
-  myVehicle: MyVehicle,
+  myVehicle: Vehicle,
 }
 
 const MyVehicleCard = ({ myVehicle }: MyVehicleCardProps) => {
@@ -41,7 +41,7 @@ const MyVehicleCard = ({ myVehicle }: MyVehicleCardProps) => {
               variant="body1">OR, CR Status: <b>{myVehicle.orStatus}</b>
           </Typography>
           <Typography 
-              variant="body1">Vehicle Condition: <b>{myVehicle.condition}</b>
+              variant="body1">Vehicle Condition: <b>{myVehicle.vehicleCondition}</b>
           </Typography>
       </CardContent>
       <CardActions sx={{ justifyContent: "end" }}>
