@@ -75,7 +75,6 @@ export default function RegistrationForm() {
         <div className="regform">
             <strong><p style={{color: '#646464', textAlign: 'left', lineHeight: '.2em'}}>Registration</p></strong>
             <hr className="line"></hr>
-            <form>
                 <div className="check">
                     <FormControlLabel control={<Checkbox checked={checkedOp} onChange={handleTypeOperatorChange} sx={{color: '#646464', marginRight: 3}}/>} label="PUV Operator" />
                     <FormControlLabel control={<Checkbox checked={checkedDv} onChange={handleTypeDriverChange} sx={{marginLeft: 20, marginRight: 3}}/>} label="Driver" />
@@ -112,16 +111,15 @@ export default function RegistrationForm() {
                     onChange={handlePasswordChange}
                     type={showPassword? "text": "password"} 
                     value={password} 
-                    label="Password" 
+                    label="Password"
                     sx={{margin: 1, width:{sd: 700, md: 700}}} 
                     InputProps={{ endAdornment: (<InputAdornment position="end"> <IconButton onClick={handlePasswordShow}>{showPassword? <VisibilityOff />: <Visibility /> }</IconButton> </InputAdornment>) }} 
                 />
-            </form>
             <Button variant="contained" style={{backgroundColor: '#D2A857', marginTop: 25, paddingInline: 40}}>Continue</Button><br></br>
             <p style={{color: 'gray', fontSize: '15px'}}>By continuing, you agree to Arangkadas's <a href="https://www.facebook.com/cara.q.encabo"  className="links">Terms of Service</a> and acknowledge you've read our <a href="https://www.facebook.com/cara.q.encabo" className="links">Privacy Policy</a></p>
 
             <strong><a href="https://www.facebook.com/cara.q.encabo"  className="links" style={{fontSize: '18px'}}>Have an account? Log in</a></strong>
-            
+        
         </div>
     )
 }
