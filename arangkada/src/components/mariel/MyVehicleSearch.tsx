@@ -42,6 +42,7 @@ const MyVehicleSearch = () => {
       <Grid item xs={12} md={3}>
         <Button  
           onClick={handleClear}
+          color="error"
           size="small">
           Clear Filters
         </Button>
