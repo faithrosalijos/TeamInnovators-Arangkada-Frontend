@@ -2,14 +2,17 @@ import { Box, Grid, Paper, Typography } from "@mui/material";
 import DashboardCard from "../../components/faith/DashboardCard";
 import PageHeader from "../../components/PageHeader";
 import { useEffect, useState } from "react";
-import { CarRental, Commute, Cancel, DoneAll } from "@mui/icons-material";
+import { CarRental, Commute, Cancel, TaskAlt } from "@mui/icons-material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import RentalService from "../../api/RentalService";
 import { Rental } from "../../api/dataTypes";
 import Footer from "../../components/Footer";
-
+import Loading from "../../components/faith/Loading";
+import ResponseError from "../../components/faith/ResponseError";
 
 const DriverDashboard = () => {
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [pageSize, setPageSize] = useState<number>(5);
   const [rentals, setRentals] = useState<Rental[]>([]);
 
@@ -25,44 +28,54 @@ const DriverDashboard = () => {
   ]
 
   useEffect(() => {
-    RentalService.getRentalsByDriver("2").then((response) => {
+    RentalService.getRentalsByDriver("1").then((response) => {
       setRentals(response.data);
+      setError('');
     }).catch((error) => {
-      console.log(error);
+      setError(error.message);
+    }).finally(() => {
+      setLoading(false);
     })
   }, []);
 
+  if (loading) return (<Loading />)
+
+  if (error !== '') return (<ResponseError message={error} />)
+
   return (
     <>
-      <Box mt="12px" sx={{ minHeight: "80vh" }}>
+      <Box mt="12px" display="flex" flexDirection="column" sx={{ minHeight: "80vh" }}>
         <PageHeader title={"Welcome, Name!"} />
         <br></br>
+        {/* Approved Rental Counts */}
         <Grid container spacing={2}>
           <Grid item xs={12} md={6} lg={3}>
-            <DashboardCard title="Total Approved Rentals" count={rentals.filter((rental) => rental.status !== "PENDING" && rental.status !== "DECLINED").length}>
+            <DashboardCard title="Approved Rentals" count={rentals.filter((rental) => rental.status !== "PENDING" && rental.status !== "DECLINED" && rental.status !== "EXPIRED").length}>
               <Commute fontSize="large" color="secondary" />
             </DashboardCard>
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
-            <DashboardCard title="Ongoing Rental" count={rentals.filter((rental) => rental.status === "APPROVED").length}>
+            <DashboardCard title="Ongoing Rental" count={rentals.filter((rental) => rental.current === true).length}>
               <CarRental fontSize="large" color="info" />
             </DashboardCard>
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
-            <DashboardCard title="Cancelled" count={rentals.filter((rental) => rental.status === "CANCELLED").length}>
+            <DashboardCard title="Cancelled Rental" count={rentals.filter((rental) => rental.status === "CANCELLED").length}>
               <Cancel fontSize="large" color="error" />
             </DashboardCard>
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
-            <DashboardCard title="Finished" count={rentals.filter((rental) => rental.status === "FINISHED").length}>
-              <DoneAll fontSize="large" color="success" />
+            <DashboardCard title="Finished Rental" count={rentals.filter((rental) => rental.status === "FINISHED" && rental.current === false).length}>
+              <TaskAlt fontSize="large" color="success" />
             </DashboardCard>
           </Grid>
         </Grid>
         <br></br>
+
+        {/* All Rental Applications */}
         <Paper sx={{ padding: "12px 24px", display: "flex", flexDirection: "column", alignItems: "center" }}>
           <Typography variant="h5">All Rental Applications</Typography>
-          <div style={{ flexGrow: 1, width: "100%", minHeight: "380px" }}>
+          <div style={{ flex: 1, width: "100%", minHeight: "380px" }}>
             <DataGrid
               autoHeight
               sx={{ minHeight: "369px", '.MuiDataGrid-columnSeparator': { display: 'none' }, '&.MuiDataGrid-root': { border: 'none' } }}
@@ -74,7 +87,7 @@ const DriverDashboard = () => {
               onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
               pageSize={pageSize}
             />
-          </div>
+          </div>:
         </Paper>
       </Box>
       <Footer name="Faith Rosalijos" course="BSIT" section="G1" />
