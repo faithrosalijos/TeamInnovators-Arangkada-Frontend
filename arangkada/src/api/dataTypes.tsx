@@ -45,6 +45,7 @@ export type Rental = {
   startDate: string,
   endDate: string,
   status: string,
+  current: boolean,
   vehicle: Vehicle,
   driver: Driver,
 }
