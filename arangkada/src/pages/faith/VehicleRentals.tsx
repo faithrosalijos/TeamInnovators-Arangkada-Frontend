@@ -5,41 +5,27 @@ import VehicleCardList from "../../components/faith/VehicleCardList";
 import VehicleFilterForm from "../../components/faith/VehicleFilterForm";
 import PageHeader from "../../components/PageHeader";
 import Footer from "../../components/Footer";
+import VehicleService from "../../api/VehicleService";
+import Loading from "../../components/faith/Loading";
+import ResponseError from "../../components/faith/ResponseError";
 
 
 const VehicleRentals = () => {
-  /* Sample data */
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [filteredVehicles, setFilteredVehicles] = useState<Vehicle[]>([])
-  const [vehicles, setVehicles] = useState<Vehicle[]>([
-    {
-      vehicleId: 1, plateNumber: "XXX-XX1", route: "01K", vehicleType: "Jeepney", makeModel: "Model XX", vin: 1, orStatus: "OR Status", vehicleCondition: "Vehicle Condition", rentalFee: 500.0,
-      operator: {
-        operatorId: 1, businessName: "Doe PUV", permitNumber: "XXX-XXX",
-        account: { accountId: 3, firstname: "John", middlename: "", lastname: "Doe", birthdate: "2000-12-31", age: 24, contactNumber: "9998765544", address: "ABC City", gender: "Maleale", username: "john.doe", password: "john", accountType: "operator" }
-      }
-    },
-    {
-      vehicleId: 2, plateNumber: "XXX-XX1", route: "12H", vehicleType: "Jeepney", makeModel: "Model XX", vin: 1, orStatus: "OR Status", vehicleCondition: "Vehicle Condition", rentalFee: 500.0,
-      operator: {
-        operatorId: 1, businessName: "Smith PUV", permitNumber: "XXX-XXX",
-        account: { accountId: 3, firstname: "Jason", middlename: "", lastname: "Smith", birthdate: "2000-12-31", age: 24, contactNumber: "9998765544", address: "ABC City", gender: "Maleale", username: "john.doe", password: "john", accountType: "operator" }
-      }
-    },
-    {
-      vehicleId: 3, plateNumber: "XXX-XX1", route: "01K", vehicleType: "Jeepney", makeModel: "Model XX", vin: 1, orStatus: "OR Status", vehicleCondition: "Vehicle Condition", rentalFee: 500.0,
-      operator: {
-        operatorId: 1, businessName: "Wright PUV", permitNumber: "XXX-XXX",
-        account: { accountId: 3, firstname: "Jason", middlename: "", lastname: "Wright", birthdate: "2000-12-31", age: 24, contactNumber: "9998765544", address: "ABC City", gender: "Maleale", username: "john.doe", password: "john", accountType: "operator" }
-      }
-    },
-    {
-      vehicleId: 4, plateNumber: "XXX-XX1", route: "12H", vehicleType: "Jeepney", makeModel: "Model XX", vin: 1, orStatus: "OR Status", vehicleCondition: "Vehicle Condition", rentalFee: 500.0,
-      operator: {
-        operatorId: 1, businessName: "Doe PUV", permitNumber: "XXX-XXX",
-        account: { accountId: 3, firstname: "John", middlename: "", lastname: "Doe", birthdate: "2000-12-31", age: 24, contactNumber: "9998765544", address: "ABC City", gender: "Maleale", username: "john.doe", password: "john", accountType: "operator" }
-      }
-    },
-  ]);
+  const [vehicles, setVehicles] = useState<Vehicle[]>([]);
+
+  useEffect(() => {
+    VehicleService.getVehicleByVehicleType("Jeepney").then((response) => {
+      setVehicles(response.data);
+      setError('');
+    }).catch((error) => {
+      setError(error.message);
+    }).finally(() => {
+      setLoading(false);
+    })
+  }, [])
 
   useEffect(() => {
     setFilteredVehicles(vehicles);
@@ -57,6 +43,10 @@ const VehicleRentals = () => {
   const handleFilterClear = () => {
     setFilteredVehicles(vehicles);
   }
+
+  if (loading) return (<Loading />)
+
+  if (error !== '') return (<ResponseError message={error} />)
 
   return (
     <>
