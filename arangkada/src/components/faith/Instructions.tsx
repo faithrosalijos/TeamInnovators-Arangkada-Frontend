@@ -1,6 +1,5 @@
 import { Typography } from "@mui/material";
 
-
 type InstructionsProps = {
   header: string,
   subheader: string,

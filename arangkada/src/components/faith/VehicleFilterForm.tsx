@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Button, Grid, InputAdornment, TextField } from "@mui/material";
 import { Search, Person, LocationOn } from "@mui/icons-material";
 
-
 type VehicleFilterFormProps = {
   handleFilterSubmit: (businessName: string, operatorName: string, route: string) => void,
   handleFilterClear: () => void,

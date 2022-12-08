@@ -2,7 +2,6 @@ import { Grid } from "@mui/material";
 import { Rental } from "../../api/dataTypes";
 import RentalCard from "./RentalCard";
 
-
 type RentalCardListProps = {
   rentals: Rental[],
 }
