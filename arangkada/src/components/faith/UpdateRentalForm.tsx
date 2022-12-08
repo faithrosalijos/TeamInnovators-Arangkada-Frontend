@@ -1,20 +1,21 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Stack, TextField } from "@mui/material";
+import { Button, Stack, TextField } from "@mui/material";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from "@mui/x-date-pickers";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { useModal } from "mui-modal-provider";
+import { ConfirmationModal, NoticeModal } from "./Modals";
+import RentalService from "../../api/RentalService";
+import { CurrentRentalContext, CurrentRentalContextType } from "../../helpers/CurrentRentalContext";
 import { Rental } from "../../api/dataTypes";
 
+const UpdateRentalForm = () => {
+  const { showModal } = useModal();
+  const { currentRental, setCurrentRental } = useContext(CurrentRentalContext) as CurrentRentalContextType;
 
-type UpdateRentalFormProps = {
-  rental: Rental,
-}
-
-const UpdateRentalForm = ({ rental }: UpdateRentalFormProps) => {
-  const [openCancelDialog, setOpenCancelDialog] = useState(false);
   const currentDate = new Date(new Date().setHours(0, 0, 0, 0));
-  const [startDate, setStartDate] = useState<Date | null>(new Date(rental.startDate));
-  const [endDate, setEndDate] = useState<Date | null>(new Date(rental.endDate));
+  const [startDate, setStartDate] = useState<Date | null>(new Date(currentRental.startDate));
+  const [endDate, setEndDate] = useState<Date | null>(new Date(currentRental.endDate));
   const [startDateError, setStartDateError] = useState<string | null>(null);
   const [endDateError, setEndDateError] = useState<string | null>(null);
 
@@ -36,69 +37,104 @@ const UpdateRentalForm = ({ rental }: UpdateRentalFormProps) => {
     else if (endDate < startDate)
       setEndDateError("End date must not be before the start date.");
     else {
-      console.log(startDate);
-      console.log(endDate);
+      RentalService.putRental(
+        currentRental.rentalId.toString(),
+        {
+          startDate: startDate.toJSON(),
+          endDate: endDate.toJSON(),
+          status: currentRental.status,
+          current: currentRental.current,
+        }).then((response) => {
+          setCurrentRental(response.data);
+        }).catch((error) => {
+          console.log(error);
+        })
     }
   }
 
   const handleCancelRental = () => {
+    // Go to Cancel Rental Page
 
+    // If not paid
+    // const modal = showModal(NoticeModal, {
+    //   title: "Pay your rental fee first.",
+    //   content: "You can only cancel your rental if you have already settled your payments.",
+    //   onOkay: () => { 
+    //     modal.hide();
+    //   }
+    // });
+  }
+
+  const handleFinishRental = () => {
+    RentalService.putRental(
+      currentRental.rentalId.toString(),
+      {
+        startDate: currentRental.startDate,
+        endDate: currentRental.endDate,
+        status: currentRental.status,
+        current: false,
+      }).then(() => {
+        setCurrentRental({} as Rental);
+      }).catch((error) => {
+        console.log(error);
+      })
+
+    // If not paid
+    // const modal = showModal(NoticeModal, {
+    //   title: "Pay your rental fee first.",
+    //   content: "You can only finish your rental if you have already settled your payments.",
+    //   onOkay: () => { 
+    //     modal.hide();
+    //   }
+    // });
   }
 
   const handleCancel = () => {
-    console.log("Application cancelled.")
-    setOpenCancelDialog(false);
+    const modal = showModal(ConfirmationModal, {
+      title: "Are you sure you want to cancel this application?",
+      content: "The operator is yet to respond to your rental application. If you cancel now, the application would be deleted.",
+      onCancel: () => {
+        modal.hide();
+      },
+      onConfirm: () => {
+        modal.hide();
+
+      }
+    });
   }
 
   return (
-    <>
-      <LocalizationProvider dateAdapter={AdapterDateFns}>
-        <Stack spacing={3} component="form" onSubmit={handleSubmit}>
-          <DesktopDatePicker
-            readOnly={rental.status === "APPROVED"}
-            label="Start Date"
-            minDate={currentDate}
-            value={startDate}
-            onChange={(date) => setStartDate(date)}
-            renderInput={(params) => <TextField {...params} size="small" error={startDateError !== null} helperText={startDateError} />}
-          />
-          <DesktopDatePicker
-            readOnly={rental.status === "APPROVED"}
-            label="End Date"
-            minDate={startDate !== null ? currentDate : new Date()}
-            value={endDate}
-            onChange={(date) => setEndDate(date)}
-            renderInput={(params) => <TextField size="small" {...params} error={endDateError !== null} helperText={endDateError} />}
-          />
-          <Stack spacing={3} direction={{ xs: "column-reverse", md: "row" }} sx={{ justifyContent: rental.status === "PENDING" ? "end" : "start" }}>
-            {
-              rental.status === "PENDING" ?
-                <>
-                  <Button onClick={() => setOpenCancelDialog(true)} color="secondary" variant="contained" sx={{ width: "250px" }}>Cancel</Button>
-                  <Button type="submit" variant="contained" sx={{ width: "250px" }}>Save Changes</Button>
-                </> :
-                <Button onClick={handleCancelRental} color="error" variant="contained" sx={{ width: "250px" }}>Cancel Rental</Button>
-            }
-          </Stack>
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
+      <Stack spacing={3} component="form" onSubmit={handleSubmit}>
+        <DesktopDatePicker
+          readOnly={currentRental.status !== "PENDING"}
+          label="Start Date"
+          minDate={currentDate}
+          value={startDate}
+          onChange={(date) => setStartDate(date)}
+          renderInput={(params) => <TextField {...params} size="small" error={startDateError !== null} helperText={startDateError} />}
+        />
+        <DesktopDatePicker
+          readOnly={currentRental.status !== "PENDING"}
+          label="End Date"
+          minDate={startDate !== null ? currentDate : new Date()}
+          value={endDate}
+          onChange={(date) => setEndDate(date)}
+          renderInput={(params) => <TextField size="small" {...params} error={endDateError !== null} helperText={endDateError} />}
+        />
+        <Stack spacing={3} direction={{ xs: "column-reverse", md: "row" }} sx={{ justifyContent: currentRental.status !== "APPROVED" ? "end" : "start" }}>
+          {
+            currentRental.status === "PENDING" &&
+            <>
+              <Button onClick={handleCancel} color="secondary" variant="contained" sx={{ width: "250px" }}>Cancel</Button>
+              <Button type="submit" variant="contained" sx={{ width: "250px" }}>Save Changes</Button>
+            </>
+          }
+          {currentRental.status === "APPROVED" && <Button onClick={handleCancelRental} color="error" variant="contained" sx={{ width: "250px" }}>Cancel Rental</Button>}
+          {currentRental.status === "FINISHED" && <Button onClick={handleFinishRental} color="success" variant="contained" sx={{ width: "250px" }}>Finish Rental</Button>}
         </Stack>
-      </LocalizationProvider>
-
-      {/* Cancel Application Confimartion Dialog */}
-      <Dialog open={openCancelDialog} onClose={() => setOpenCancelDialog(false)}>
-        <DialogTitle >
-          {"Are you sure you want to cancel this application?"}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            The operator is yet to respond to your rental application. If you cancel now, the application would be deleted.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={() => setOpenCancelDialog(false)} color="secondary">Cancel</Button>
-          <Button onClick={handleCancel}>Confirm</Button>
-        </DialogActions>
-      </Dialog>
-    </>
+      </Stack>
+    </LocalizationProvider>
   );
 }
 
