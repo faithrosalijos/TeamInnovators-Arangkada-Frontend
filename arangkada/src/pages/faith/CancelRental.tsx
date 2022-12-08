@@ -12,7 +12,10 @@ const CancelRental = () => {
         <br></br>
         <Typography variant="h5">Rental ID: {1}</Typography>
         <br></br>
-        <Instructions header="Do you want to cancel this vehicle rental?" subheader="This action cannot be undone." />
+        <Instructions
+          header="Do you want to cancel this vehicle rental?"
+          subheader="This action cannot be undone."
+        />
         <br></br>
         <br></br>
         <CancelRentalForm />

@@ -1,9 +1,13 @@
 import { Button, Stack, TextField, InputAdornment, IconButton } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-
+import RentalService from "../../api/RentalService";
+import { CurrentRentalContext, CurrentRentalContextType } from "../../helpers/CurrentRentalContext";
+import { Rental } from "../../api/dataTypes";
 
 const CancelRentalForm = () => {
+  const { currentRental, setCurrentRental } = useContext(CurrentRentalContext) as CurrentRentalContextType;
+
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState(false);
   const [passwordError, setPasswordError] = useState<string | null>(null);
@@ -17,7 +21,20 @@ const CancelRentalForm = () => {
     } else if (password !== "password") {
       setPasswordError("Password is incorrect.")
     } else {
-      console.log(password);
+      RentalService.putRental(
+        currentRental.rentalId.toString(),
+        {
+          startDate: currentRental.startDate,
+          endDate: currentRental.endDate,
+          status: "CANCELLED",
+          current: false,
+        }).then(() => {
+          setCurrentRental({} as Rental);
+        }).catch((error) => {
+          console.log(error);
+        })
+      // Go back to Rental Page
+
     }
   }
 
@@ -36,7 +53,14 @@ const CancelRentalForm = () => {
         fullWidth
         error={passwordError !== null}
         helperText={passwordError}
-        InputProps={{ endAdornment: (<InputAdornment position="end"> <IconButton onClick={handlePasswordShow}>{showPassword ? <VisibilityOff /> : <Visibility />}</IconButton> </InputAdornment>) }}
+        InputProps={{ 
+          endAdornment: (
+            <InputAdornment position="end"> 
+              <IconButton onClick={handlePasswordShow}>
+                {showPassword ? <VisibilityOff /> : <Visibility />}
+              </IconButton> 
+            </InputAdornment>
+        )}}
       />
       <Stack spacing={3} direction={{ xs: "column-reverse", md: "row" }} sx={{ justifyContent: "end" }}>
         <Button color="secondary" variant="contained" sx={{ width: "250px" }}>No, Go Back</Button>
