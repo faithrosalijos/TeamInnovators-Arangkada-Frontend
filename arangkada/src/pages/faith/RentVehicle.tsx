@@ -1,12 +1,11 @@
 import { Box } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Instructions from "../../components/faith/Instructions";
 import RentVehicleForm from "../../components/faith/RentVehicleForm";
 import VehicleDetails from "../../components/faith/VehicleDetails";
 import PageHeader from "../../components/PageHeader";
 import { Vehicle } from "../../api/dataTypes";
 import Footer from "../../components/Footer";
-
 
 const RentVehicle = () => {
   const [vehicle, setVehicle] = useState<Vehicle>(
@@ -19,12 +18,20 @@ const RentVehicle = () => {
     }
   );
 
+  useEffect(() => {
+    // http get request here
+
+  }, []);
+
   return (
     <>
       <Box mt="12px" sx={{ minHeight: "80vh" }}>
         <PageHeader title="Rent Vehicle" />
         <br></br>
-        <Instructions header="Please provide the details needed for rental." subheader="It might take a few days before the operator can respond to your application. You can still modify the start and end date until then." />
+        <Instructions 
+          header="Please provide the details needed for rental." 
+          subheader="It might take a few days before the operator can respond to your application. You can still modify the start and end date until then." 
+        />
         <br></br>
         <VehicleDetails vehicle={vehicle} />
         <br></br>

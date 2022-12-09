@@ -4,7 +4,6 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { useState } from "react";
 
-
 const RentVehicleForm = () => {
   const currentDate = new Date(new Date().setHours(0, 0, 0, 0));
   const [startDate, setStartDate] = useState<Date | null>(null);
@@ -30,8 +29,8 @@ const RentVehicleForm = () => {
     else if (endDate < startDate)
       setEndDateError("End date must not be before the start date.");
     else {
-      console.log(startDate);
-      console.log(endDate);
+      // http post request here
+
     }
   }
 
