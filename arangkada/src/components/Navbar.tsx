@@ -1,7 +1,7 @@
-import { Divider, IconButton } from '@mui/material';
 import { Drawer, DrawerHeader } from '../styles/NavbarStyles';
-import { ChevronLeft, Dashboard, Payment, Commute, People, Mail, DriveEta } from '@mui/icons-material';
+import { ChevronLeft } from '@mui/icons-material';
 import NavbarList from './NavbarList';
+import { Divider, IconButton } from '@mui/material';
 
 type NavbarProps = {
   user: "Driver" | "Operator",
@@ -10,24 +10,6 @@ type NavbarProps = {
 }
 
 const Navbar = ({ user, open, handleDrawerClose }: NavbarProps) => {
-  const operatorList: { text: string, icon: React.ReactNode, link: string }[] = [
-    { text: "Dashboard", icon: <Dashboard />, link: "" },
-    { text: "Vehicles", icon: <Commute />, link: "" },
-    { text: "Add Vehicles", icon: <DriveEta />, link: "" },
-    { text: "Drivers Renting", icon: <People />, link: "" },
-    { text: "Approval Request", icon: <Mail />, link: "" },
-    // Add or remove page link for operator in here
-    // P.S Ayaw lng mo pag add og 'My' (e.g. 'My Rental') kay pangit hahaha 
-  ];
-
-  const driverList: { text: string, icon: React.ReactNode, link: string }[] = [
-    { text: "Dashboard", icon: <Dashboard />, link: "" },
-    { text: "Vehicle Rentals", icon: <Commute />, link: "" },
-    { text: "Rental", icon: <DriveEta />, link: "" },
-    { text: "Payments", icon: <Payment />, link: "" },
-    // Add or remove page link for driver in here
-    // P.S. Ayaw lng mo pag add og 'My' (e.g. 'My Rental') kay pangit hahaha
-  ];
 
   return (
     <Drawer variant="permanent" open={open} sx={{ "& .MuiPaper-root": { backgroundColor: "primary.main" } }}>
@@ -37,7 +19,7 @@ const Navbar = ({ user, open, handleDrawerClose }: NavbarProps) => {
         </IconButton>
       </DrawerHeader>
       <Divider />
-      <NavbarList list={user === "Driver" ? driverList : operatorList} open={open} />
+      <NavbarList open={open} user={user} />
     </Drawer>
   );
 }

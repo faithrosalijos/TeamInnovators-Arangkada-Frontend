@@ -3,8 +3,10 @@ import { DesktopDatePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const RentVehicleForm = () => {
+  const navigate = useNavigate();
   const currentDate = new Date(new Date().setHours(0, 0, 0, 0));
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
@@ -34,6 +36,10 @@ const RentVehicleForm = () => {
     }
   }
 
+  const handleBack = () => {
+    navigate(-1);
+  }
+
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns}>
       <Stack spacing={3} component="form" onSubmit={handleSubmit}>
@@ -52,7 +58,7 @@ const RentVehicleForm = () => {
           renderInput={(params) => <TextField size="small" {...params} error={endDateError !== null} helperText={endDateError} />}
         />
         <Stack spacing={3} direction={{ xs: "column-reverse", md: "row" }} sx={{ justifyContent: "end" }}>
-          <Button color="secondary" variant="contained" sx={{ width: "250px" }}>Go Back</Button>
+          <Button onClick={handleBack} color="secondary" variant="contained" sx={{ width: "250px" }}>Go Back</Button>
           <Button type="submit" variant="contained" sx={{ width: "250px" }}>Rent Vehicle</Button>
         </Stack>
       </Stack>

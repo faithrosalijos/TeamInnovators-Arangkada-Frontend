@@ -3,14 +3,7 @@ import { useState } from 'react';
 import { DrawerHeader } from '../styles/NavbarStyles';
 import Navbar from '../components/Navbar';
 import Topbar from '../components/Topbar';
-import VehicleRentals from '../pages/faith/VehicleRentals';
-import CancelRental from '../pages/faith/CancelRental';
-import DriverDashboard from '../pages/faith/DriverDashboard';
-import Rental from '../pages/faith/Rental';
-import RentVehicle from '../pages/faith/RentVehicle';
-import MyPayments from '../pages/kerr/MyPayments';
-import PayRent from '../pages/kerr/PayRent';
-
+import { Outlet } from 'react-router-dom';
 
 const DriverMainLayout = () => {
   const [open, setOpen] = useState(false);
@@ -30,16 +23,9 @@ const DriverMainLayout = () => {
 
       <Navbar user="Driver" open={open} handleDrawerClose={handleDrawerClose} />
 
-      <Box component="main" sx={{ flexGrow: 1, p: 3, padding: "0 32px" }}>
+      <Box component="main" sx={{ flexGrow: 1, padding: "0 10%" }}>
         <DrawerHeader />
-        {/* Your driver pages goes here. */}
-          <DriverDashboard></DriverDashboard>
-          <Rental></Rental>
-          <RentVehicle></RentVehicle>
-          <VehicleRentals></VehicleRentals>
-          <CancelRental></CancelRental>
-          <MyPayments></MyPayments>
-          <PayRent></PayRent>
+          <Outlet />
       </Box>
     </Box>
   );

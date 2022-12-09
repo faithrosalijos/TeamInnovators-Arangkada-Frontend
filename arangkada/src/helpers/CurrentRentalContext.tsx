@@ -8,7 +8,7 @@ export type CurrentRentalContextType = {
 
 export const CurrentRentalContext = createContext<CurrentRentalContextType | null>(null);
 
-const CurrentRentalContextProvider = (props: { children: React.ReactNode }) => {
+const CurrentRentalProvider = (props: { children: React.ReactNode }) => {
   const [currentRental, setCurrentRental] = useState<Rental>({} as Rental);
 
   const value = {
@@ -23,4 +23,4 @@ const CurrentRentalContextProvider = (props: { children: React.ReactNode }) => {
   )
 }
 
-export default CurrentRentalContextProvider;
+export default CurrentRentalProvider;

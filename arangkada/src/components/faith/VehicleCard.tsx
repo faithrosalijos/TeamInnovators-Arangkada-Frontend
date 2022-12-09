@@ -4,13 +4,15 @@ import { Rental, Vehicle } from "../../api/dataTypes";
 import RentalService from "../../api/RentalService";
 import { useModal } from "mui-modal-provider";
 import { NoticeModal } from "./Modals";
+import { useNavigate } from "react-router-dom";
 
 type VehicleCardProps = {
   vehicle: Vehicle,
 }
 
 const VehicleCard = ({ vehicle }: VehicleCardProps) => {
-  const { showModal } = useModal()
+  const { showModal } = useModal();
+  const navigate = useNavigate();
 
   const handleRentVehicle = () => {
     RentalService.getCurrentRental("2").then((response) => {
@@ -24,7 +26,7 @@ const VehicleCard = ({ vehicle }: VehicleCardProps) => {
           }
         });
       } else {
-
+        navigate("driver/vehicles/"+vehicle.vehicleId);
       }
     })
   }

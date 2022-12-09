@@ -8,7 +8,7 @@ export type PendingRentalsContextType = {
 
 export const PendingRentalsContext = createContext<PendingRentalsContextType | null>(null);
 
-const PendingRentalsContextProvider = (props: { children: React.ReactNode }) => {
+const PendingRentalsProvider = (props: { children: React.ReactNode }) => {
   const [pendingRentals, setPendingRentals] = useState<Rental[]>([]);
 
   const value = {
@@ -23,4 +23,4 @@ const PendingRentalsContextProvider = (props: { children: React.ReactNode }) => 
   )
 }
 
-export default PendingRentalsContextProvider;
+export default PendingRentalsProvider;
