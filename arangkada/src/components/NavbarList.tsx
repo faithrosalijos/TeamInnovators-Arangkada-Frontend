@@ -1,6 +1,6 @@
 import { Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import { Logout, Person, Dashboard, Payment, Commute, People, Mail, DriveEta } from '@mui/icons-material';
-import { NavLink, NavLinkProps, useLocation } from 'react-router-dom'; 
+import { NavbarLink } from './NavbarLink';
 
 type NavbarListProps = {
   user: "Driver" | "Operator",
@@ -8,21 +8,19 @@ type NavbarListProps = {
 };
 
 const NavbarList = ({ open, user }: NavbarListProps) => {
-  const currentPath = useLocation();
-
-  const operatorList: { text: string, icon: React.ReactNode, link: string }[] = [
-    { text: "Dashboard", icon: <Dashboard />, link: "/operator" },
-    { text: "Vehicles", icon: <Commute />, link: "" },
-    { text: "Add Vehicles", icon: <DriveEta />, link: "" },
-    { text: "Drivers Renting", icon: <People />, link: "" },
-    { text: "Approval Request", icon: <Mail />, link: "/operator/requests" },
+  const operatorList: { text: string, icon: React.ReactNode, link: string, end: boolean }[] = [
+    { text: "Dashboard", icon: <Dashboard />, link: "/operator", end: true },
+    { text: "Vehicles", icon: <Commute />, link: "", end: false },
+    { text: "Add Vehicles", icon: <DriveEta />, link: "", end: false },
+    { text: "Drivers Renting", icon: <People />, link: "", end: false },
+    { text: "Approval Request", icon: <Mail />, link: "/operator/requests", end: false },
   ];
 
-  const driverList: { text: string, icon: React.ReactNode, link: string }[] = [
-    { text: "Dashboard", icon: <Dashboard />, link: "/driver" },
-    { text: "Vehicle Rentals", icon: <Commute />, link: "/driver/vehicles" },
-    { text: "Rental", icon: <DriveEta />, link: "/driver/rental" },
-    { text: "Payments", icon: <Payment />, link: "" },
+  const driverList: { text: string, icon: React.ReactNode, link: string, end: boolean }[] = [
+    { text: "Dashboard", icon: <Dashboard />, link: "/driver", end: true },
+    { text: "Vehicle Rentals", icon: <Commute />, link: "/driver/vehicles", end: false },
+    { text: "Rental", icon: <DriveEta />, link: "/driver/rental", end: false },
+    { text: "Payments", icon: <Payment />, link: "", end: false },
   ];
   
   const handleLogout = () => {
@@ -35,21 +33,7 @@ const NavbarList = ({ open, user }: NavbarListProps) => {
       <List>
         {(user === "Driver" ? driverList: operatorList).map((listItem, index) => (
           <ListItem key={index} disablePadding sx={{ display: 'block' }} >
-            <ListItemButton 
-              {...{ component: NavLink, to: listItem.link }}
-              // selected={currentPath.pathname === listItem.link}
-              sx={{
-              color: "primary.contrastText",
-              minHeight: 48,
-              justifyContent: open ? 'initial' : 'center', px: 2.5,
-              "&.Mui-selected": { backgroundColor: "primary.dark" },
-              "&.Mui-selected:hover": { backgroundColor: "primary.dark" },
-            }}>
-              <ListItemIcon sx={{ color: "primary.contrastText", minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }}>
-                {listItem.icon}
-              </ListItemIcon>
-              <ListItemText sx={{ opacity: open ? 1 : 0 }} primary={listItem.text} />
-            </ListItemButton>
+            <NavbarLink to={listItem.link} text={listItem.text} icon={listItem.icon} open={open} end={listItem.end} />
           </ListItem>
           ))}
       </List>
@@ -58,23 +42,8 @@ const NavbarList = ({ open, user }: NavbarListProps) => {
       {/* Secondary List */}
       <List>
         <ListItem disablePadding sx={{ display: 'block' }}>
-          <ListItemButton 
-            {...{ component: NavLink, to: user === "Driver"? "": ""}}
-            // selected={currentPath.pathname === (user === "Driver"? "": "")}
-            sx={{
-              color: "primary.contrastText",
-              minHeight: 48,
-              justifyContent: open ? 'initial' : 'center', px: 2.5,
-              "&.Mui-selected": { backgroundColor: "primary.dark" },
-              "&.Mui-selected:hover": { backgroundColor: "primary.dark" },
-          }}>
-            <ListItemIcon sx={{ color: "primary.contrastText", minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }}>
-              <Person />
-            </ListItemIcon>
-            <ListItemText sx={{ opacity: open ? 1 : 0 }} primary="Account" />
-          </ListItemButton>
+          <NavbarLink to={user === "Driver"? "": ""} text="Account" icon={<Person />} open={open} end={false} />
         </ListItem>
-
         <ListItem disablePadding sx={{ display: 'block' }}>
           <ListItemButton onClick={handleLogout} 
             sx={{
