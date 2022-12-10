@@ -121,6 +121,21 @@
     max-width: 0px;
   }
 
+  .contain3 {
+    background-color: white;
+    padding: 0.2rem;
+    border-radius: 20px;
+    box-shadow: 1px 3px #525252;
+  }
+  .wrapperA {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  .leftA {
+    margin-right: 10px;
+    margin-left: 150px;
+  }
   
   
   
