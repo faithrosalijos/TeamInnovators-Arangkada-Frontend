@@ -4,13 +4,19 @@ import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
-import { Stack } from '@mui/material';
+import { ButtonGroup, ListItem, ListItemButton, Stack } from '@mui/material';
 import Logo from '../images/logobrown.png';
+import { NavLink, useNavigate } from 'react-router-dom';
 
-
-const navItems = ['About Us', 'Contact Us', 'Login'];
 
 export default function DrawerAppBar() {
+
+  const navItems: { text: string, link: string }[] = [
+    { text: "About Us", link: "/aboutus" },
+    { text: "Contact Us", link: "/contactus" },
+    { text: "Login", link: "/login" },
+  ];
+  
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -27,10 +33,14 @@ export default function DrawerAppBar() {
             </Stack>
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            {navItems.map((item) => (
-              <Button key={item} sx={{ color: '#90794C' }}>
-                {item}
-              </Button>
+            {navItems.map((listItem, index) => (
+              <ButtonGroup orientation='horizontal'>
+                <ListItem key={index}>
+                  <ListItemButton sx={{ color: '#90794C'}} {...{ component: NavLink, to: listItem.link }}>
+                    {listItem.text}
+                  </ListItemButton>
+                </ListItem>
+              </ButtonGroup>
             ))}
           </Box>
         </Toolbar>

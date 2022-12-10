@@ -13,6 +13,15 @@ import OperatorMainLayout from './layouts/OperatorMainLayout';
 import OperatorDashboard from './pages/kerr/OperatorDashboard';
 import ApprovalRequest from './pages/faith/ApprovalRequest';
 import PendingRentalsProvider from './helpers/PendingRentalsContext';
+import ProfilePageOp from './pages/cara/ProfilePageOp';
+import EditProfilePageOp from './pages/cara/EditProfilePageOp';
+import EditBusinessInfoPage from './pages/cara/EditBusinessInfoPage';
+import DeleteAccPage from './pages/cara/DeleteAccPage';
+import RegistrationOneOp from './pages/cara/RegistrationOneOp';
+import RegistrationTwoOp from './pages/cara/RegistrationTwoOp';
+import Landing from './components/karylle/LandingPage';
+import ContactUsPage from './pages/cara/ContactUsPage';
+import AboutUsPageD from './pages/karylle/AboutUsPageD';
 
 /* Customize default mui theme */
 const theme = createTheme({
@@ -55,11 +64,26 @@ const App = () => {
         <Route path="operator" element={<OperatorMainLayout />}>
           <Route index element={<OperatorDashboard/>} />
           <Route path="requests" element={<PendingRentalsProvider><ApprovalRequest /></PendingRentalsProvider>} />
+          <Route path="operatorprofile">
+            <Route index element={<ProfilePageOp/>} />
+            <Route path="editoperatorprof" element={<EditProfilePageOp/>} />
+            <Route path="editbusinessinfo" element={<EditBusinessInfoPage/>} />
+            <Route path="deleteop" element={<DeleteAccPage/>} />
+          </Route>
 
         </Route>
 
         {/* Other pages */}
-        
+        <Route path="registration">
+          <Route index element={<RegistrationOneOp />} />
+          <Route path="registeroperator" element={<RegistrationTwoOp/>} />
+        </Route>
+
+        <Route path="landing" element={<Landing/>} />
+        <Route path="aboutus" element={<AboutUsPageD/>}/>
+        <Route path="contactus" element={<ContactUsPage/>} />
+        <Route path="login" element={<ContactUsPage/>} />
+
 
       </Routes>
     </ModalProvider>

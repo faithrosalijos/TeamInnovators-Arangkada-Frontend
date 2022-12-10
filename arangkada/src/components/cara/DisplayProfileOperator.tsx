@@ -1,7 +1,21 @@
 import { Box, Button, FormControl, InputLabel, MenuItem, Select, Stack, TextField } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 
 export default function OperatorInfo() {
+    const navigate = useNavigate();
+
+    const handleUserEditClick = () => {
+        //navigate("driver/vehicles/"+vehicle.vehicleId);
+        navigate("/operator/operatorprofile/editoperatorprof/");
+    }
+    const handleBusinessEditClick = () => {
+        navigate("/operator/operatorprofile/editbusinessinfo/");
+    }
+    const handleDeleteClick = () => {
+        navigate("/operator/operatorprofile/deleteop/");
+    }
+
     return (
         <div>
             <div>
@@ -40,7 +54,7 @@ export default function OperatorInfo() {
                 <TextField id="outlined-read-only-input" label="Username" defaultValue="johndoe123" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
                 <TextField id="outlined-read-only-input" label="Password" defaultValue="qwerty00" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
                 <Stack direction="row" justifyContent="end">
-                    <Button variant="contained" style={{backgroundColor: '#D2A857', marginTop: 25, marginLeft: 15, marginRight: 15, paddingInline: 60}}>Edit</Button>
+                    <Button variant="contained" onClick={handleUserEditClick} style={{backgroundColor: '#D2A857', marginTop: 25, marginLeft: 15, marginRight: 15, paddingInline: 60}}>Edit</Button>
                 </Stack>
                 <div>
                     <h2 style={{textAlign: 'left', color: '#90794C'}}>Business Information</h2>
@@ -51,8 +65,8 @@ export default function OperatorInfo() {
             </div>
             
             <Stack direction="row" justifyContent="end" paddingBottom={7}>
-                <Button variant="contained" style={{backgroundColor: '#D76666', marginTop: 25}}>Delete Account</Button>
-                <Button variant="contained" style={{backgroundColor: '#D2A857', marginTop: 25, marginLeft: 15, marginRight: 15, paddingInline: 60}}>Edit</Button>
+                <Button variant="contained" onClick={handleDeleteClick} style={{backgroundColor: '#D76666', marginTop: 25}}>Delete Account</Button>
+                <Button variant="contained" onClick={handleBusinessEditClick} style={{backgroundColor: '#D2A857', marginTop: 25, marginLeft: 15, marginRight: 15, paddingInline: 60}}>Edit</Button>
             </Stack>
         
         </div>

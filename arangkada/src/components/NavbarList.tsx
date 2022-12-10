@@ -59,7 +59,7 @@ const NavbarList = ({ open, user }: NavbarListProps) => {
       <List>
         <ListItem disablePadding sx={{ display: 'block' }}>
           <ListItemButton 
-            {...{ component: NavLink, to: user === "Driver"? "": ""}}
+            {...{ component: NavLink, to: user === "Driver"? "": "/operator/operatorprofile"}}
             // selected={currentPath.pathname === (user === "Driver"? "": "")}
             sx={{
               color: "primary.contrastText",
