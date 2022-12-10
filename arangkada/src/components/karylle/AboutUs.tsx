@@ -8,9 +8,9 @@ export default function ContactUs() {
         <div>
             <div className="App">
                 <p style={{fontSize: 40, color: '#90794C', textAlign: 'left', marginLeft: 200}}>About Us</p>
-                <div style={{backgroundColor: '#D2A857', borderRadius: 30, padding: 40, maxWidth: 650, marginLeft: 275}}>
+                <div style={{backgroundColor: '#D2A857', borderRadius: 30, padding: 30, maxWidth: 800, marginLeft: 215, opacity:'0.94'}}>
                     <div>
-                        <p style={{color: '#ffffff', fontSize: 16, paddingLeft: 5, textAlign:'justify'}}>
+                        <p style={{color: '#261D0C', fontSize: 17, paddingLeft: 5, textAlign:'justify'}}>
                         Arangkada is a PUV rental management system app that helps both PUV Operators and Professional
                         Licensed Drivers make transactions in a fast and more convenient way. 
                         <br></br><br></br>
