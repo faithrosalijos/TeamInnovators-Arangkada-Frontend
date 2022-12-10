@@ -96,6 +96,15 @@
     margin-right: 120px;
     margin-left: auto;
   }
+
+  .bgimg{
+    background-image: url('../images/Login.png');
+    background-position: center;
+    background-size: cover;
+    height: 650px;
+    width: 1500px;
+
+  }
   
   
   
