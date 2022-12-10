@@ -7,7 +7,7 @@ export default function Login(){
     return (
         <div className="bgimg">
             
-            <div style={{ backgroundColor: 'white', marginLeft: 150, maxWidth: 550, maxHeight: 670, textAlign: 'left', marginBottom:'1rem'}}>
+            <div style={{ paddingLeft: 50, backgroundColor: 'white', padding: 3, marginLeft: 650, maxWidth: 550, maxHeight: 670, textAlign: 'left', marginBottom:'1rem'}}>
                 
                 <h2>Log in</h2><br></br>
                 <TextField id="outlined-basic" label="Username" variant="outlined" sx={{margin: 1, width: { sm:400, md:400}}}/><br></br><br></br>
