@@ -3,24 +3,20 @@ import { Button, Grid, InputAdornment, TextField } from "@mui/material";
 import { Search, Person, LocationOn } from "@mui/icons-material";
 
 type VehicleFilterFormProps = {
-  handleFilterSubmit: (businessName: string, operatorName: string, route: string) => void,
+  handleFilterSubmit: (filters: { businessName: string, operatorName: string, route: string }) => void,
   handleFilterClear: () => void,
 }
 
 const VehicleFilterForm = ({ handleFilterSubmit, handleFilterClear }: VehicleFilterFormProps) => {
-  const [businessName, setBusinessName] = useState("");
-  const [operatorName, setOperatorName] = useState("");
-  const [route, setRoute] = useState("");
+  const [filters, setFilters] = useState({ businessName: "", operatorName: "", route: "" });
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    handleFilterSubmit(businessName, operatorName, route);
+    handleFilterSubmit(filters);
   }
 
   const handleClear = (event: React.MouseEvent) => {
-    setBusinessName("");
-    setOperatorName("");
-    setRoute("");
+    setFilters({ businessName: "", operatorName: "", route: "" });
     handleFilterClear();
   }
 
@@ -28,8 +24,8 @@ const VehicleFilterForm = ({ handleFilterSubmit, handleFilterClear }: VehicleFil
     <Grid container spacing={2} onSubmit={handleSubmit} component="form">
       <Grid item xs={12} md={3}>
         <TextField
-          onChange={(event) => setBusinessName(event.target.value)}
-          value={businessName}
+          onChange={(event) => setFilters({...filters, businessName: event.target.value})}
+          value={filters.businessName}
           label="Search by Business Name"
           size="small"
           fullWidth
@@ -38,8 +34,8 @@ const VehicleFilterForm = ({ handleFilterSubmit, handleFilterClear }: VehicleFil
       </Grid>
       <Grid item xs={12} md={3}>
         <TextField
-          onChange={(event) => setOperatorName(event.target.value)}
-          value={operatorName}
+          onChange={(event) => setFilters({...filters, operatorName: event.target.value})}
+          value={filters.operatorName}
           label="Operator Name"
           size="small"
           fullWidth
@@ -48,8 +44,8 @@ const VehicleFilterForm = ({ handleFilterSubmit, handleFilterClear }: VehicleFil
       </Grid>
       <Grid item xs={12} md={3}>
         <TextField
-          onChange={(event) => setRoute(event.target.value)}
-          value={route}
+          onChange={(event) => setFilters({...filters, route: event.target.value})}
+          value={filters.route}
           label="Route"
           size="small"
           fullWidth InputProps={{ startAdornment: (<InputAdornment position="start"> <LocationOn /> </InputAdornment>) }}

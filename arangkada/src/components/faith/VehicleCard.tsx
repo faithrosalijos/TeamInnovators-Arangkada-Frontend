@@ -15,9 +15,9 @@ const VehicleCard = ({ vehicle }: VehicleCardProps) => {
   const navigate = useNavigate();
 
   const handleRentVehicle = () => {
-    RentalService.getCurrentRental("2").then((response) => {
-      const currentRental: Rental | null = response.data;
-      if (currentRental !== null) {
+    RentalService.getCurrentRental("1").then((response) => {
+      const currentRental: Rental = response.data;
+      if(currentRental) {
         const modal = showModal(NoticeModal, {
           title: "You have an ogoing or pending rental.",
           content: "You can only have one rental at a time. Finish or cancel your ongoing or pending rental first.",
@@ -26,7 +26,7 @@ const VehicleCard = ({ vehicle }: VehicleCardProps) => {
           }
         });
       } else {
-        navigate("driver/vehicles/"+vehicle.vehicleId);
+        navigate("/driver/vehicles/" + vehicle.vehicleId);
       }
     })
   }
