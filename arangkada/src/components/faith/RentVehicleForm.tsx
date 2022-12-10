@@ -37,7 +37,7 @@ const RentVehicleForm = () => {
   }
 
   const handleBack = () => {
-    navigate(-1);
+    navigate("../", { replace: true });
   }
 
   return (

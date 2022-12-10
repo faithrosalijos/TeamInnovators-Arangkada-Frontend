@@ -8,8 +8,10 @@ import { ConfirmationModal, NoticeModal } from "./Modals";
 import RentalService from "../../api/RentalService";
 import { CurrentRentalContext, CurrentRentalContextType } from "../../helpers/CurrentRentalContext";
 import { Rental } from "../../api/dataTypes";
+import { useNavigate } from "react-router-dom";
 
 const UpdateRentalForm = () => {
+  const navigate = useNavigate();
   const { showModal } = useModal();
   const { currentRental, setCurrentRental } = useContext(CurrentRentalContext) as CurrentRentalContextType;
 
@@ -53,7 +55,7 @@ const UpdateRentalForm = () => {
   }
 
   const handleCancelRental = () => {
-    // Go to Cancel Rental Page
+    navigate("/driver/rental/cancel");
 
     // If not paid
     // const modal = showModal(NoticeModal, {

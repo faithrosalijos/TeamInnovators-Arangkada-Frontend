@@ -4,8 +4,10 @@ import { Visibility, VisibilityOff } from "@mui/icons-material";
 import RentalService from "../../api/RentalService";
 import { CurrentRentalContext, CurrentRentalContextType } from "../../helpers/CurrentRentalContext";
 import { Rental } from "../../api/dataTypes";
+import { useNavigate } from "react-router-dom";
 
 const CancelRentalForm = () => {
+  const navigate = useNavigate();
   const { currentRental, setCurrentRental } = useContext(CurrentRentalContext) as CurrentRentalContextType;
 
   const [password, setPassword] = useState<string>("");
@@ -32,14 +34,18 @@ const CancelRentalForm = () => {
           setCurrentRental({} as Rental);
         }).catch((error) => {
           console.log(error);
+        }).finally(() => {
+          navigate("../", { replace: true });
         })
-      // Go back to Rental Page
-
     }
   }
 
   const handlePasswordShow = () => {
     setShowPassword(!showPassword);
+  }
+
+  const handleBack = () => {
+    navigate("../");
   }
 
   return (
@@ -63,7 +69,7 @@ const CancelRentalForm = () => {
         )}}
       />
       <Stack spacing={3} direction={{ xs: "column-reverse", md: "row" }} sx={{ justifyContent: "end" }}>
-        <Button color="secondary" variant="contained" sx={{ width: "250px" }}>No, Go Back</Button>
+        <Button onClick={handleBack} color="secondary" variant="contained" sx={{ width: "250px" }}>No, Go Back</Button>
         <Button type="submit" variant="contained" sx={{ width: "250px" }}>Yes, Proceed</Button>
       </Stack>
     </Stack>
