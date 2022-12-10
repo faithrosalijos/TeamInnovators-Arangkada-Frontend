@@ -7,7 +7,7 @@ export default function Login(){
     return (
         <div >
             <div><br></br><br></br><br></br><br></br></div>
-            <div style={{ paddingLeft: 35, paddingRight: 35, backgroundColor: 'white', padding: 2, marginLeft: -130, maxWidth: 600, maxHeight: 670, textAlign: 'left', marginBottom:'1rem', borderRadius:35, opacity:'0.91'}}>
+            <div style={{ paddingLeft: 50, paddingRight: 50, backgroundColor: 'white', padding: 2, marginLeft: -130, maxWidth: 600, maxHeight: 670, textAlign: 'left', marginBottom:'1rem', borderRadius:35, opacity:'0.91'}}>
                 <br></br>
                 <h1>Log in</h1><br></br><br></br>
                 <TextField id="outlined-basic" label="Username" variant="outlined" sx={{margin: 0, width: { sm:400, md:400}}}/><br></br><br></br><br></br>
