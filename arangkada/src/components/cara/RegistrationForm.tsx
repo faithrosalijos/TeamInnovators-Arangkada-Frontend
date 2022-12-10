@@ -1,6 +1,7 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Button, Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Select, SelectChangeEvent, TextField, InputAdornment, IconButton } from "@mui/material"
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 export default function RegistrationForm() {
@@ -17,6 +18,7 @@ export default function RegistrationForm() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate();
 
     const handlePasswordShow = () => {
         setShowPassword(!showPassword);
@@ -69,6 +71,10 @@ export default function RegistrationForm() {
     const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(event.target.value);
     };
+
+    const handleContinueClick = () => {
+        navigate("/registration/registeroperator/");
+    }
     
 
     return (
@@ -115,7 +121,7 @@ export default function RegistrationForm() {
                     sx={{margin: 1, width:{sd: 700, md: 700}}} 
                     InputProps={{ endAdornment: (<InputAdornment position="end"> <IconButton onClick={handlePasswordShow}>{showPassword? <VisibilityOff />: <Visibility /> }</IconButton> </InputAdornment>) }} 
                 />
-            <Button variant="contained" style={{backgroundColor: '#D2A857', marginTop: 25, paddingInline: 40}}>Continue</Button><br></br>
+            <Button variant="contained" onClick={handleContinueClick} style={{backgroundColor: '#D2A857', marginTop: 25, paddingInline: 40}}>Continue</Button><br></br>
             <p style={{color: 'gray', fontSize: '15px'}}>By continuing, you agree to Arangkadas's <a href="https://www.facebook.com/cara.q.encabo"  className="links">Terms of Service</a> and acknowledge you've read our <a href="https://www.facebook.com/cara.q.encabo" className="links">Privacy Policy</a></p>
 
             <strong><a href="https://www.facebook.com/cara.q.encabo"  className="links" style={{fontSize: '18px'}}>Have an account? Log in</a></strong>
