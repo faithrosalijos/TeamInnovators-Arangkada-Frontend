@@ -101,10 +101,27 @@
     background-image: url('../images/Login.png');
     background-position: center;
     background-size: cover;
-    height: 650px;
-    width: 1500px;
-
+    height: 649px;
+    width: 1366px;
   }
+
+  .leftL {
+    padding-top: 180px;
+    margin-right: 300px;
+    margin-left: 200px;
+  }
+
+  .linksL{
+    color: #ffffff;
+  }
+
+  .wrapperL {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    max-width: 0px;
+  }
+
+  
   
   
   
