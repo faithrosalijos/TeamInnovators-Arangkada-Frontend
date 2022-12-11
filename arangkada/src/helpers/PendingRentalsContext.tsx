@@ -3,7 +3,7 @@ import { Rental } from "../api/dataTypes"
 
 export type PendingRentalsContextType = {
   pendingRentals: Rental[],
-  setPendingRentals: Dispatch<React.SetStateAction<Rental[]>>,
+  handleSetPendingRentals: (rentals: Rental[]) => void,
 }
 
 export const PendingRentalsContext = createContext<PendingRentalsContextType | null>(null);
@@ -11,9 +11,13 @@ export const PendingRentalsContext = createContext<PendingRentalsContextType | n
 const PendingRentalsProvider = (props: { children: React.ReactNode }) => {
   const [pendingRentals, setPendingRentals] = useState<Rental[]>([]);
 
+  const handleSetPendingRentals = (rentals: Rental[]) => {
+    setPendingRentals(rentals);
+  }
+
   const value = {
     pendingRentals,
-    setPendingRentals,
+    handleSetPendingRentals,
   }
 
   return (

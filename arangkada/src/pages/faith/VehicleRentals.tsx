@@ -18,7 +18,9 @@ const VehicleRentals = () => {
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
   
   useEffect(() => {
-    VehicleService.getVehicleByVehicleType("Jeepney").then((response) => {
+    VehicleService.getVehicleByVehicleType(
+      "Jeepney"
+    ).then((response) => {
       setVehicles(response.data);
       setError('');
     }).catch((error) => {
