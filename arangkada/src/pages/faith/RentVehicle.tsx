@@ -6,22 +6,33 @@ import VehicleDetails from "../../components/faith/VehicleDetails";
 import PageHeader from "../../components/PageHeader";
 import { Vehicle } from "../../api/dataTypes";
 import Footer from "../../components/Footer";
+import VehicleService from "../../api/VehicleService";
+import { useParams } from "react-router-dom";
+import Loading from "../../components/faith/Loading";
+import ResponseError from "../../components/faith/ResponseError";
 
 const RentVehicle = () => {
-  const [vehicle, setVehicle] = useState<Vehicle>(
-    {
-      vehicleId: 1, plateNumber: "XXX-XX1", route: "01K", vehicleType: "Jeepney", makeModel: "Model XX", vin: 1, orStatus: "OR Status", vehicleCondition: "Vehicle Condition", rentalFee: 500.0,
-      operator: {
-        operatorId: 1, businessName: "Doe PUV", permitNumber: "XXX-XXX",
-        account: { accountId: 3, firstname: "John", middlename: "", lastname: "Doe", birthdate: "2000-12-31", age: 24, contactNumber: "9998765544", address: "ABC City", gender: "Maleale", username: "john.doe", password: "john", accountType: "operator" }
-      }
-    }
-  );
+  const {id } = useParams() as { id: string };
+  const [vehicle, setVehicle] = useState<Vehicle>({} as Vehicle);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    // http get request here
-
+    VehicleService.getVehicleByVehicleId(
+      id
+    ).then((response) => {
+      setVehicle(response.data);
+      setError('');
+    }).catch((error) => {
+      setError(error.message);
+    }).finally(() => {
+      setLoading(false);
+    })
   }, []);
+
+  if (loading) return (<Loading />)
+
+  if (error !== '') return (<ResponseError message={error} />)
 
   return (
     <>
