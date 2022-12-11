@@ -3,7 +3,7 @@ import { Rental } from "../api/dataTypes"
 
 export type CurrentRentalContextType = {
   currentRental: Rental,
-  setCurrentRental: Dispatch<React.SetStateAction<Rental>>,
+  handleSetCurrentRental: (rental: Rental) => void,
 }
 
 export const CurrentRentalContext = createContext<CurrentRentalContextType | null>(null);
@@ -11,9 +11,13 @@ export const CurrentRentalContext = createContext<CurrentRentalContextType | nul
 const CurrentRentalProvider = (props: { children: React.ReactNode }) => {
   const [currentRental, setCurrentRental] = useState<Rental>({} as Rental);
 
+  const handleSetCurrentRental = (rental: Rental) => {
+    setCurrentRental(rental);
+  }
+
   const value = {
     currentRental,
-    setCurrentRental,
+    handleSetCurrentRental,
   }
 
   return (

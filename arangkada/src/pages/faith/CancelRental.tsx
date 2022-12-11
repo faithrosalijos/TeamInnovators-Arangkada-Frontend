@@ -7,7 +7,7 @@ import { useContext } from "react";
 import { CurrentRentalContext, CurrentRentalContextType } from "../../helpers/CurrentRentalContext";
 
 const CancelRental = () => {
-  const { currentRental, setCurrentRental } = useContext(CurrentRentalContext) as CurrentRentalContextType;
+  const { currentRental } = useContext(CurrentRentalContext) as CurrentRentalContextType;
   
   return (
     <>
