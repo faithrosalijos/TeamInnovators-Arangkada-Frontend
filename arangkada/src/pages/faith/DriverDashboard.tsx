@@ -2,7 +2,7 @@ import { Box, Grid, Paper, Typography } from "@mui/material";
 import DashboardCard from "../../components/faith/DashboardCard";
 import PageHeader from "../../components/PageHeader";
 import { useEffect, useState } from "react";
-import { CarRental, Commute, Cancel, TaskAlt } from "@mui/icons-material";
+import { DriveEta, Cancel, TaskAlt, CheckCircle } from "@mui/icons-material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import RentalService from "../../api/RentalService";
 import { Rental } from "../../api/dataTypes";
@@ -28,7 +28,9 @@ const DriverDashboard = () => {
   ]
 
   useEffect(() => {
-    RentalService.getRentalsByDriver("1").then((response) => {
+    RentalService.getRentalsByDriver(
+      "1"
+    ).then((response) => {
       setRentals(response.data);
       setError('');
     }).catch((error) => {
@@ -51,12 +53,12 @@ const DriverDashboard = () => {
         <Grid container spacing={2}>
           <Grid item xs={12} md={6} lg={3}>
             <DashboardCard title="Approved Rentals" count={rentals.filter((rental) => rental.status !== "PENDING" && rental.status !== "DECLINED" && rental.status !== "EXPIRED").length}>
-              <Commute fontSize="large" color="secondary" />
+              <CheckCircle fontSize="large" color="success" />
             </DashboardCard>
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
             <DashboardCard title="Ongoing Rental" count={rentals.filter((rental) => rental.current === true).length}>
-              <CarRental fontSize="large" color="info" />
+              <DriveEta fontSize="large" color="primary" />
             </DashboardCard>
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
@@ -66,7 +68,7 @@ const DriverDashboard = () => {
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
             <DashboardCard title="Finished Rental" count={rentals.filter((rental) => rental.status === "FINISHED" && rental.current === false).length}>
-              <TaskAlt fontSize="large" color="success" />
+              <TaskAlt fontSize="large" color="info" />
             </DashboardCard>
           </Grid>
         </Grid>
