@@ -1,6 +1,7 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Button, FormControl, IconButton, InputAdornment, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, TextField } from "@mui/material";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 export default function OperatorInfo() {
@@ -14,6 +15,7 @@ export default function OperatorInfo() {
     const [address, setAddress] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
 
     const handleGenderChange = (event: SelectChangeEvent) => {
         setGender(event.target.value as string);
@@ -54,6 +56,10 @@ export default function OperatorInfo() {
     const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(event.target.value);
     };
+
+    const handleCancelClick = () => {
+        navigate("/operator/operatorprofile/");
+    }
 
 
     
@@ -96,7 +102,7 @@ export default function OperatorInfo() {
             </div>
             
             <Stack direction="row" justifyContent="end" padding={7}>
-                <Button variant="contained" style={{backgroundColor: '#828E99', marginTop: 25, paddingInline: 40}}>Cancel</Button>
+                <Button variant="contained" onClick={handleCancelClick} style={{backgroundColor: '#828E99', marginTop: 25, paddingInline: 40}}>Cancel</Button>
                 <Button variant="contained" style={{backgroundColor: '#D2A857', marginTop: 25, paddingInline: 40, marginLeft: 15}}>Save Changes</Button>
             </Stack>
             
