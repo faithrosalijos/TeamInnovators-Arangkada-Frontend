@@ -21,9 +21,9 @@ export type Operator = {
 }
 
 export type Driver = {
-  driverid: number,
-  licensenumber: string,
-  licensecode: string,
+  driverId: number,
+  licenseNumber: string,
+  licenseCode: string,
   account: Account,
 }
 
@@ -48,6 +48,20 @@ export type Rental = {
   current: boolean,
   vehicle: Vehicle,
   driver: Driver,
+}
+
+export type PostRental = {
+  startDate: string,
+  endDate: string,
+  vehicle: { vehicleId: number }
+  driver: { driverId: number }
+}
+
+export type PutRental = {
+  startDate: string,
+  endDate: string,
+  status: string,
+  current: boolean
 }
 
 export type Payment = {
