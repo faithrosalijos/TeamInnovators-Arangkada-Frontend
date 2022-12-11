@@ -50,9 +50,9 @@ const PayRent = () => {
         },
 
         driver: {
-            driverid: 1, 
-            licensenumber: "GXX-XX-XXXXXX", 
-            licensecode: "A,A1,B,B1",
+            driverId: 1, 
+            licenseNumber: "GXX-XX-XXXXXX", 
+            licenseCode: "A,A1,B,B1",
             
             account: {
                 accountId: 1, 
