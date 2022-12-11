@@ -1,7 +1,7 @@
+import './styles/SupportStyles.css';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
 import DriverMainLayout from './layouts/DriverMainLayout';
-import './styles/SupportStyles.css';
 import ModalProvider from 'mui-modal-provider';
 import { Route, Routes } from 'react-router-dom';
 import DriverDashboard from './pages/faith/DriverDashboard';
@@ -22,6 +22,9 @@ import RegistrationTwoOp from './pages/cara/RegistrationTwoOp';
 import Landing from './components/karylle/LandingPage';
 import ContactUsPage from './pages/cara/ContactUsPage';
 import AboutUsPageD from './pages/karylle/AboutUsPageD';
+import CancelRental from './pages/faith/CancelRental';
+import SnackbarContextProvider from './helpers/SnackbarContext';
+import Snackbar from './components/faith/Snackbar';
 
 /* Customize default mui theme */
 const theme = createTheme({
@@ -48,6 +51,7 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
     <ModalProvider>
+    <SnackbarContextProvider>
       <Routes>
         {/* Driver Pages */}
         <Route path="driver" element={<DriverMainLayout />}>
@@ -56,7 +60,10 @@ const App = () => {
             <Route index element={<VehicleRentals />} />
             <Route path=":id" element={<RentVehicle />} />
           </Route>
-          <Route path="rental" element={<CurrentRentalProvider><Rental /></CurrentRentalProvider>} />
+          <Route path="rental">
+            <Route index element={<CurrentRentalProvider><Rental /></CurrentRentalProvider>} />
+            <Route path="cancel" element={<CurrentRentalProvider><CancelRental /></CurrentRentalProvider>} />
+          </Route>
 
         </Route>
         
@@ -86,6 +93,9 @@ const App = () => {
 
 
       </Routes>
+      
+      <Snackbar />
+    </SnackbarContextProvider>
     </ModalProvider>
     </ThemeProvider>
   );
