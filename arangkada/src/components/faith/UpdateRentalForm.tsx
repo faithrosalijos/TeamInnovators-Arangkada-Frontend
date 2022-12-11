@@ -9,11 +9,13 @@ import RentalService from "../../api/RentalService";
 import { CurrentRentalContext, CurrentRentalContextType } from "../../helpers/CurrentRentalContext";
 import { Rental } from "../../api/dataTypes";
 import { useNavigate } from "react-router-dom";
+import { SnackbarContext, SnackbarContextType } from "../../helpers/SnackbarContext";
 
 const UpdateRentalForm = () => {
   const navigate = useNavigate();
   const { showModal } = useModal();
-  const { currentRental, setCurrentRental } = useContext(CurrentRentalContext) as CurrentRentalContextType;
+  const { handleSetMessage } = useContext(SnackbarContext) as SnackbarContextType;
+  const { currentRental, handleSetCurrentRental } = useContext(CurrentRentalContext) as CurrentRentalContextType;
 
   const currentDate = new Date(new Date().setHours(0, 0, 0, 0));
   const [startDate, setStartDate] = useState<Date | null>(new Date(currentRental.startDate));
@@ -41,16 +43,17 @@ const UpdateRentalForm = () => {
     else {
       RentalService.putRental(
         currentRental.rentalId.toString(),
-        {
-          startDate: startDate.toJSON(),
-          endDate: endDate.toJSON(),
-          status: currentRental.status,
-          current: currentRental.current,
-        }).then((response) => {
-          setCurrentRental(response.data);
-        }).catch((error) => {
-          console.log(error);
-        })
+      {
+        startDate: startDate.toJSON(),
+        endDate: endDate.toJSON(),
+        status: currentRental.status,
+        current: currentRental.current,
+      }).then((response) => {
+        handleSetCurrentRental(response.data);
+        handleSetMessage("Rental updated.");
+      }).catch(() => {
+        handleSetMessage("Failed to updated rental.");
+      })
     }
   }
 
@@ -70,16 +73,17 @@ const UpdateRentalForm = () => {
   const handleFinishRental = () => {
     RentalService.putRental(
       currentRental.rentalId.toString(),
-      {
-        startDate: currentRental.startDate,
-        endDate: currentRental.endDate,
-        status: currentRental.status,
-        current: false,
-      }).then(() => {
-        setCurrentRental({} as Rental);
-      }).catch((error) => {
-        console.log(error);
-      })
+    {
+      startDate: currentRental.startDate,
+      endDate: currentRental.endDate,
+      status: currentRental.status,
+      current: false,
+    }).then(() => {
+      handleSetCurrentRental({} as Rental);
+      handleSetMessage("Rental finished.");
+    }).catch(() => {
+      handleSetMessage("Failed to finish rental.");
+    })
 
     // If not paid
     // const modal = showModal(NoticeModal, {
@@ -100,7 +104,14 @@ const UpdateRentalForm = () => {
       },
       onConfirm: () => {
         modal.hide();
-
+        RentalService.deleteRental(
+          currentRental.rentalId.toString()
+        ).then(() => {
+          handleSetCurrentRental({} as Rental);
+          handleSetMessage("Rental application cancelled.");
+        }).catch(() => {
+          handleSetMessage("Failed to cancel rental application.");
+        })
       }
     });
   }
@@ -133,7 +144,7 @@ const UpdateRentalForm = () => {
             </>
           }
           {currentRental.status === "APPROVED" && <Button onClick={handleCancelRental} color="error" variant="contained" sx={{ width: "250px" }}>Cancel Rental</Button>}
-          {currentRental.status === "FINISHED" && <Button onClick={handleFinishRental} color="success" variant="contained" sx={{ width: "250px" }}>Finish Rental</Button>}
+          {currentRental.status === "FINISHED" && <Button onClick={handleFinishRental} color="info" variant="contained" sx={{ width: "250px" }}>Finish Rental</Button>}
         </Stack>
       </Stack>
     </LocalizationProvider>

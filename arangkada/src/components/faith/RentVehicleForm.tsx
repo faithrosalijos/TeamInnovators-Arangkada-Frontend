@@ -2,11 +2,16 @@ import { Button, Stack, TextField } from "@mui/material";
 import { DesktopDatePicker } from "@mui/x-date-pickers";
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from "@mui/x-date-pickers";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import RentalService from "../../api/RentalService";
+import { SnackbarContext, SnackbarContextType } from "../../helpers/SnackbarContext";
 
 const RentVehicleForm = () => {
   const navigate = useNavigate();
+  const {id } = useParams() as { id: string };
+  const { handleSetMessage } = useContext(SnackbarContext) as SnackbarContextType;
+  
   const currentDate = new Date(new Date().setHours(0, 0, 0, 0));
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
@@ -31,8 +36,17 @@ const RentVehicleForm = () => {
     else if (endDate < startDate)
       setEndDateError("End date must not be before the start date.");
     else {
-      // http post request here
-
+      RentalService.postRental({
+        startDate: startDate.toJSON(),
+        endDate: endDate.toJSON(),
+        vehicle: { vehicleId: +id },
+        driver: { driverId: 1 },
+      }).then(() => {
+        handleSetMessage("Vehicle rented.");
+        navigate("/driver/rental");
+      }).catch(() => {
+        handleSetMessage("Failed to rent vehicle.");
+      })
     }
   }
 

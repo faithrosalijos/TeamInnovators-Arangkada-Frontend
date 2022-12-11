@@ -12,13 +12,13 @@ const ApprovalRequest = () => {
   const PAGE_SIZE = 5;
   const [pagination, setPagination] = useState({from: 0, to: PAGE_SIZE});
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
-  const { pendingRentals, setPendingRentals } = useContext(PendingRentalsContext) as PendingRentalsContextType;
+  const [error, setError] = useState("");
+  const { pendingRentals, handleSetPendingRentals } = useContext(PendingRentalsContext) as PendingRentalsContextType;
   
   useEffect(() => {
     RentalService.getRentalsByOperatorAndStatus("2", "PENDING").then((response) => {
-      setPendingRentals(response.data);
-      setError('');
+      handleSetPendingRentals(response.data);
+      setError("");
     }).catch((error) => {
       setError(error.message);
     }).finally(() => {

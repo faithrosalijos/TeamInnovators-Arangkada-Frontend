@@ -5,10 +5,12 @@ import RentalService from "../../api/RentalService";
 import { CurrentRentalContext, CurrentRentalContextType } from "../../helpers/CurrentRentalContext";
 import { Rental } from "../../api/dataTypes";
 import { useNavigate } from "react-router-dom";
+import { SnackbarContext, SnackbarContextType } from "../../helpers/SnackbarContext";
 
 const CancelRentalForm = () => {
   const navigate = useNavigate();
-  const { currentRental, setCurrentRental } = useContext(CurrentRentalContext) as CurrentRentalContextType;
+  const { currentRental, handleSetCurrentRental } = useContext(CurrentRentalContext) as CurrentRentalContextType;
+  const { handleSetMessage } = useContext(SnackbarContext) as SnackbarContextType;
 
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState(false);
@@ -25,18 +27,18 @@ const CancelRentalForm = () => {
     } else {
       RentalService.putRental(
         currentRental.rentalId.toString(),
-        {
-          startDate: currentRental.startDate,
-          endDate: currentRental.endDate,
-          status: "CANCELLED",
-          current: false,
-        }).then(() => {
-          setCurrentRental({} as Rental);
-        }).catch((error) => {
-          console.log(error);
-        }).finally(() => {
-          navigate("../", { replace: true });
-        })
+      {
+        startDate: currentRental.startDate,
+        endDate: currentRental.endDate,
+        status: "CANCELLED",
+        current: false,
+      }).then(() => {
+        handleSetCurrentRental({} as Rental);
+        handleSetMessage("Rental cancelled.");
+        navigate("../", { replace: true });
+      }).catch(() => {
+        handleSetMessage("Failed to cancel rental.");
+      })
     }
   }
 

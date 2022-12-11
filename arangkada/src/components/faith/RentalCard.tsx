@@ -7,6 +7,7 @@ import Status from "./Status";
 import RentalService from "../../api/RentalService";
 import { PendingRentalsContext, PendingRentalsContextType } from "../../helpers/PendingRentalsContext";
 import { useContext } from "react";
+import { SnackbarContext, SnackbarContextType } from "../../helpers/SnackbarContext";
 
 type RentalCardProps = {
   rental: Rental,
@@ -14,7 +15,8 @@ type RentalCardProps = {
 
 const RentalCard = ({ rental }: RentalCardProps) => {
   const { showModal } = useModal();
-  const { pendingRentals, setPendingRentals } = useContext(PendingRentalsContext) as PendingRentalsContextType;
+  const { handleSetMessage } = useContext(SnackbarContext) as SnackbarContextType;
+  const { pendingRentals, handleSetPendingRentals } = useContext(PendingRentalsContext) as PendingRentalsContextType;
 
   const handleApprove = () => {
     const modal = showModal(ConfirmationModal, {
@@ -31,9 +33,10 @@ const RentalCard = ({ rental }: RentalCardProps) => {
           status: "APPROVED",
           current: rental.current,
         }).then((response) => {
-          setPendingRentals(pendingRentals.filter((pendingRental) => pendingRental.rentalId !== response.data.rentalId))
-        }).catch((error) => {
-          console.log(error);
+          handleSetMessage("Rental approved.");
+          handleSetPendingRentals(pendingRentals.filter((pendingRental) => pendingRental.rentalId !== response.data.rentalId));
+        }).catch(() => {
+          handleSetMessage("Failed to approve rental.");
         })
       }
     });
@@ -55,14 +58,14 @@ const RentalCard = ({ rental }: RentalCardProps) => {
           status: "DECLINED",
           current: false,
         }).then((response) => {
-          setPendingRentals(pendingRentals.filter((pendingRental) => pendingRental.rentalId !== response.data.rentalId))
-        }).catch((error) => {
-          console.log(error);
+          handleSetMessage("Rental declined.");
+          handleSetPendingRentals(pendingRentals.filter((pendingRental) => pendingRental.rentalId !== response.data.rentalId));
+        }).catch(() => {
+          handleSetMessage("Failed to declined rental.");
         })
       }
     });
   }
-
 
   return (
     <Card>
@@ -84,12 +87,12 @@ const RentalCard = ({ rental }: RentalCardProps) => {
 
       {/* Driver Information */}
       <CardContent>
-        <Typography variant="h6">Driver ID: {rental.driver.driverid}</Typography>
+        <Typography variant="h6">Driver ID: {rental.driver.driverId}</Typography>
         <Typography variant="body1">Name: {rental.driver.account.firstname + " " + rental.driver.account.lastname}</Typography>
         <Typography variant="body1">Contact Number: {rental.driver.account.contactNumber}</Typography>
         <Typography variant="body1">Address: {rental.driver.account.address}</Typography>
-        <Typography variant="body1">License Number: {rental.driver.licensenumber}</Typography>
-        <Typography variant="body1">License Code: {rental.driver.licensecode}</Typography>
+        <Typography variant="body1">License Number: {rental.driver.licenseNumber}</Typography>
+        <Typography variant="body1">License Code: {rental.driver.licenseCode}</Typography>
       </CardContent>
 
       {/* Vehicle Information */}
