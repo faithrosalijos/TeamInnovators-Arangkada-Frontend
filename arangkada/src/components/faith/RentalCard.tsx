@@ -74,11 +74,11 @@ const RentalCard = ({ rental }: RentalCardProps) => {
         <Typography variant="h5">Rental ID: {rental.rentalId}</Typography>
         <Stack spacing={{ xs: 1, sm: 2 }} direction={{ xs: "column", sm: "row" }}>
           <Stack spacing={0.5} direction="row" alignItems="center">
-            <DateRange sx={{ color: "text.secondary" }} /> 
+            <DateRange sx={{ color: "text.secondary" }} />
             <Typography variant="body1">Start: {rental.startDate}</Typography>
           </Stack>
           <Stack spacing={0.5} direction="row" alignItems="center">
-            <DateRange sx={{ color: "text.secondary" }} /> 
+            <DateRange sx={{ color: "text.secondary" }} />
             <Typography variant="body1">End: {rental.endDate}</Typography>
           </Stack>
         </Stack>

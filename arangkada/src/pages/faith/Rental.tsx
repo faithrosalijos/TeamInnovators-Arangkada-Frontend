@@ -28,7 +28,7 @@ const MyRental = () => {
 
   if (loading) return (<Loading />)
 
-  if (error !== '') return (<ResponseError message={error} />)
+  if (error !== "") return (<ResponseError message={error} />)
 
   return (
     <>

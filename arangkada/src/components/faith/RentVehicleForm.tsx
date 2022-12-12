@@ -9,9 +9,9 @@ import { SnackbarContext, SnackbarContextType } from "../../helpers/SnackbarCont
 
 const RentVehicleForm = () => {
   const navigate = useNavigate();
-  const {id } = useParams() as { id: string };
+  const { id } = useParams() as { id: string };
   const { handleSetMessage } = useContext(SnackbarContext) as SnackbarContextType;
-  
+
   const currentDate = new Date(new Date().setHours(0, 0, 0, 0));
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);

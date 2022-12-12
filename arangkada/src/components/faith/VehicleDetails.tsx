@@ -15,15 +15,15 @@ const VehicleDetails = ({ vehicle }: VehicleDetailsProps) => {
       {/* Operator Information */}
       <Stack spacing={{ xs: 1, sm: 2 }} direction={{ xs: "column", sm: "row" }}>
         <Stack spacing={0.5} direction="row" alignItems="center">
-          <BusinessCenter sx={{ color: "text.secondary" }} /> 
+          <BusinessCenter sx={{ color: "text.secondary" }} />
           <Typography variant="body1">{vehicle.operator.businessName}</Typography>
         </Stack>
         <Stack spacing={0.5} direction="row" alignItems="center">
-          <Person sx={{ color: "text.secondary" }} /> 
+          <Person sx={{ color: "text.secondary" }} />
           <Typography variant="body1">{vehicle.operator.account.firstname + " " + vehicle.operator.account.lastname}</Typography>
         </Stack>
         <Stack spacing={0.5} direction="row" alignItems="center">
-          <Phone sx={{ color: "text.secondary" }} /> 
+          <Phone sx={{ color: "text.secondary" }} />
           <Typography variant="body1">{vehicle.operator.account.contactNumber}</Typography>
         </Stack>
       </Stack>

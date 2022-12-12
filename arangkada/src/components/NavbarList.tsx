@@ -22,7 +22,7 @@ const NavbarList = ({ open, user }: NavbarListProps) => {
     { text: "Rental", icon: <DriveEta />, link: "/driver/rental", end: false },
     { text: "Payments", icon: <Payment />, link: "", end: false },
   ];
-  
+
   const handleLogout = () => {
 
   }
@@ -31,28 +31,28 @@ const NavbarList = ({ open, user }: NavbarListProps) => {
     <>
       {/* Main List */}
       <List>
-        {(user === "Driver" ? driverList: operatorList).map((listItem, index) => (
+        {(user === "Driver" ? driverList : operatorList).map((listItem, index) => (
           <ListItem key={index} disablePadding sx={{ display: 'block' }} >
             <NavbarLink to={listItem.link} text={listItem.text} icon={listItem.icon} open={open} end={listItem.end} />
           </ListItem>
-          ))}
+        ))}
       </List>
       <Divider />
 
       {/* Secondary List */}
       <List>
         <ListItem disablePadding sx={{ display: 'block' }}>
-          <NavbarLink to={user === "Driver"? "": "/operator/operatorprofile"} text="Account" icon={<Person />} open={open} end={false} />
+          <NavbarLink to={user === "Driver" ? "" : "/operator/operatorprofile"} text="Account" icon={<Person />} open={open} end={false} />
         </ListItem>
         <ListItem disablePadding sx={{ display: 'block' }}>
-          <ListItemButton onClick={handleLogout} 
+          <ListItemButton onClick={handleLogout}
             sx={{
               color: "primary.contrastText",
               minHeight: 48,
               justifyContent: open ? 'initial' : 'center', px: 2.5,
               "&.Mui-selected": { backgroundColor: "primary.dark" },
               "&.Mui-selected:hover": { backgroundColor: "primary.dark" },
-          }}>
+            }}>
             <ListItemIcon sx={{ color: "primary.contrastText", minWidth: 0, mr: open ? 3 : 'auto', justifyContent: 'center' }}>
               <Logout />
             </ListItemIcon>

@@ -12,7 +12,7 @@ import Loading from "../../components/faith/Loading";
 import ResponseError from "../../components/faith/ResponseError";
 
 const RentVehicle = () => {
-  const {id } = useParams() as { id: string };
+  const { id } = useParams() as { id: string };
   const [vehicle, setVehicle] = useState<Vehicle>({} as Vehicle);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -22,7 +22,7 @@ const RentVehicle = () => {
       id
     ).then((response) => {
       setVehicle(response.data);
-      setError('');
+      setError("");
     }).catch((error) => {
       setError(error.message);
     }).finally(() => {
@@ -32,16 +32,16 @@ const RentVehicle = () => {
 
   if (loading) return (<Loading />)
 
-  if (error !== '') return (<ResponseError message={error} />)
+  if (error !== "") return (<ResponseError message={error} />)
 
   return (
     <>
       <Box mt="12px" sx={{ minHeight: "80vh" }}>
         <PageHeader title="Rent Vehicle" />
         <br></br>
-        <Instructions 
-          header="Please provide the details needed for rental." 
-          subheader="It might take a few days before the operator can respond to your application. You can still modify the start and end date until then." 
+        <Instructions
+          header="Please provide the details needed for rental."
+          subheader="It might take a few days before the operator can respond to your application. You can still modify the start and end date until then."
         />
         <br></br>
         <VehicleDetails vehicle={vehicle} />

@@ -14,7 +14,7 @@ const Snackbar = () => {
     handleSetMessage(null);
   }
 
-  return ( 
+  return (
     <SnackbarBase
       open={message !== null}
       autoHideDuration={3000}
@@ -26,7 +26,7 @@ const Snackbar = () => {
         </IconButton>
       }
     />
-   );
+  );
 }
- 
+
 export default Snackbar;

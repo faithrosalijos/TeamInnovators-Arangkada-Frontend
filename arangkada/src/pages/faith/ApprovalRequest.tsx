@@ -10,11 +10,11 @@ import { PendingRentalsContext, PendingRentalsContextType } from "../../helpers/
 
 const ApprovalRequest = () => {
   const PAGE_SIZE = 5;
-  const [pagination, setPagination] = useState({from: 0, to: PAGE_SIZE});
+  const [pagination, setPagination] = useState({ from: 0, to: PAGE_SIZE });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const { pendingRentals, handleSetPendingRentals } = useContext(PendingRentalsContext) as PendingRentalsContextType;
-  
+
   useEffect(() => {
     RentalService.getRentalsByOperatorAndStatus("2", "PENDING").then((response) => {
       handleSetPendingRentals(response.data);
@@ -35,7 +35,7 @@ const ApprovalRequest = () => {
 
   if (loading) return (<Loading />)
 
-  if (error !== '') return (<ResponseError message={error} />)
+  if (error !== "") return (<ResponseError message={error} />)
 
   return (
     <>
@@ -43,16 +43,16 @@ const ApprovalRequest = () => {
         <PageHeader title="Approval Requests" />
         <br></br>
         {
-          pendingRentals.length !== 0?
+          pendingRentals.length !== 0 ?
             <>
               <RentalCardList rentals={pendingRentals.slice(pagination.from, pagination.to)} />
-              <br/> 
-              <Pagination 
+              <br />
+              <Pagination
                 color="primary"
-                count={Math.ceil(pendingRentals.length / PAGE_SIZE)} 
+                count={Math.ceil(pendingRentals.length / PAGE_SIZE)}
                 onChange={(event, page) => handlePaginationChange(page)}
-              /> 
-            </>:
+              />
+            </> :
             <Typography variant="body1" color="text.secondary">No pending request.</Typography>
         }
       </Box>

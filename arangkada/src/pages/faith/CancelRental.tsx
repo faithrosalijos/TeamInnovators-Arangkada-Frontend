@@ -8,7 +8,7 @@ import { CurrentRentalContext, CurrentRentalContextType } from "../../helpers/Cu
 
 const CancelRental = () => {
   const { currentRental } = useContext(CurrentRentalContext) as CurrentRentalContextType;
-  
+
   return (
     <>
       <Box mt="12px" sx={{ minHeight: "80vh" }}>

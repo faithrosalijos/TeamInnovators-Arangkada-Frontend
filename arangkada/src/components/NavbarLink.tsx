@@ -12,7 +12,7 @@ type NavbarLinkProps = React.PropsWithChildren<{
 
 export const NavbarLink = (props: NavbarLinkProps) => {
   type NavLinkProps = Omit<NavLinkBaseProps, 'to'>;
-  
+
   const NavLink = React.useMemo(() => React.forwardRef<HTMLAnchorElement, NavLinkProps>((navLinkProps, ref) => {
     const { className: previousClasses, ...rest } = navLinkProps;
     const elementClasses = previousClasses?.toString() ?? "";
@@ -35,15 +35,15 @@ export const NavbarLink = (props: NavbarLinkProps) => {
         justifyContent: props.open ? 'initial' : 'center', px: 2.5,
         "&.Mui-selected": { backgroundColor: "primary.dark" },
         "&.Mui-selected:hover": { backgroundColor: "primary.dark" },
-    }}> 
-      <ListItemIcon
-        sx={{ 
-          color: "primary.contrastText", 
-          minWidth: 0, 
-          mr: props.open ? 3 : 'auto', 
-          justifyContent: 'center' 
       }}>
-         {props.icon}
+      <ListItemIcon
+        sx={{
+          color: "primary.contrastText",
+          minWidth: 0,
+          mr: props.open ? 3 : 'auto',
+          justifyContent: 'center'
+        }}>
+        {props.icon}
       </ListItemIcon>
       <ListItemText sx={{ opacity: props.open ? 1 : 0 }} primary={props.text} />
     </ListItemButton>

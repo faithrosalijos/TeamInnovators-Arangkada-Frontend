@@ -32,7 +32,7 @@ const DriverDashboard = () => {
       "1"
     ).then((response) => {
       setRentals(response.data);
-      setError('');
+      setError("");
     }).catch((error) => {
       setError(error.message);
     }).finally(() => {
@@ -42,7 +42,7 @@ const DriverDashboard = () => {
 
   if (loading) return (<Loading />)
 
-  if (error !== '') return (<ResponseError message={error} />)
+  if (error !== "") return (<ResponseError message={error} />)
 
   return (
     <>

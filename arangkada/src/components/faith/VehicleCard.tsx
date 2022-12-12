@@ -17,7 +17,7 @@ const VehicleCard = ({ vehicle }: VehicleCardProps) => {
   const handleRentVehicle = () => {
     RentalService.getCurrentRental("1").then((response) => {
       const currentRental: Rental = response.data;
-      if(currentRental) {
+      if (currentRental) {
         const modal = showModal(NoticeModal, {
           title: "You have an ogoing or pending rental.",
           content: "You can only have one rental at a time. Finish or cancel your ongoing or pending rental first.",
@@ -38,15 +38,15 @@ const VehicleCard = ({ vehicle }: VehicleCardProps) => {
         {/* Operator Information */}
         <Stack spacing={{ xs: 1, sm: 2 }} direction={{ xs: "column", sm: "row" }}>
           <Stack spacing={0.5} direction="row" alignItems="center">
-            <BusinessCenter sx={{ color: "text.secondary" }} /> 
+            <BusinessCenter sx={{ color: "text.secondary" }} />
             <Typography variant="body1">{vehicle.operator.businessName}</Typography>
           </Stack>
           <Stack spacing={0.5} direction="row" alignItems="center">
-            <Person sx={{ color: "text.secondary" }} /> 
+            <Person sx={{ color: "text.secondary" }} />
             <Typography variant="body1">{vehicle.operator.account.firstname + " " + vehicle.operator.account.lastname}</Typography>
           </Stack>
           <Stack spacing={0.5} direction="row" alignItems="center">
-            <Phone sx={{ color: "text.secondary" }} /> 
+            <Phone sx={{ color: "text.secondary" }} />
             <Typography variant="body1">{vehicle.operator.account.contactNumber}</Typography>
           </Stack>
         </Stack>

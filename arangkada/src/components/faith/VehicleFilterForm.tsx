@@ -24,7 +24,7 @@ const VehicleFilterForm = ({ handleFilterSubmit, handleFilterClear }: VehicleFil
     <Grid container spacing={2} onSubmit={handleSubmit} component="form">
       <Grid item xs={12} md={3}>
         <TextField
-          onChange={(event) => setFilters({...filters, businessName: event.target.value})}
+          onChange={(event) => setFilters({ ...filters, businessName: event.target.value })}
           value={filters.businessName}
           label="Search by Business Name"
           size="small"
@@ -34,7 +34,7 @@ const VehicleFilterForm = ({ handleFilterSubmit, handleFilterClear }: VehicleFil
       </Grid>
       <Grid item xs={12} md={3}>
         <TextField
-          onChange={(event) => setFilters({...filters, operatorName: event.target.value})}
+          onChange={(event) => setFilters({ ...filters, operatorName: event.target.value })}
           value={filters.operatorName}
           label="Operator Name"
           size="small"
@@ -44,7 +44,7 @@ const VehicleFilterForm = ({ handleFilterSubmit, handleFilterClear }: VehicleFil
       </Grid>
       <Grid item xs={12} md={3}>
         <TextField
-          onChange={(event) => setFilters({...filters, route: event.target.value})}
+          onChange={(event) => setFilters({ ...filters, route: event.target.value })}
           value={filters.route}
           label="Route"
           size="small"

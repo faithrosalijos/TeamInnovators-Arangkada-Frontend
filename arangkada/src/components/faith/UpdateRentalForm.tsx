@@ -43,17 +43,17 @@ const UpdateRentalForm = () => {
     else {
       RentalService.putRental(
         currentRental.rentalId.toString(),
-      {
-        startDate: startDate.toJSON(),
-        endDate: endDate.toJSON(),
-        status: currentRental.status,
-        current: currentRental.current,
-      }).then((response) => {
-        handleSetCurrentRental(response.data);
-        handleSetMessage("Rental updated.");
-      }).catch(() => {
-        handleSetMessage("Failed to updated rental.");
-      })
+        {
+          startDate: startDate.toJSON(),
+          endDate: endDate.toJSON(),
+          status: currentRental.status,
+          current: currentRental.current,
+        }).then((response) => {
+          handleSetCurrentRental(response.data);
+          handleSetMessage("Rental updated.");
+        }).catch(() => {
+          handleSetMessage("Failed to updated rental.");
+        })
     }
   }
 
@@ -73,17 +73,17 @@ const UpdateRentalForm = () => {
   const handleFinishRental = () => {
     RentalService.putRental(
       currentRental.rentalId.toString(),
-    {
-      startDate: currentRental.startDate,
-      endDate: currentRental.endDate,
-      status: currentRental.status,
-      current: false,
-    }).then(() => {
-      handleSetCurrentRental({} as Rental);
-      handleSetMessage("Rental finished.");
-    }).catch(() => {
-      handleSetMessage("Failed to finish rental.");
-    })
+      {
+        startDate: currentRental.startDate,
+        endDate: currentRental.endDate,
+        status: currentRental.status,
+        current: false,
+      }).then(() => {
+        handleSetCurrentRental({} as Rental);
+        handleSetMessage("Rental finished.");
+      }).catch(() => {
+        handleSetMessage("Failed to finish rental.");
+      })
 
     // If not paid
     // const modal = showModal(NoticeModal, {

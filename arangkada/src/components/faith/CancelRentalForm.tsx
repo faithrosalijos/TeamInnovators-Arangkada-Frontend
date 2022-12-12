@@ -27,18 +27,18 @@ const CancelRentalForm = () => {
     } else {
       RentalService.putRental(
         currentRental.rentalId.toString(),
-      {
-        startDate: currentRental.startDate,
-        endDate: currentRental.endDate,
-        status: "CANCELLED",
-        current: false,
-      }).then(() => {
-        handleSetCurrentRental({} as Rental);
-        handleSetMessage("Rental cancelled.");
-        navigate("../", { replace: true });
-      }).catch(() => {
-        handleSetMessage("Failed to cancel rental.");
-      })
+        {
+          startDate: currentRental.startDate,
+          endDate: currentRental.endDate,
+          status: "CANCELLED",
+          current: false,
+        }).then(() => {
+          handleSetCurrentRental({} as Rental);
+          handleSetMessage("Rental cancelled.");
+          navigate("../", { replace: true });
+        }).catch(() => {
+          handleSetMessage("Failed to cancel rental.");
+        })
     }
   }
 
@@ -61,14 +61,15 @@ const CancelRentalForm = () => {
         fullWidth
         error={passwordError !== null}
         helperText={passwordError}
-        InputProps={{ 
+        InputProps={{
           endAdornment: (
-            <InputAdornment position="end"> 
+            <InputAdornment position="end">
               <IconButton onClick={handlePasswordShow}>
                 {showPassword ? <VisibilityOff /> : <Visibility />}
-              </IconButton> 
+              </IconButton>
             </InputAdornment>
-        )}}
+          )
+        }}
       />
       <Stack spacing={3} direction={{ xs: "column-reverse", md: "row" }} sx={{ justifyContent: "end" }}>
         <Button onClick={handleBack} color="secondary" variant="contained" sx={{ width: "250px" }}>No, Go Back</Button>

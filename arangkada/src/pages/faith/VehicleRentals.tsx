@@ -11,18 +11,18 @@ import ResponseError from "../../components/faith/ResponseError";
 
 const VehicleRentals = () => {
   const PAGE_SIZE = 5;
-  const [pagination, setPagination] = useState({from: 0, to: PAGE_SIZE});
+  const [pagination, setPagination] = useState({ from: 0, to: PAGE_SIZE });
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [filteredVehicles, setFilteredVehicles] = useState<Vehicle[]>([])
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
-  
+
   useEffect(() => {
     VehicleService.getVehicleByVehicleType(
       "Jeepney"
     ).then((response) => {
       setVehicles(response.data);
-      setError('');
+      setError("");
     }).catch((error) => {
       setError(error.message);
     }).finally(() => {
@@ -35,7 +35,7 @@ const VehicleRentals = () => {
   }, [vehicles])
 
   const handleFilterSubmit = (filters: { businessName: string, operatorName: string, route: string }) => {
-    const {businessName, operatorName, route} = filters;
+    const { businessName, operatorName, route } = filters;
     const temp = vehicles.filter((vehicle) =>
       vehicle.operator.businessName.toLowerCase().includes(businessName.toLowerCase()) &&
       (vehicle.operator.account.firstname + " " + vehicle.operator.account.lastname).toLowerCase().includes(operatorName.toLowerCase()) &&
@@ -57,7 +57,7 @@ const VehicleRentals = () => {
 
   if (loading) return (<Loading />)
 
-  if (error !== '') return (<ResponseError message={error} />)
+  if (error !== "") return (<ResponseError message={error} />)
 
   return (
     <>
@@ -67,16 +67,16 @@ const VehicleRentals = () => {
         <VehicleFilterForm handleFilterSubmit={handleFilterSubmit} handleFilterClear={handleFilterClear} />
         <br></br>
         {
-          filteredVehicles.length !== 0? 
+          filteredVehicles.length !== 0 ?
             <>
-              <VehicleCardList vehicles={filteredVehicles.slice(pagination.from, pagination.to)} /> 
-              <br/> 
-              <Pagination 
+              <VehicleCardList vehicles={filteredVehicles.slice(pagination.from, pagination.to)} />
+              <br />
+              <Pagination
                 color="primary"
-                count={Math.ceil(filteredVehicles.length / PAGE_SIZE)} 
+                count={Math.ceil(filteredVehicles.length / PAGE_SIZE)}
                 onChange={(event, page) => handlePaginationChange(page)}
-              /> 
-            </>:
+              />
+            </> :
             <Typography variant="body1" color="text.secondary">No available vehicles.</Typography>
         }
       </Box>
