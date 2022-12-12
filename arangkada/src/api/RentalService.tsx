@@ -9,8 +9,12 @@ class RentalService {
     return axios.get(RENTAL_BASE_URL + "/getRentalsByDriverId/" + id);
   }
 
-  getCurrentRental(id: string) {
+  getCurrentRentalByDriver(id: string) {
     return axios.get(RENTAL_BASE_URL + "/getCurrentRentalByDriverId/" + id);
+  }
+
+  getCurrentRentalsByOperator(id: string) {
+    return axios.get(RENTAL_BASE_URL + "/getCurrentRentalsByOperatorId/" + id);
   }
 
   getRentalsByOperatorAndStatus(id: string, status: string) {
