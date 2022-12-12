@@ -1,204 +1,204 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import { Button, FormControl, Grid,  InputLabel, MenuItem,  Select, SelectChangeEvent, Stack, TextField, } from "@mui/material";
-import React from "react";
-
-
+import { useNavigate } from "react-router-dom";
+import VehicleService from "../../api/VehicleService";
+import { Vehicle } from "../../api/dataTypes";
 
 
 const MyVehicleForm  = () =>{
-    const [plateNumber, setPlateNumber] = useState("");
-    const [route, setRoute] = useState("");
-    const [vehicleType, setVehicleType] = useState("");
-    const [vin, setVin] = useState("");
-    const [makeModel, setMakeAndModel] = useState("");
-    const [renatlFee, setRentalFee] = useState("");
-    const [operator, setOperator] = useState("");
-    const [orStatus, setOrStatus] = useState('');
-    const [condition, setCondition] = useState('');
+    const navigate = useNavigate();
 
-    const handleOrStatusChange = (event: SelectChangeEvent) => {
-        setOrStatus(event.target.value as string);
-    }
-    const handleConditionChange = (event: SelectChangeEvent) => {
-        setCondition(event.target.value as string);
-    }
-    const handlePlateNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPlateNumber(event.target.value);
-    }
-    const handleRouteChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRoute(event.target.value);
-    }
-    const handleRentalFeeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRentalFee(event.target.value);
-    }
-    const handleVehicleTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setVehicleType(event.target.value);
-    }
-    const handleVinChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setVin(event.target.value);
-    }
-    const handleMakeAndModelChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setMakeAndModel(event.target.value);
-    }
-    const handleSubmit = (event: React.SyntheticEvent) => {
+    const [data, setData]= useState({
+        plateNumber: "",
+        route: "",
+        vehicleType: "",
+        makeModel: "",
+        vin: "",
+        orStatus: "",
+        vehicleCondition: "",
+        rentalFee: "",
+        operatorId: 3,
+        rented: false,
+    })
+
+    const onSubmit = async (event: { preventDefault: () => void; }) =>{
         event.preventDefault();
+        
+         VehicleService.postVehicle( {
+                vehicleId:-1,
+                plateNumber:data.plateNumber,
+                route:data.route,
+                vehicleType:data.vehicleType,
+                vin:Number(data.vin),
+                makeModel:data.makeModel,
+                rentalFee:Number(data.rentalFee),
+                operator:{operatorId: 3,businessName:"",permitNumber:"", account:{accountId:-1,
+                    firstname: "",
+                    middlename: "",
+                    lastname: "",
+                    birthdate: "",
+                    age: 0,
+                    contactNumber: "",
+                    address: "",
+                    gender: "",
+                    username: "",
+                    password: "",
+                    accountType: "",} },
+                orStatus:data.orStatus,
+                vehicleCondition:data.vehicleCondition,
+                rented: data.rented,
+            })
+        .then((res:any)=> console.log('Posting Data'))
+        .catch((err:string) => console.log(err))
+        alert("Vehicle Successfully added.")
+        navigate('/operator/vehicles')
     }
-    const handleClear = (event: React.MouseEvent) => {
-        setPlateNumber("");
-        setRoute("");
-        setVehicleType("");
-        setVin("");
-        setMakeAndModel("");
-        setRentalFee("");
+    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setData({ ...data, [e.target.name]: e.target.value });
+    };
+    const handleSelectChange = (event: SelectChangeEvent) => {
+        setData({ ...data, [event.target.name]: event.target.value });
     }
-   
-
-  return ( 
-    <>
-    <Grid container spacing={2} onSubmit={handleSubmit} component="form" sx={{marginTop: 2, marginBottom: 5}}>
-    <Grid item xs={12} md={4}>
-       <TextField 
-            onChange={handlePlateNumberChange} 
-            value={plateNumber} 
-            label="Plate Number" 
-            size="small"
-            fullWidth 
-            required
-            sx={{margin: 1, }}>
-        </TextField> 
-    </Grid>
-    <Grid item xs={12} md={4}>
-       <TextField 
-            onChange={handleRouteChange} 
-            value={route} 
-            label="Route" 
-            size="small" 
-            fullWidth 
-            required
-            sx={{margin: 1,  }}> 
-        </TextField>
-    </Grid>
-    <Grid item xs={12} md={4}>
-       <TextField 
-            onChange={handleVehicleTypeChange} 
-            value={vehicleType}
-            label="Vehicle Type" 
-            size="small" 
-            required
-            fullWidth 
-            sx={{margin: 1, }} >
-       </TextField>
-    </Grid>
-    <Grid item xs={12} md={6}>
-        <TextField 
-            onChange={handleVinChange} 
-            value={vin}
-            label="VIN" 
-            size="small" 
-            variant="outlined" 
-            fullWidth
-            required
-            sx={{margin: 1, }}>
-        </TextField>
+    return ( 
+        <>
+        <Grid container spacing={2} onSubmit={onSubmit} component="form" sx={{marginTop: 2, marginBottom: 5}}>
+        <Grid item xs={12} md={4}>
+           <TextField 
+                onChange={handleChange} 
+                value={data.plateNumber} 
+                name="plateNumber"
+                label="Plate Number" 
+                size="small"
+                fullWidth 
+                required
+                sx={{margin: 1, }}>
+            </TextField> 
         </Grid>
-    <Grid item xs={12} md={6}>
-        <TextField 
-            value={operator}
-            disabled
-            label="Operator ID" 
-            size="small" 
-            fullWidth
-            variant="outlined" 
-            defaultValue={operator}
-            sx={{margin: 1,}}>
-        </TextField>
-    </Grid>
-    <Grid item xs={12} md={6}>
-      <FormControl fullWidth>
-            <InputLabel id="demo-simple-select-label" >OR, CR Status</InputLabel>
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={orStatus}
-                    label="OR, CR Status"
-                    required
-                    size="small" 
-                    onChange={handleOrStatusChange}
-                    sx={{margin: 1}}>
-                        <MenuItem value={'Updated'}>Updated</MenuItem>
-                        <MenuItem value={'Renewed'}>Renewed</MenuItem>
-                        <MenuItem value={'Expired'}>Expired</MenuItem> 
-                {/* {myVehicle.orStatus} */}
-                </Select>  
-        </FormControl> 
-    </Grid>
-    <Grid item xs={12} md={6}>
-        <FormControl fullWidth >
-            <InputLabel id="demo-simple-select-label" >Vehicle Condition</InputLabel>
-                <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={condition}
-                    label="Vehicle Condition"
-                    required
-                    size="small" 
-                    onChange={handleConditionChange}
-                    sx={{margin: 1}}>
-                        <MenuItem value={'Ready To Use'}>Ready To Use</MenuItem>
-                        <MenuItem value={'Not Ready To Use'}>Not Ready To</MenuItem> 
-                {/* {myVehicle.condition} */}
-                </Select>  
-        </FormControl> 
-    </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} md={4}>
+           <TextField 
+                onChange={handleChange} 
+                value={data.route} 
+                name="route"
+                label="Route" 
+                size="small" 
+                fullWidth 
+                required
+                sx={{margin: 1,  }}> 
+            </TextField>
+        </Grid>
+        <Grid item xs={12} md={4}>
+           <TextField 
+                onChange={handleChange} 
+                value={data.vehicleType}
+                name="vehicleType"
+                label="Vehicle Type" 
+                size="small" 
+                required
+                fullWidth 
+                sx={{margin: 1, }} >
+           </TextField>
+        </Grid>
+        <Grid item xs={12} md={12}>
             <TextField 
-                onChange={handleMakeAndModelChange} 
-                value={makeModel}label="Make and Model" 
+                onChange={handleChange} 
+                value={data.vin}
+                label="VIN" 
+                name="vin"
                 size="small" 
                 variant="outlined" 
-                required
                 fullWidth
-                sx={{margin: 1,  height:"8vh"}}>
+                required
+                sx={{margin: 1, }}>
             </TextField>
             </Grid>
-            <Grid item xs={12} md={6}>
+        {/* <Grid item xs={12} md={6}>
             <TextField 
-                onChange={handleRentalFeeChange} 
-                value={renatlFee}
-                label="Rental Fee" 
+                value={operatorId}
+                // disabled
+                required
+                onChange={handleChange} 
+                label="Operator ID" 
                 size="small" 
-                variant="outlined"
-                required 
+                name="operatorId"
                 fullWidth
-                sx={{margin: 1, marginRight:25, height:"8vh" }}>
+                variant="outlined" 
+                // defaultValue={data.operator}
+                sx={{margin: 1,}}>
             </TextField>
-        </Grid>
-        {/* <Grid item xs={12} md={2}  >
-            <Button 
-                type="submit" 
-                variant="contained" 
-                fullWidth 
-                sx={{ marginTop: 4 ,}}>
-                Add Vehicle</Button>
-        </Grid>
-        <Grid item xs={12} md={2} >
-            <Button 
-                type="submit" 
-                variant="contained"  
-                fullWidth
-                sx={{marginTop:4,backgroundColor: "gray",marginBottom: 5}}>
-                Cancel</Button>
         </Grid> */}
-        <Grid item xs={12} >
-        <Stack spacing={3} direction={{ xs: "column-reverse", md: "row" }} sx={{ justifyContent: "end" }}>
-          <Button color="secondary" variant="contained" sx={{ width: "250px" }}>Cancel</Button>
-          <Button type="submit" variant="contained" sx={{ width: "250px"}}>Add Vehicle</Button>
-        </Stack>
+        <Grid item xs={12} md={6}>
+          <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label" >OR, CR Status</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={data.orStatus}
+                        label="OR, CR Status"
+                        required
+                        name="orStatus"
+                        size="small" 
+                        onChange={handleSelectChange}
+                        sx={{margin: 1}}>
+                            <MenuItem value={'Updated'}>Updated</MenuItem>
+                            <MenuItem value={'Renewed'}>Renewed</MenuItem>
+                            <MenuItem value={'Expired'}>Expired</MenuItem> 
+                    {/* {myVehicle.orStatus} */}
+                    </Select>  
+            </FormControl> 
         </Grid>
-    </Grid>
-        
-    
-    </>
-   );
-}
-export default MyVehicleForm;
+        <Grid item xs={12} md={6}>
+            <FormControl fullWidth >
+                <InputLabel id="demo-simple-select-label" >Vehicle Condition</InputLabel>
+                    <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        value={data.vehicleCondition}
+                        label="Vehicle Condition"
+                        required
+                        name="vehicleCondition"
+                        size="small" 
+                        onChange={handleSelectChange}
+                        sx={{margin: 1}}>
+                            <MenuItem value={'Ready To Use'}>Ready To Use</MenuItem>
+                            <MenuItem value={'Not Ready To Use'}>Not Ready To</MenuItem> 
+                    {/* {myVehicle.condition} */}
+                    </Select>  
+            </FormControl> 
+        </Grid>
+            <Grid item xs={12} md={6}>
+                <TextField 
+                    onChange={handleChange} 
+                    value={data.makeModel}label="Make and Model" 
+                    size="small" 
+                    variant="outlined" 
+                    name="makeModel"
+                    required
+                    fullWidth
+                    sx={{margin: 1,  height:"8vh"}}>
+                </TextField>
+                </Grid>
+                <Grid item xs={12} md={6}>
+                <TextField 
+                    onChange={handleChange} 
+                    value={data.rentalFee}
+                    label="Rental Fee" 
+                    size="small" 
+                    variant="outlined"
+                    name="rentalFee"
+                    required 
+                    fullWidth
+                    sx={{margin: 1, marginRight:25, height:"8vh" }}>
+                </TextField>
+            </Grid>
+            <Grid item xs={12} >
+            <Stack spacing={3} direction={{ xs: "column-reverse", md: "row" }} sx={{ justifyContent: "end" }}>
+              <Button  onClick={() => navigate(-1)} color="secondary" variant="contained" sx={{ width: "250px" }}>Cancel</Button>
+              <Button   type="submit" variant="contained" sx={{ width: "250px"}}>Add Vehicle</Button> 
+              {/* onClick={(e)=>{e.preventDefault(); console.log(data)}} */}
+            </Stack>
+            </Grid>
+        </Grid>
+        </>
+       );
+    }
+    export default MyVehicleForm;
