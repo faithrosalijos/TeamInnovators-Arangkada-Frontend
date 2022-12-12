@@ -15,7 +15,7 @@ const VehicleCard = ({ vehicle }: VehicleCardProps) => {
   const navigate = useNavigate();
 
   const handleRentVehicle = () => {
-    RentalService.getCurrentRental("1").then((response) => {
+    RentalService.getCurrentRentalByDriver("1").then((response) => {
       const currentRental: Rental = response.data;
       if (currentRental) {
         const modal = showModal(NoticeModal, {

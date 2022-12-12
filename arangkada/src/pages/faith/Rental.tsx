@@ -16,7 +16,7 @@ const MyRental = () => {
   const { currentRental, handleSetCurrentRental } = useContext(CurrentRentalContext) as CurrentRentalContextType;
 
   useEffect(() => {
-    RentalService.getCurrentRental("1").then((response) => {
+    RentalService.getCurrentRentalByDriver("1").then((response) => {
       handleSetCurrentRental(response.data)
       setError("");
     }).catch((error) => {
