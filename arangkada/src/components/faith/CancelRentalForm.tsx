@@ -7,9 +7,12 @@ import { Rental } from "../../api/dataTypes";
 import { useNavigate } from "react-router-dom";
 import { SnackbarContext, SnackbarContextType } from "../../helpers/SnackbarContext";
 
-const CancelRentalForm = () => {
+type CancelRentalFormProps = {
+  rental: Rental,
+}
+
+const CancelRentalForm = ({ rental }: CancelRentalFormProps) => {
   const navigate = useNavigate();
-  const { currentRental, handleSetCurrentRental } = useContext(CurrentRentalContext) as CurrentRentalContextType;
   const { handleSetMessage } = useContext(SnackbarContext) as SnackbarContextType;
 
   const [password, setPassword] = useState<string>("");
@@ -26,14 +29,13 @@ const CancelRentalForm = () => {
       setPasswordError("Password is incorrect.")
     } else {
       RentalService.putRental(
-        currentRental.rentalId.toString(),
+        rental.rentalId.toString(),
         {
-          startDate: currentRental.startDate,
-          endDate: currentRental.endDate,
+          startDate: rental.startDate,
+          endDate: rental.endDate,
           status: "CANCELLED",
           current: false,
         }).then(() => {
-          handleSetCurrentRental({} as Rental);
           handleSetMessage("Rental cancelled.");
           navigate("../", { replace: true });
         }).catch((error) => {
@@ -47,7 +49,7 @@ const CancelRentalForm = () => {
   }
 
   const handleBack = () => {
-    navigate("../");
+    navigate("../", { replace: true });
   }
 
   return (

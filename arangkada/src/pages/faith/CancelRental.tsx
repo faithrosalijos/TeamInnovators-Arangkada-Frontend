@@ -5,16 +5,18 @@ import PageHeader from "../../components/PageHeader";
 import Footer from "../../components/Footer";
 import { useContext } from "react";
 import { CurrentRentalContext, CurrentRentalContextType } from "../../helpers/CurrentRentalContext";
+import { useLocation } from "react-router-dom";
 
 const CancelRental = () => {
   const { currentRental } = useContext(CurrentRentalContext) as CurrentRentalContextType;
+  const location = useLocation();
 
   return (
     <>
       <Box mt="12px" sx={{ minHeight: "80vh" }}>
         <PageHeader title="Cancel Rental" />
         <br></br>
-        <Typography variant="h5">Rental ID: {currentRental.rentalId}</Typography>
+        <Typography variant="h5">Rental ID: {location.state.rental.rentalId}</Typography>
         <br></br>
         <Instructions
           header="Do you want to cancel this vehicle rental?"
@@ -22,7 +24,7 @@ const CancelRental = () => {
         />
         <br></br>
         <br></br>
-        <CancelRentalForm />
+        <CancelRentalForm rental={location.state.rental}/>
       </Box>
       <Footer name="Faith Rosalijos" course="BSIT" section="G1" />
     </>
