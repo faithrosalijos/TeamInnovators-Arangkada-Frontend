@@ -15,7 +15,7 @@ const VehicleFilterForm = ({ handleFilterSubmit, handleFilterClear }: VehicleFil
     handleFilterSubmit(filters);
   }
 
-  const handleClear = (event: React.MouseEvent) => {
+  const handleClear = () => {
     setFilters({ businessName: "", operatorName: "", route: "" });
     handleFilterClear();
   }

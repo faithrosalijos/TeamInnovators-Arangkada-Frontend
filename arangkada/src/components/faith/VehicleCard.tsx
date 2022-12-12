@@ -26,7 +26,7 @@ const VehicleCard = ({ vehicle }: VehicleCardProps) => {
           }
         });
       } else {
-        navigate("/driver/vehicles/" + vehicle.vehicleId);
+        navigate("/driver/vehicle-rentals/" + vehicle.vehicleId);
       }
     })
   }

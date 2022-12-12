@@ -71,11 +71,14 @@ const VehicleRentals = () => {
             <>
               <VehicleCardList vehicles={filteredVehicles.slice(pagination.from, pagination.to)} />
               <br />
-              <Pagination
-                color="primary"
-                count={Math.ceil(filteredVehicles.length / PAGE_SIZE)}
-                onChange={(event, page) => handlePaginationChange(page)}
-              />
+              { 
+                filteredVehicles.length > PAGE_SIZE && 
+                <Pagination
+                  color="primary"
+                  count={Math.ceil(filteredVehicles.length / PAGE_SIZE)}
+                  onChange={(event, page) => handlePaginationChange(page)}
+                />
+              }
             </> :
             <Typography variant="body1" color="text.secondary">No available vehicles.</Typography>
         }
