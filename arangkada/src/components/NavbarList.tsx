@@ -10,8 +10,8 @@ type NavbarListProps = {
 const NavbarList = ({ open, user }: NavbarListProps) => {
   const operatorList: { text: string, icon: React.ReactNode, link: string, end: boolean }[] = [
     { text: "Dashboard", icon: <Dashboard />, link: "/operator", end: true },
-    { text: "Vehicles", icon: <Commute />, link: "", end: false },
-    { text: "Add Vehicles", icon: <DriveEta />, link: "", end: false },
+    { text: "Vehicles", icon: <Commute />, link: "/operator/vehicles", end: false },
+    { text: "Add Vehicles", icon: <DriveEta />, link: "/operator/vehicles/addvehicle", end: false },
     { text: "Drivers Renting", icon: <People />, link: "", end: false },
     { text: "Approval Request", icon: <Mail />, link: "/operator/requests", end: false },
   ];
@@ -20,7 +20,7 @@ const NavbarList = ({ open, user }: NavbarListProps) => {
     { text: "Dashboard", icon: <Dashboard />, link: "/driver", end: true },
     { text: "Vehicle Rentals", icon: <Commute />, link: "/driver/vehicles", end: false },
     { text: "Rental", icon: <DriveEta />, link: "/driver/rental", end: false },
-    { text: "Payments", icon: <Payment />, link: "", end: false },
+    { text: "Payments", icon: <Payment />, link: "/driver/payments", end: false },
   ];
 
   const handleLogout = () => {

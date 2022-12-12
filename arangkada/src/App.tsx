@@ -22,6 +22,10 @@ import RegistrationTwoOp from './pages/cara/RegistrationTwoOp';
 import Landing from './components/karylle/LandingPage';
 import ContactUsPage from './pages/cara/ContactUsPage';
 import AboutUsPageD from './pages/karylle/AboutUsPageD';
+import MyVehicles from './pages/mariel/MyVehicles';
+import AddVehiclePage from './pages/mariel/AddVehiclePage';
+import MyPayments from './pages/kerr/MyPayments';
+import PayRent from './pages/kerr/PayRent';
 import CancelRental from './pages/faith/CancelRental';
 import SnackbarContextProvider from './helpers/SnackbarContext';
 import Snackbar from './components/faith/Snackbar';
@@ -62,14 +66,23 @@ const App = () => {
               </Route>
               <Route path="rental">
                 <Route index element={<CurrentRentalProvider><Rental /></CurrentRentalProvider>} />
+          <Route path="payments">
+            <Route index element ={<MyPayments/>}/>
+            <Route path="payrent" element ={<PayRent/>}/>
+          </Route>
                 <Route path="cancel" element={<CurrentRentalProvider><CancelRental /></CurrentRentalProvider>} />
               </Route>
 
             </Route>
 
-            {/* Driver Pages */}
+            {/* Operator Pages */}
             <Route path="operator" element={<OperatorMainLayout />}>
               <Route index element={<OperatorDashboard />} />
+          <Route path="vehicles">
+            <Route index element={<MyVehicles/>}/>
+            <Route path="addvehicle" element={<AddVehiclePage/>} />
+            {/* TODO: Insert deletevehicle and updatevehicle here. */}
+          </Route>
               <Route path="requests" element={<PendingRentalsProvider><ApprovalRequest /></PendingRentalsProvider>} />
               <Route path="operatorprofile">
                 <Route index element={<ProfilePageOp />} />
