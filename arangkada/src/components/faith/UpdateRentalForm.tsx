@@ -58,7 +58,7 @@ const UpdateRentalForm = () => {
   }
 
   const handleCancelRental = () => {
-    navigate("/driver/rental/cancel");
+    navigate("/driver/rental/cancel", { state: { rental: currentRental } });
 
     // If not paid
     // const modal = showModal(NoticeModal, {
