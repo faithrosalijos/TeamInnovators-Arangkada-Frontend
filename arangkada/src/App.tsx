@@ -24,6 +24,7 @@ import ContactUsPage from './pages/cara/ContactUsPage';
 import AboutUsPageD from './pages/karylle/AboutUsPageD';
 import MyVehicles from './pages/mariel/MyVehicles';
 import AddVehiclePage from './pages/mariel/AddVehiclePage';
+import MyPayments from './pages/kerr/MyPayments';
 import PayRent from './pages/kerr/PayRent';
 
 /* Customize default mui theme */
@@ -59,9 +60,10 @@ const App = () => {
             <Route index element={<VehicleRentals />} />
             <Route path=":id" element={<RentVehicle />} />
           </Route>
-          <Route path="rental">
-            <Route index element={<CurrentRentalProvider><Rental /></CurrentRentalProvider>} />
-            <Route path ="payrent" element={<PayRent/>}/>
+          <Route path="rental" element={<CurrentRentalProvider><Rental /></CurrentRentalProvider>} />
+          <Route path="payments">
+            <Route index element ={<MyPayments/>}/>
+            <Route path="payrent" element ={<PayRent/>}/>
           </Route>
 
         </Route>
