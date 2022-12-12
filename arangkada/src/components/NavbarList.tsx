@@ -13,7 +13,7 @@ const NavbarList = ({ open, user }: NavbarListProps) => {
     { text: "Vehicles", icon: <Commute />, link: "/operator/vehicles", end: false },
     { text: "Add Vehicles", icon: <DriveEta />, link: "/operator/vehicles/addvehicle", end: false },
     { text: "Drivers Renting", icon: <People />, link: "", end: false },
-    { text: "Approval Request", icon: <Mail />, link: "/operator/requests", end: false },
+    { text: "Approval Request", icon: <Mail />, link: "/operator/applications", end: false },
   ];
 
   const driverList: { text: string, icon: React.ReactNode, link: string, end: boolean }[] = [

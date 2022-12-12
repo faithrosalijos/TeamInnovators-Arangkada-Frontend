@@ -8,7 +8,7 @@ import Loading from "../../components/faith/Loading";
 import ResponseError from "../../components/faith/ResponseError";
 import { PendingRentalsContext, PendingRentalsContextType } from "../../helpers/PendingRentalsContext";
 
-const ApprovalRequest = () => {
+const RentalApplications = () => {
   const PAGE_SIZE = 5;
   const [pagination, setPagination] = useState({ from: 0, to: PAGE_SIZE });
   const [loading, setLoading] = useState(true);
@@ -40,7 +40,7 @@ const ApprovalRequest = () => {
   return (
     <>
       <Box mt="12px" display="flex" flexDirection="column" sx={{ minHeight: "80vh" }}>
-        <PageHeader title="Approval Requests" />
+        <PageHeader title="Rental Applications" />
         <br></br>
         {
           pendingRentals.length !== 0 ?
@@ -53,7 +53,7 @@ const ApprovalRequest = () => {
                 onChange={(event, page) => handlePaginationChange(page)}
               />
             </> :
-            <Typography variant="body1" color="text.secondary">No pending request.</Typography>
+            <Typography variant="body1" color="text.secondary">No pending applications.</Typography>
         }
       </Box>
       <Footer name="Faith Rosalijos" course="BSIT" section="G1" />
@@ -61,4 +61,4 @@ const ApprovalRequest = () => {
   );
 }
 
-export default ApprovalRequest;
+export default RentalApplications;
