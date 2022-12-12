@@ -11,7 +11,6 @@ import CurrentRentalProvider from './helpers/CurrentRentalContext';
 import RentVehicle from './pages/faith/RentVehicle';
 import OperatorMainLayout from './layouts/OperatorMainLayout';
 import OperatorDashboard from './pages/kerr/OperatorDashboard';
-import ApprovalRequest from './pages/faith/ApprovalRequest';
 import PendingRentalsProvider from './helpers/PendingRentalsContext';
 import ProfilePageOp from './pages/cara/ProfilePageOp';
 import EditProfilePageOp from './pages/cara/EditProfilePageOp';
@@ -29,6 +28,9 @@ import PayRent from './pages/kerr/PayRent';
 import CancelRental from './pages/faith/CancelRental';
 import SnackbarContextProvider from './helpers/SnackbarContext';
 import Snackbar from './components/faith/Snackbar';
+import RentalApplications from './pages/faith/RentalApplications';
+import Drivers from './pages/faith/Drivers';
+import DischargeDriver from './pages/faith/DischargeDriver';
 
 /* Customize default mui theme */
 const theme = createTheme({
@@ -60,7 +62,7 @@ const App = () => {
         {/* Driver Pages */}
         <Route path="driver" element={<DriverMainLayout />}>
           <Route index element={<DriverDashboard />} />
-          <Route path="vehicles">
+          <Route path="vehicle-rentals">
             <Route index element={<VehicleRentals />} />
             <Route path=":id" element={<RentVehicle />} />
           </Route>
@@ -82,7 +84,11 @@ const App = () => {
             <Route path="addvehicle" element={<AddVehiclePage />} />
             {/* TODO: Insert deletevehicle and updatevehicle here. */}
           </Route>
-          <Route path="requests" element={<PendingRentalsProvider><ApprovalRequest /></PendingRentalsProvider>} />
+          <Route path="rental-applications" element={<PendingRentalsProvider><RentalApplications /></PendingRentalsProvider>} />
+          <Route path="drivers">
+            <Route index element={<Drivers></Drivers>} />
+            <Route path="discharge" element={<DischargeDriver></DischargeDriver>} />
+          </Route>
           <Route path="operatorprofile">
             <Route index element={<ProfilePageOp />} />
             <Route path="editoperatorprof" element={<EditProfilePageOp />} />
