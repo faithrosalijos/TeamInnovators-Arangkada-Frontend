@@ -13,6 +13,14 @@ import OperatorMainLayout from './layouts/OperatorMainLayout';
 import OperatorDashboard from './pages/kerr/OperatorDashboard';
 import ApprovalRequest from './pages/faith/ApprovalRequest';
 import PendingRentalsProvider from './helpers/PendingRentalsContext';
+import MyVehicles from './pages/mariel/MyVehicles';
+import AddVehiclePage from './pages/mariel/AddVehiclePage';
+import ViewandUpdateVehicle from './components/mariel/ViewVehicle';
+import UpdateVehiclePage from './pages/mariel/UpdateVehiclePage';
+import DeleteVehiclePage from './pages/mariel/DeleteVehiclePage';
+import ViewVehiclePage from './pages/mariel/ViewVehiclePage';
+import { useState } from 'react';
+import { Vehicle } from './api/dataTypes';
 
 /* Customize default mui theme */
 const theme = createTheme({
@@ -36,6 +44,7 @@ const theme = createTheme({
 /* Customize default mui theme */
 
 const App = () => {
+
   return (
     <ThemeProvider theme={theme}>
     <ModalProvider>
@@ -48,14 +57,16 @@ const App = () => {
             <Route path=":id" element={<RentVehicle />} />
           </Route>
           <Route path="rental" element={<CurrentRentalProvider><Rental /></CurrentRentalProvider>} />
-
         </Route>
-        
         {/* Driver Pages */}
         <Route path="operator" element={<OperatorMainLayout />}>
           <Route index element={<OperatorDashboard/>} />
+          <Route path="vehicles" element={<MyVehicles />} />
+          <Route path="update-vehicle/:id" element={<UpdateVehiclePage />} />
+          <Route path="delete-vehicle/:id" element={<DeleteVehiclePage />} />
+          <Route path="add-vehicle" element={<AddVehiclePage />} />
+          <Route path="view-vehicle/:id" element={<ViewVehiclePage />} />
           <Route path="requests" element={<PendingRentalsProvider><ApprovalRequest /></PendingRentalsProvider>} />
-
         </Route>
 
         {/* Other pages */}
