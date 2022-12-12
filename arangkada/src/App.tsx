@@ -22,6 +22,8 @@ import RegistrationTwoOp from './pages/cara/RegistrationTwoOp';
 import Landing from './components/karylle/LandingPage';
 import ContactUsPage from './pages/cara/ContactUsPage';
 import AboutUsPageD from './pages/karylle/AboutUsPageD';
+import MyVehicles from './pages/mariel/MyVehicles';
+import AddVehiclePage from './pages/mariel/AddVehiclePage';
 
 /* Customize default mui theme */
 const theme = createTheme({
@@ -60,9 +62,14 @@ const App = () => {
 
         </Route>
         
-        {/* Driver Pages */}
+        {/* Operator Pages */}
         <Route path="operator" element={<OperatorMainLayout />}>
           <Route index element={<OperatorDashboard/>} />
+          <Route path="vehicles">
+            <Route index element={<MyVehicles/>}/>
+            <Route path="addvehicle" element={<AddVehiclePage/>} />
+            {/* TODO: Insert deletevehicle and updatevehicle here. */}
+          </Route>
           <Route path="requests" element={<PendingRentalsProvider><ApprovalRequest /></PendingRentalsProvider>} />
           <Route path="operatorprofile">
             <Route index element={<ProfilePageOp/>} />
