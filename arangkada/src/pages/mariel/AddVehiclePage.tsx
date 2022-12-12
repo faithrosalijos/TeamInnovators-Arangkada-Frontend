@@ -7,7 +7,7 @@ import PageHeader from "../../components/PageHeader";
 
 
 
-const MyVehicles = () => {
+const AddVehiclePage = () => {
  
   return ( 
     <Box sx={{ padding: "12px 0 0" }}>
@@ -18,4 +18,4 @@ const MyVehicles = () => {
     </Box>
    );
 }
-export default MyVehicles;
+export default AddVehiclePage;
