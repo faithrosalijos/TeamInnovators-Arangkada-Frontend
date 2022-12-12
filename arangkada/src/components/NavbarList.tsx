@@ -14,7 +14,6 @@ const NavbarList = ({ open, user }: NavbarListProps) => {
     { text: "Dashboard", icon: <Dashboard />, link: "/operator" },
     { text: "Vehicles", icon: <Commute />, link: "/operator/vehicles" },
     { text: "Add Vehicles", icon: <DriveEta />, link: "/operator/add-vehicle" },
-    { text: "Add Vehicles", icon: <DriveEta />, link: "/operator/vehicles/addvehicle" },
     { text: "Drivers Renting", icon: <People />, link: "" },
     { text: "Approval Request", icon: <Mail />, link: "/operator/requests" },
   ];
