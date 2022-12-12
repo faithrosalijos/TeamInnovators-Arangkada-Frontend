@@ -1,4 +1,4 @@
-import { Box, } from "@mui/material";
+import { Box, Typography, } from "@mui/material";
 import { useEffect, useState } from "react";
 import Footer from "../../components/Footer";
 import PageHeader from "../../components/PageHeader";
@@ -6,13 +6,18 @@ import MyVehicleCardList from "../../components/mariel/MyVehicleCardList";
 import MyVehicleSearch from "../../components/mariel/MyVehicleSearch";
 import { Vehicle } from "../../api/dataTypes";
 import VehicleService from "../../api/VehicleService";
+import Loading from "../../components/faith/Loading";
+import ResponseError from "../../components/faith/ResponseError";
 
 
 
 const MyVehicles = () => {
-  
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+  const [filteredVehicles, setFilteredVehicles] = useState<Vehicle[]>([])
   const [myVehicles, setVehicles] = useState<Vehicle[]>([]);
-  
+
+
   useEffect(() => {
     VehicleService.getVehicleByOperatorOperatorId("3").then((response) => {
       setVehicles(response.data);
@@ -21,19 +26,32 @@ const MyVehicles = () => {
     })
   }, []);
 
+  useEffect(() => {
+    setFilteredVehicles(myVehicles);
+  }, [myVehicles])
+
+  const handleFilterSubmit = (plateNumber: string) => {
+    const temp = myVehicles.filter((myVehicle) =>
+    myVehicle.plateNumber.toLowerCase().includes(plateNumber.toLowerCase()) 
+    )
+    setFilteredVehicles(temp);
+  }
+
+  const handleFilterClear = () => {
+    setFilteredVehicles(myVehicles);
+  }
+
+  // if (loading) return (<Loading />)
+
+  // if (error !== '') return (<ResponseError message={error} />)
+
   return ( 
     <Box sx={{ padding: "12px 0 0" }}>
       <PageHeader title="My Vehicle" />
-      <MyVehicleSearch />
-      <MyVehicleCardList myVehicle={myVehicles} />
-      {/* <Grid item xs={60} md={50}>
-      <Button 
-          id="AddBtn"
-          type="submit" 
-          variant="contained"  
-          sx={{marginLeft:135, height: "65px",width: "65px",borderRadius: "100px", marginTop: 4,marginRight: 2, marginBottom: 5}}>
-          <h1>+</h1></Button>
-      </Grid> */}
+      <MyVehicleSearch handleFilterSubmit={handleFilterSubmit} handleFilterClear={handleFilterClear}/>
+      <br></br>
+        {filteredVehicles.length !== 0 && <MyVehicleCardList myVehicle={filteredVehicles} />}
+        {filteredVehicles.length === 0 && <Typography variant="body1" color="text.secondary" align="center">Vehicle Not Found.</Typography>}
       <Footer name="Mariel Genodiala" course="BSIT" section="G3"/>
     </Box>
    );
