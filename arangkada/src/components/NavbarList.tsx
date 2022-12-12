@@ -22,7 +22,7 @@ const NavbarList = ({ open, user }: NavbarListProps) => {
     { text: "Dashboard", icon: <Dashboard />, link: "/driver" },
     { text: "Vehicle Rentals", icon: <Commute />, link: "/driver/vehicles" },
     { text: "Rental", icon: <DriveEta />, link: "/driver/rental" },
-    { text: "Payments", icon: <Payment />, link: "" },
+    { text: "Payments", icon: <Payment />, link: "/driver/rental/payrent" },
   ];
   
   const handleLogout = () => {
