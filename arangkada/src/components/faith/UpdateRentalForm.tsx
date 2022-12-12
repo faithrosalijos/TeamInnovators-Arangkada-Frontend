@@ -51,8 +51,8 @@ const UpdateRentalForm = () => {
         }).then((response) => {
           handleSetCurrentRental(response.data);
           handleSetMessage("Rental updated.");
-        }).catch(() => {
-          handleSetMessage("Failed to updated rental.");
+        }).catch((error) => {
+          handleSetMessage(error.message + ". Failed to updated rental.");
         })
     }
   }
@@ -81,8 +81,8 @@ const UpdateRentalForm = () => {
       }).then(() => {
         handleSetCurrentRental({} as Rental);
         handleSetMessage("Rental finished.");
-      }).catch(() => {
-        handleSetMessage("Failed to finish rental.");
+      }).catch((error) => {
+        handleSetMessage(error.message + ". Failed to finish rental.");
       })
 
     // If not paid
@@ -109,8 +109,8 @@ const UpdateRentalForm = () => {
         ).then(() => {
           handleSetCurrentRental({} as Rental);
           handleSetMessage("Rental application cancelled.");
-        }).catch(() => {
-          handleSetMessage("Failed to cancel rental application.");
+        }).catch((error) => {
+          handleSetMessage(error.message + ". Failed to cancel rental application.");
         })
       }
     });

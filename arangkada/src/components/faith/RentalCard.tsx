@@ -35,8 +35,8 @@ const RentalCard = ({ rental }: RentalCardProps) => {
         }).then((response) => {
           handleSetMessage("Rental approved.");
           handleSetPendingRentals(pendingRentals.filter((pendingRental) => pendingRental.rentalId !== response.data.rentalId));
-        }).catch(() => {
-          handleSetMessage("Failed to approve rental.");
+        }).catch((error) => {
+          handleSetMessage(error.message + ". Failed to approve rental.");
         })
       }
     });
@@ -60,8 +60,8 @@ const RentalCard = ({ rental }: RentalCardProps) => {
         }).then((response) => {
           handleSetMessage("Rental declined.");
           handleSetPendingRentals(pendingRentals.filter((pendingRental) => pendingRental.rentalId !== response.data.rentalId));
-        }).catch(() => {
-          handleSetMessage("Failed to declined rental.");
+        }).catch((error) => {
+          handleSetMessage(error.message + ". Failed to declined rental.");
         })
       }
     });

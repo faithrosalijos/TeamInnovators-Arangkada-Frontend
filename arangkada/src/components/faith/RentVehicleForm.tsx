@@ -44,8 +44,8 @@ const RentVehicleForm = () => {
       }).then(() => {
         handleSetMessage("Vehicle rented.");
         navigate("/driver/rental");
-      }).catch(() => {
-        handleSetMessage("Failed to rent vehicle.");
+      }).catch((error) => {
+        handleSetMessage(error.message + ". Failed to rent vehicle.");
       })
     }
   }

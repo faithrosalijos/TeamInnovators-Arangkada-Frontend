@@ -36,8 +36,8 @@ const CancelRentalForm = () => {
           handleSetCurrentRental({} as Rental);
           handleSetMessage("Rental cancelled.");
           navigate("../", { replace: true });
-        }).catch(() => {
-          handleSetMessage("Failed to cancel rental.");
+        }).catch((error) => {
+          handleSetMessage(error.message + ". Failed to cancel rental.");
         })
     }
   }
