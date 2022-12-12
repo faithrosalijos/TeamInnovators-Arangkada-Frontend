@@ -22,8 +22,6 @@ import RegistrationTwoOp from './pages/cara/RegistrationTwoOp';
 import Landing from './components/karylle/LandingPage';
 import ContactUsPage from './pages/cara/ContactUsPage';
 import AboutUsPageD from './pages/karylle/AboutUsPageD';
-import MyVehicles from './pages/mariel/MyVehicles';
-import AddVehiclePage from './pages/mariel/AddVehiclePage';
 import MyPayments from './pages/kerr/MyPayments';
 import PayRent from './pages/kerr/PayRent';
 import MyVehicles from './pages/mariel/MyVehicles';
@@ -63,16 +61,23 @@ const App = () => {
     <ModalProvider>
       <Routes>
         {/* Driver Pages */}
-        <Route path="driver" element={<DriverMainLayout />}>
+         <Route path="driver" element={<DriverMainLayout />}>
           <Route index element={<DriverDashboard/>} />
           <Route path="vehicles">
             <Route index element={<VehicleRentals />} />
             <Route path=":id" element={<RentVehicle />} />
           </Route>
           <Route path="rental" element={<CurrentRentalProvider><Rental /></CurrentRentalProvider>} />
-
+          </Route>
+        <Route path="operator" element={<OperatorMainLayout />}>
+          <Route index element={<OperatorDashboard/>} />
+          <Route path="vehicles" element={<MyVehicles />} />
+          <Route path="update-vehicle/:id" element={<UpdateVehiclePage />} />
+          <Route path="delete-vehicle/:id" element={<DeleteVehiclePage />} />
+          <Route path="add-vehicle" element={<AddVehiclePage />} />
+          <Route path="view-vehicle/:id" element={<ViewVehiclePage />} />
+          <Route path="requests" element={<PendingRentalsProvider><ApprovalRequest /></PendingRentalsProvider>} />
         </Route>
-        
         {/* Driver Pages */}
         <Route path="operator" element={<OperatorMainLayout />}>
           <Route index element={<OperatorDashboard/>} />
