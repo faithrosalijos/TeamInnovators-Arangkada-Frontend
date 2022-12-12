@@ -1,21 +1,21 @@
 import { Grid } from "@mui/material";
 import { Rental } from "../../api/dataTypes";
-import RentalCard from "./RentalCard";
+import DriverApplicantCard from "./DriverApplicantCard";
 
 type RentalCardListProps = {
   rentals: Rental[],
 }
 
-const RentalCardList = ({ rentals }: RentalCardListProps) => {
+const DriverApplicantCardList = ({ rentals }: RentalCardListProps) => {
   return (
     <Grid container spacing={2}>
       {rentals.map((rental) => (
         <Grid xs={12} item key={rental.rentalId}>
-          <RentalCard rental={rental} />
+          <DriverApplicantCard rental={rental} />
         </Grid>
       ))}
     </Grid>
   );
 }
 
-export default RentalCardList;
+export default DriverApplicantCardList;

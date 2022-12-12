@@ -1,5 +1,5 @@
 import { Button, Card, CardContent, Divider, Typography, Stack } from "@mui/material";
-import { DateRange } from "@mui/icons-material/";
+import { Person, Home, Phone } from "@mui/icons-material/";
 import { Rental } from "../../api/dataTypes";
 import { useModal } from "mui-modal-provider";
 import { ConfirmationModal } from "./Modals";
@@ -13,7 +13,7 @@ type RentalCardProps = {
   rental: Rental,
 }
 
-const RentalCard = ({ rental }: RentalCardProps) => {
+const DriverApplicantCard = ({ rental }: RentalCardProps) => {
   const { showModal } = useModal();
   const { handleSetMessage } = useContext(SnackbarContext) as SnackbarContextType;
   const { pendingRentals, handleSetPendingRentals } = useContext(PendingRentalsContext) as PendingRentalsContextType;
@@ -67,47 +67,49 @@ const RentalCard = ({ rental }: RentalCardProps) => {
     });
   }
 
+  const handleCancelRental = () => {
+
+  }
+
   return (
     <Card>
-      {/* Rental Information */}
       <CardContent>
-        <Typography variant="h5">Rental ID: {rental.rentalId}</Typography>
+        <Typography variant="h5">Driver ID: {rental.driver.driverId}</Typography>
+        {/* Driver Information */}
         <Stack spacing={{ xs: 1, sm: 2 }} direction={{ xs: "column", sm: "row" }}>
           <Stack spacing={0.5} direction="row" alignItems="center">
-            <DateRange sx={{ color: "text.secondary" }} />
-            <Typography variant="body1">Start: {rental.startDate}</Typography>
+            <Person sx={{ color: "text.secondary" }} />
+            <Typography variant="body1">{rental.driver.account.firstname + " " + rental.driver.account.lastname}</Typography>
           </Stack>
           <Stack spacing={0.5} direction="row" alignItems="center">
-            <DateRange sx={{ color: "text.secondary" }} />
-            <Typography variant="body1">End: {rental.endDate}</Typography>
+            <Home sx={{ color: "text.secondary" }} />
+            <Typography variant="body1">{rental.driver.account.address}</Typography>
+          </Stack>
+          <Stack spacing={0.5} direction="row" alignItems="center">
+            <Phone sx={{ color: "text.secondary" }} />
+            <Typography variant="body1">{rental.driver.account.contactNumber}</Typography>
           </Stack>
         </Stack>
       </CardContent>
       <Divider />
 
-      {/* Driver Information */}
+      {/* License Information */}
       <CardContent>
-        <Typography variant="h6">Driver ID: {rental.driver.driverId}</Typography>
-        <Typography variant="body1">Name: {rental.driver.account.firstname + " " + rental.driver.account.lastname}</Typography>
-        <Typography variant="body1">Contact Number: {rental.driver.account.contactNumber}</Typography>
-        <Typography variant="body1">Address: {rental.driver.account.address}</Typography>
         <Typography variant="body1">License Number: {rental.driver.licenseNumber}</Typography>
-        <Typography variant="body1">License Code: {rental.driver.licenseCode}</Typography>
+        <Typography variant="body1">License Code:  {rental.driver.licenseCode}</Typography>
       </CardContent>
 
-      {/* Vehicle Information */}
+      {/* Rental Information */}
       <CardContent>
-        <Typography variant="h6">Vehicle ID: {rental.vehicle.vehicleId}</Typography>
-        <Typography variant="body1">Plate Number: {rental.vehicle.plateNumber}</Typography>
-        <Typography variant="body1">Vehicle Type: {rental.vehicle.vehicleType} </Typography>
-        <Typography variant="body1">Vehicle Make: {rental.vehicle.makeModel}</Typography>
-        <Typography variant="body1">Route: {rental.vehicle.route}</Typography>
+        <Typography variant="h6">Rental Details</Typography>
+        <Typography variant="body1">Start Date: {rental.startDate}</Typography>
+        <Typography variant="body1">End Date:  {rental.endDate}</Typography>
+        <Typography variant="body1">Vehicle ID:  {rental.vehicle.vehicleId}</Typography>
       </CardContent>
 
       <CardContent >
         <Stack direction={{ xs: "column", lg: "row" }} alignItems="center" spacing={4} width="100%">
-          {/* Rental Status */}
-          {rental.status === "PENDING" && <Status status="Pending" message="Waiting for operator's response." />}
+          {rental.status === "PENDING" && <Status status="Pending" message="Driver is waiting for your response." />}
           <Stack direction={{ xs: "column-reverse", md: "row" }} width="100%" spacing={{ xs: 2, md: 3 }} justifyContent="end" >
             <Button variant="contained" color="error" sx={{ width: "250px" }} onClick={handleDecline}>Decline</Button>
             <Button variant="contained" color="success" sx={{ width: "250px" }} onClick={handleApprove}>Approve</Button>
@@ -118,4 +120,4 @@ const RentalCard = ({ rental }: RentalCardProps) => {
   );
 }
 
-export default RentalCard;
+export default DriverApplicantCard;
