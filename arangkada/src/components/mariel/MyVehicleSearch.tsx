@@ -1,21 +1,28 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button, Grid, InputAdornment, TextField } from "@mui/material";
 import DriveEta from "@mui/icons-material/DriveEta";
 
 
-const MyVehicleSearch = () => {
+type MyVehicleSearchProps = {
+  handleFilterSubmit: (plateNumber: string) => void,
+  handleFilterClear: () => void,
+}
+
+const MyVehicleSearch = ({ handleFilterSubmit, handleFilterClear }: MyVehicleSearchProps) => {
   const [plateNumber, setPlateNumber] = useState("");
 
   const handlePlateNumberChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setPlateNumber(event.target.value);
   }
   
-  const handleSubmit = (event: React.SyntheticEvent) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    handleFilterSubmit(plateNumber);
   }
 
   const handleClear = (event: React.MouseEvent) => {
     setPlateNumber("");
+    handleFilterClear();
   }
 
   return ( 
