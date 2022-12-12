@@ -54,61 +54,59 @@ const theme = createTheme({
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
-      <ModalProvider>
-        <SnackbarContextProvider>
-          <Routes>
-            {/* Driver Pages */}
-            <Route path="driver" element={<DriverMainLayout />}>
-              <Route index element={<DriverDashboard />} />
-              <Route path="vehicles">
-                <Route index element={<VehicleRentals />} />
-                <Route path=":id" element={<RentVehicle />} />
-              </Route>
-              <Route path="rental">
-                <Route index element={<CurrentRentalProvider><Rental /></CurrentRentalProvider>} />
-          <Route path="payments">
-            <Route index element ={<MyPayments/>}/>
-            <Route path="payrent" element ={<PayRent/>}/>
-          </Route>
-                <Route path="cancel" element={<CurrentRentalProvider><CancelRental /></CurrentRentalProvider>} />
-              </Route>
-
-            </Route>
-
-            {/* Operator Pages */}
-            <Route path="operator" element={<OperatorMainLayout />}>
-              <Route index element={<OperatorDashboard />} />
+    <ModalProvider>
+    <SnackbarContextProvider>
+      <Routes>
+        {/* Driver Pages */}
+        <Route path="driver" element={<DriverMainLayout />}>
+          <Route index element={<DriverDashboard />} />
           <Route path="vehicles">
-            <Route index element={<MyVehicles/>}/>
-            <Route path="addvehicle" element={<AddVehiclePage/>} />
+            <Route index element={<VehicleRentals />} />
+            <Route path=":id" element={<RentVehicle />} />
+          </Route>
+          <Route path="rental">
+            <Route index element={<CurrentRentalProvider><Rental /></CurrentRentalProvider>} />
+            <Route path="payments">
+              <Route index element={<MyPayments />} />
+              <Route path="payrent" element={<PayRent />} />
+            </Route>
+            <Route path="cancel" element={<CurrentRentalProvider><CancelRental /></CurrentRentalProvider>} />
+          </Route>
+        </Route>
+
+        {/* Operator Pages */}
+        <Route path="operator" element={<OperatorMainLayout />}>
+          <Route index element={<OperatorDashboard />} />
+          <Route path="vehicles">
+            <Route index element={<MyVehicles />} />
+            <Route path="addvehicle" element={<AddVehiclePage />} />
             {/* TODO: Insert deletevehicle and updatevehicle here. */}
           </Route>
-              <Route path="requests" element={<PendingRentalsProvider><ApprovalRequest /></PendingRentalsProvider>} />
-              <Route path="operatorprofile">
-                <Route index element={<ProfilePageOp />} />
-                <Route path="editoperatorprof" element={<EditProfilePageOp />} />
-                <Route path="editbusinessinfo" element={<EditBusinessInfoPage />} />
-                <Route path="deleteop" element={<DeleteAccPage />} />
-              </Route>
+          <Route path="requests" element={<PendingRentalsProvider><ApprovalRequest /></PendingRentalsProvider>} />
+          <Route path="operatorprofile">
+            <Route index element={<ProfilePageOp />} />
+            <Route path="editoperatorprof" element={<EditProfilePageOp />} />
+            <Route path="editbusinessinfo" element={<EditBusinessInfoPage />} />
+            <Route path="deleteop" element={<DeleteAccPage />} />
+          </Route>
+        </Route>
 
-            </Route>
+        {/* Other pages */}
+        <Route path="registration">
+          <Route index element={<RegistrationOneOp />} />
+          <Route path="registeroperator" element={<RegistrationTwoOp />} />
+        </Route>
 
-            {/* Other pages */}
-            <Route path="registration">
-              <Route index element={<RegistrationOneOp />} />
-              <Route path="registeroperator" element={<RegistrationTwoOp />} />
-            </Route>
+        <Route path="landing" element={<Landing />} />
+        <Route path="aboutus" element={<AboutUsPageD />} />
+        <Route path="contactus" element={<ContactUsPage />} />
+        <Route path="login" element={<ContactUsPage />} />
 
-            <Route path="landing" element={<Landing />} />
-            <Route path="aboutus" element={<AboutUsPageD />} />
-            <Route path="contactus" element={<ContactUsPage />} />
-            <Route path="login" element={<ContactUsPage />} />
+      </Routes>
 
-          </Routes>
-
-          <Snackbar />
-        </SnackbarContextProvider>
-      </ModalProvider>
+      <Snackbar />
+    </SnackbarContextProvider>
+    </ModalProvider>
     </ThemeProvider>
   );
 }
