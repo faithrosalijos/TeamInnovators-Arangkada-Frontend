@@ -14,6 +14,7 @@ const NavbarList = ({ open, user }: NavbarListProps) => {
     { text: "Dashboard", icon: <Dashboard />, link: "/operator" },
     { text: "Vehicles", icon: <Commute />, link: "/operator/vehicles" },
     { text: "Add Vehicles", icon: <DriveEta />, link: "/operator/add-vehicle" },
+    { text: "Add Vehicles", icon: <DriveEta />, link: "/operator/vehicles/addvehicle" },
     { text: "Drivers Renting", icon: <People />, link: "" },
     { text: "Approval Request", icon: <Mail />, link: "/operator/requests" },
   ];
@@ -22,7 +23,7 @@ const NavbarList = ({ open, user }: NavbarListProps) => {
     { text: "Dashboard", icon: <Dashboard />, link: "/driver" },
     { text: "Vehicle Rentals", icon: <Commute />, link: "/driver/vehicles" },
     { text: "Rental", icon: <DriveEta />, link: "/driver/rental" },
-    { text: "Payments", icon: <Payment />, link: "" },
+    { text: "Payments", icon: <Payment />, link: "/driver/payments" },
   ];
   
   const handleLogout = () => {
@@ -59,7 +60,7 @@ const NavbarList = ({ open, user }: NavbarListProps) => {
       <List>
         <ListItem disablePadding sx={{ display: 'block' }}>
           <ListItemButton 
-            {...{ component: NavLink, to: user === "Driver"? "": ""}}
+            {...{ component: NavLink, to: user === "Driver"? "": "/operator/operatorprofile"}}
             // selected={currentPath.pathname === (user === "Driver"? "": "")}
             sx={{
               color: "primary.contrastText",

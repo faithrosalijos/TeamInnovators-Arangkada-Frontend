@@ -32,7 +32,7 @@ const PayRentForm = () => {
           <Grid item xs={12} >
           <Stack spacing={3} direction={{ xs: "column-reverse", md: "row" }} sx={{ justifyContent: "end" }}>
             <Button color="secondary" variant="contained" sx={{ width: "250px" }}>Cancel</Button>
-            <Button type="submit" variant="contained" sx={{ width: "250px"}}>Add Vehicle</Button>
+            <Button type="submit" variant="contained" sx={{ width: "250px"}}>Pay Rent</Button>
           </Stack>
           </Grid>
       </Grid>

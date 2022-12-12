@@ -7,7 +7,7 @@ export default function ContactUs() {
     return (
 
         <div>
-            <p style={{fontSize: 35, color: '#D2A857', textAlign: 'left', marginLeft: 200}}>Need to get in touch with us?</p>
+            <p style={{fontSize: 35, color: '#D2A857', textAlign: 'left', marginLeft: 200, marginTop: 130}}>Need to get in touch with us?</p>
             <div style={{backgroundColor: '#D2A857', borderRadius: 30, padding: 80, maxWidth: 700, marginLeft: 350}}>
                 <Stack direction="row">
                     <PhoneIcon sx={{color: '#ffffff', fontSize: 80, paddingBottom: 5, paddingTop: 1}}></PhoneIcon>

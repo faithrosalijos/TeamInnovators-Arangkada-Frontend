@@ -96,6 +96,47 @@
     margin-right: 120px;
     margin-left: auto;
   }
+
+  .bgimg{
+    background-image: url('../images/Login.png');
+    background-position: center;
+    background-size: cover;
+    height: 649px;
+    width: 1366px;
+  }
+
+  .leftL {
+    padding-top: 180px;
+    margin-right: 300px;
+    margin-left: 200px;
+  }
+
+  .linksL{
+    color: #ffffff;
+  }
+
+  .wrapperL {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    max-width: 0px;
+  }
+
+  .contain3 {
+    background-color: white;
+    padding: 0.2rem;
+    border-radius: 20px;
+    box-shadow: 1px 3px #525252;
+  }
+  .wrapperA {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  .leftA {
+    margin-right: 10px;
+    margin-left: 150px;
+  }
+  
   
   
   

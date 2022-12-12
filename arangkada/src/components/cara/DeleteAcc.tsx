@@ -1,6 +1,7 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Button, Grid, IconButton, InputAdornment, Stack, TextField } from "@mui/material";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 export default function DeleteAcc() {
@@ -8,6 +9,7 @@ export default function DeleteAcc() {
     const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [passwordError, setPasswordError] = useState<string | null>(null);
+    const navigate = useNavigate();
 
     const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setPassword(event.target.value);
@@ -27,6 +29,10 @@ export default function DeleteAcc() {
           setPasswordError("Password is incorrect.")
         }*/ 
         }
+    }
+
+    const handleCancelClick = () => {
+        navigate("/operator/operatorprofile/");
     }
 
 
@@ -55,7 +61,7 @@ export default function DeleteAcc() {
             <p style={{textAlign: 'left', fontSize: '20px', paddingTop: 50}}>Do you still want to delete your account?</p>
             <Stack direction="row" justifyContent="start" paddingBottom={7}>
                 <Button variant="contained" type="submit" style={{backgroundColor: '#D76666', marginTop: 25, paddingInline: 40}}>Delete</Button>
-                <Button variant="contained" style={{backgroundColor: '#D2A857', marginTop: 25, paddingInline: 40, marginLeft: 15}}>Cancel</Button>
+                <Button variant="contained" onClick={handleCancelClick} style={{backgroundColor: '#D2A857', marginTop: 25, paddingInline: 40, marginLeft: 15}}>Cancel</Button>
             </Stack>
             </Stack>
             
