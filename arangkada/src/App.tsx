@@ -66,12 +66,12 @@ const App = () => {
           </Route>
           <Route path="rental">
             <Route index element={<CurrentRentalProvider><Rental /></CurrentRentalProvider>} />
-            <Route path="payments">
+            <Route path="cancel" element={<CurrentRentalProvider><CancelRental /></CurrentRentalProvider>} />
+          </Route>
+          <Route path="payments">
               <Route index element={<MyPayments />} />
               <Route path="payrent" element={<PayRent />} />
             </Route>
-            <Route path="cancel" element={<CurrentRentalProvider><CancelRental /></CurrentRentalProvider>} />
-          </Route>
         </Route>
 
         {/* Operator Pages */}
