@@ -7,19 +7,20 @@ import PaymentService from "../../api/PaymentService";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading";
 import ResponseError from "../../components/faith/ResponseError";
+import PaymentCardList from "../../components/kerr/PaymentCardList";
 
 const Payments = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const navigate = useNavigate();
-    const [currentPayment, setCurrentPayment] = useState<Payment>();
+    const [payments, setPayments] = useState<Payment[]>([]);
 
     const handlePayRentClick = () => {
       navigate("/driver/payments/payrent/");
   }
     useEffect(() => {
-      PaymentService.getPaymentsByDriverId("2").then((response) => {
-        setCurrentPayment(response.data)
+      PaymentService.getPaymentsByDriverId("1").then((response) => {
+        setPayments(response.data)
         setError("");
       }).catch((error) => {
         setError(error.message);
@@ -47,24 +48,12 @@ const Payments = () => {
                 <h1>+</h1>
               </Button>
             </Grid>
-            {
-              currentPayment ?
-                <>
-                  <Typography variant="h5">Payment ID: {currentPayment.paymentId}</Typography>
-                  {/* TODO: Show RentDetails from RentEntity of Payment to be added in dataTypes.tsx
-                  and add Pay Rent button to PayRent page to be linked. */}
-                  {/* <br></br>
-                  {currentRental.status === "PENDING" && <Status status="Pending" message="Waiting for operator's response." />}
-                  {currentRental.status === "APPROVED" && <Status status="Approved" message="Operator has approved your application." />}
-                  <br></br>
-                  <br></br>
-                  <VehicleDetails vehicle={currentRental.vehicle} />
-                  <br></br>
-                  <br></br>
-                  <UpdateRentalForm rental={currentRental} /> */}
-                </> :
-                <Typography variant="body1" color="text.secondary">No rents paid.</Typography>
-            }
+          </Box>
+          <Box mt="12px" display="flex" flexDirection="column" sx={{ minHeight: "80vh" }}>
+            <PageHeader title="Drivers" />
+            <br></br>
+            {<PaymentCardList myPayment={payments} />}
+            {<Typography variant="body1" color="text.secondary">No drivers renting.</Typography>}
           </Box>
           <Footer name="Kerr Labajo" course="BSCS" section="F1" />
         </>
