@@ -1,6 +1,6 @@
 import { Payment } from "../../api/dataTypes";
 import RouteIcon from '@mui/icons-material/Route';
-import PaymentService from "../../api/RentalService";
+import PaymentService from "../../api/PaymentService";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { Button, Card, CardActions, CardContent, CardHeader, Divider, Stack, Typography } from "@mui/material";
@@ -15,9 +15,11 @@ const PaymentCard = ({ myPayment }: MyPaymentCardProps) => {
         <Card>
           <CardHeader 
             title={myPayment.rent.vehicle.plateNumber}       
-            subheader={<Stack spacing={0.5} direction="row" alignItems="center">
-                <RouteIcon/> <Typography variant="body1">{myPayment.amount}</Typography>
-              </Stack>}
+            subheader={
+                <Stack spacing={0.5} direction="row" alignItems="center">
+                    <RouteIcon/> <Typography variant="body1">{myPayment.amount}</Typography>
+                </Stack>
+                }
             action={
               <Link to={"/driver/payment/view/"+ myPayment.paymentId } style={{ textDecoration: 'none' }}> 
               <Button 
@@ -25,16 +27,13 @@ const PaymentCard = ({ myPayment }: MyPaymentCardProps) => {
                 fullWidth
                 size="small"
                 sx={{color: "gray",marginTop:5,}} >
-                Payment ID: {myPayment.paymentId}
+                Rental Id: {myPayment.rent.rentalId}
               </Button>
               </Link>
             }
           />
           <Divider />
           <CardContent>
-            <Typography 
-                  variant="body1">Rental Id: <b>{myPayment.rent.rentalId}</b>
-              </Typography>
               <Typography 
                   variant="body1">Date Paid: <b>{myPayment.datePaid}</b> 
               </Typography>
