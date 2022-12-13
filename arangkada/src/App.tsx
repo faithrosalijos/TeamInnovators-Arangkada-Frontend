@@ -18,7 +18,7 @@ import EditBusinessInfoPage from './pages/cara/EditBusinessInfoPage';
 import DeleteAccPage from './pages/cara/DeleteAccPage';
 import RegistrationOneOp from './pages/cara/RegistrationOneOp';
 import RegistrationTwoOp from './pages/cara/RegistrationTwoOp';
-import Landing from './components/karylle/LandingPage';
+import Landing from './components/karylle/Landing';
 import ContactUsPage from './pages/cara/ContactUsPage';
 import AboutUsPageD from './pages/karylle/AboutUsPageD';
 import Payments from './pages/kerr/Payments';
