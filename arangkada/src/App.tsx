@@ -21,7 +21,7 @@ import RegistrationTwoOp from './pages/cara/RegistrationTwoOp';
 import Landing from './components/karylle/LandingPage';
 import ContactUsPage from './pages/cara/ContactUsPage';
 import AboutUsPageD from './pages/karylle/AboutUsPageD';
-import MyPayments from './pages/kerr/MyPayments';
+import MyPayments from './pages/kerr/Payments';
 import PayRent from './pages/kerr/PayRent';
 import MyVehicles from './pages/mariel/MyVehicles';
 import AddVehiclePage from './pages/mariel/AddVehiclePage';

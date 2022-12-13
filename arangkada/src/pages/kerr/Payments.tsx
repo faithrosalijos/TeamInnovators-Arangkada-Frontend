@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading";
 import ResponseError from "../../components/faith/ResponseError";
 
-const MyPayments = () => {
+const Payments = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const navigate = useNavigate();
@@ -70,4 +70,4 @@ const MyPayments = () => {
         </>
       );
 }
-export default MyPayments;
+export default Payments;
