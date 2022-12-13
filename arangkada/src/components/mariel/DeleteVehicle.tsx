@@ -1,30 +1,54 @@
-import { useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { Button, FormControl, Grid,  MenuItem, Select, SelectChangeEvent, Stack, TextField,} from "@mui/material";
-import React from "react";
-
+import { useNavigate, useParams } from "react-router-dom";
+import axios from "axios";
+import VehicleService from "../../api/VehicleService";
 
 const MyVehicleDeleteForm  = () =>{
-    const [reason, setReason] = useState("");
-    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+    const para = useParams() as { id: string };
+    const [vehicle, setVehicle]= useState({
+        plateNumber: "",
+        route: "",
+        vehicleType: "",
+        makeModel: "",
+        vin: "",
+        orStatus: "",
+        vehicleCondition: "",
+        rentalFee: "",
+        rented: false,
+    })
+    const [data, setData]= useState({
+       password:"",
+    })
+    const {password} = data;
     
-    const handleChange = (event: SelectChangeEvent) => {
-        setReason(event.target.value as string);
-    }
-    const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(event.target.value);
-    }
-    const handleClear = (event: React.MouseEvent) => {
-        setPassword("");
-        setReason("");
-    }
-    const handleSubmit = (event: React.SyntheticEvent) => {
-        event.preventDefault();
-    }
+    const deleteVehicle = async(e: { preventDefault: () => void; })  => {
+        e.preventDefault();
+        await axios.delete(`http://localhost:8080/vehicle/deleteVehicle/${para.id}`,{
+    })
+    .then((res:any)=> console.log('Deleting Data'))
+    .catch((err:string) => console.log(err))
+    alert("Vehicle Successfully deleted.")
+    navigate('/operator/vehicles')
+    };
+    
+    useEffect(() => {
+        VehicleService.getVehicleByVehicleId(para.id).then((response) => {
+        setVehicle(response.data);
+        }).catch((error) => {
+        console.log(error);
+        })
+    }, []);
+
+    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setData({ ...data, [e.target.name]: e.target.value });
+    };
 
   return ( 
     <>
-    <Grid container spacing={2} onSubmit={handleSubmit} component="form" sx={{marginTop: 2, marginBottom: 5}}>
-    <Grid item xs={12} md={6} sx={{marginLeft: 20, marginTop: 3}}>
+    <Grid container spacing={2} onSubmit={deleteVehicle} component="form" sx={{marginTop: 2, marginBottom: 5}}>
+    {/* <Grid item xs={12} md={6} sx={{marginLeft: 20, marginTop: 3}}>
       <FormControl fullWidth>
             <h2 style={{fontFamily:"sans-serif"}}> Reason for deletion: </h2>
                 <Select
@@ -35,19 +59,20 @@ const MyVehicleDeleteForm  = () =>{
                     <MenuItem value={'Car Damaged'}>Car Damaged</MenuItem>
                     <MenuItem value={'Car Lost'}>Car Lost</MenuItem>
                     <MenuItem value={'Prefer not to say'}>Prefer not to say</MenuItem> 
-                {/* {myVehicle.reason} */}
                 </Select>  
       </FormControl> 
-    </Grid>
+    </Grid> */}
     <Grid item xs={12} md={6} sx={{marginLeft: 20, marginTop: 3}}>
         <h2 style={{fontFamily:"sans-serif"}}> Re-enter your password: </h2>
         <TextField 
-                onChange={handlePasswordChange} 
+                onChange={handleChange} 
                 value={password} 
                 fullWidth
+                name="password"
                 id="filled-password-input"
                 label="Password"
                 type="password"
+                required
                 autoComplete="current-password"
                 variant="outlined"
                 sx={{margin: 1, marginBottom: 3}}>
@@ -66,7 +91,7 @@ const MyVehicleDeleteForm  = () =>{
     
         <Stack spacing={3} direction={{ xs: "column-reverse", md: "row" }} sx={{ marginTop:2, justifyContent: "end", marginLeft: "180px" }}>
           <Button type="submit" color="error" variant="contained" sx={{ width: "250px" }}>Delete</Button>
-          <Button  color="primary"variant="contained" sx={{ width: "250px"}}>Cancel</Button>
+          <Button  onClick={() => navigate(-1)} color="primary"variant="contained" sx={{ width: "250px"}}>Cancel</Button>
         </Stack>
         
     </Grid>

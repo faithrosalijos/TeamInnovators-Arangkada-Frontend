@@ -38,6 +38,8 @@ export type Vehicle = {
   vehicleCondition: string,
   rentalFee: number,
   operator: Operator,
+  isDeleted?: boolean,
+  rented?: boolean,
 }
 
 export type Rental = {

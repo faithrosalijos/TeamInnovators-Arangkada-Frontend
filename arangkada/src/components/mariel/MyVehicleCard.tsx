@@ -1,7 +1,7 @@
-import { Button, Card, CardActions, CardContent, CardHeader, Divider, Grid, Paper, Typography } from "@mui/material";
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { Button, Card, CardActions, CardContent, CardHeader, Divider,Stack, Typography } from "@mui/material";
 import { Vehicle } from "../../api/dataTypes";
-
+import RouteIcon from '@mui/icons-material/Route';
+import { Link, } from "react-router-dom";
 
 
 type MyVehicleCardProps = {
@@ -13,17 +13,20 @@ const MyVehicleCard = ({ myVehicle }: MyVehicleCardProps) => {
     <>
     <Card>
       <CardHeader 
-        title={myVehicle.plateNumber} 
-        subheader={"Route: " + myVehicle.route} 
+        title={myVehicle.plateNumber}       
+        subheader={<Stack spacing={0.5} direction="row" alignItems="center">
+            <RouteIcon/> <Typography variant="body1">{myVehicle.route}</Typography>
+          </Stack>}
         action={
+          <Link to={"/operator/view-vehicle/"+ myVehicle.vehicleId } style={{ textDecoration: 'none' }}> 
           <Button 
-            type="submit" 
             variant="text" 
             fullWidth
             size="small"
             sx={{color: "gray",marginTop:5,}} >
-          View
+            Vehicle ID: {myVehicle.vehicleId}
           </Button>
+          </Link>
         }
       />
       <Divider />
@@ -45,6 +48,7 @@ const MyVehicleCard = ({ myVehicle }: MyVehicleCardProps) => {
           </Typography>
       </CardContent>
       <CardActions sx={{ justifyContent: "end" }}>
+      <Link to={"/operator/delete-vehicle/" + myVehicle.vehicleId} style={{ textDecoration: 'none' }}> 
         <Button 
           size="small" 
           variant="contained" 
@@ -53,12 +57,15 @@ const MyVehicleCard = ({ myVehicle }: MyVehicleCardProps) => {
           sx={{width:"150px"}}>
           Remove
         </Button>
-        <Button 
-          size="small" 
-          variant="contained"
-          sx={{width:"150px"}}>
-          Update
-        </Button>
+        </Link>
+        <Link to={"/operator/update-vehicle/"+ myVehicle.vehicleId } style={{ textDecoration: 'none' }}> 
+        <Button
+           size="small" 
+           variant="contained"
+           sx={{width:"150px"}}>
+            Update
+          </Button>
+          </Link>
       </CardActions>
     </Card>
     </>

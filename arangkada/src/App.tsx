@@ -21,8 +21,6 @@ import RegistrationTwoOp from './pages/cara/RegistrationTwoOp';
 import Landing from './components/karylle/LandingPage';
 import ContactUsPage from './pages/cara/ContactUsPage';
 import AboutUsPageD from './pages/karylle/AboutUsPageD';
-import MyVehicles from './pages/mariel/MyVehicles';
-import AddVehiclePage from './pages/mariel/AddVehiclePage';
 import MyPayments from './pages/kerr/MyPayments';
 import PayRent from './pages/kerr/PayRent';
 import CancelRental from './pages/faith/CancelRental';
@@ -31,6 +29,12 @@ import Snackbar from './components/Snackbar';
 import RentalApplications from './pages/faith/RentalApplications';
 import Drivers from './pages/faith/Drivers';
 import DischargeDriver from './pages/faith/DischargeDriver';
+import MyVehicles from './pages/mariel/MyVehicles';
+import AddVehiclePage from './pages/mariel/AddVehiclePage';
+import ViewandUpdateVehicle from './components/mariel/ViewVehicle';
+import UpdateVehiclePage from './pages/mariel/UpdateVehiclePage';
+import DeleteVehiclePage from './pages/mariel/DeleteVehiclePage';
+import ViewVehiclePage from './pages/mariel/ViewVehiclePage';
 
 /* Customize default mui theme */
 const theme = createTheme({
@@ -54,13 +58,14 @@ const theme = createTheme({
 /* Customize default mui theme */
 
 const App = () => {
+
   return (
     <ThemeProvider theme={theme}>
     <ModalProvider>
     <SnackbarContextProvider>
       <Routes>
         {/* Driver Pages */}
-        <Route path="driver" element={<DriverMainLayout />}>
+         <Route path="driver" element={<DriverMainLayout />}>
           <Route index element={<DriverDashboard />} />
           <Route path="vehicle-rentals">
             <Route index element={<VehicleRentals />} />
@@ -74,9 +79,20 @@ const App = () => {
               <Route index element={<MyPayments />} />
               <Route path="payrent" element={<PayRent />} />
             </Route>
+          <Route path="rental" element={<CurrentRentalProvider><Rental /></CurrentRentalProvider>} />
+          </Route>
+        <Route path="operator" element={<OperatorMainLayout />}>
+          <Route index element={<OperatorDashboard/>} />
+          <Route path="vehicles" element={<MyVehicles />} />
+          <Route path="update-vehicle/:id" element={<UpdateVehiclePage />} />
+          <Route path="delete-vehicle/:id" element={<DeleteVehiclePage />} />
+          <Route path="add-vehicle" element={<AddVehiclePage />} />
+          <Route path="view-vehicle/:id" element={<ViewVehiclePage />} />
+          <Route path="requests" element={<PendingRentalsProvider><ApprovalRequest /></PendingRentalsProvider>} />
         </Route>
 
         {/* Operator Pages */}
+        {/* Driver Pages */}
         <Route path="operator" element={<OperatorMainLayout />}>
           <Route index element={<OperatorDashboard />} />
           <Route path="vehicles">
@@ -95,6 +111,9 @@ const App = () => {
             <Route path="editbusinessinfo" element={<EditBusinessInfoPage />} />
             <Route path="deleteop" element={<DeleteAccPage />} />
           </Route>
+          <Route index element={<OperatorDashboard/>} />
+          <Route path="requests" element={<PendingRentalsProvider><ApprovalRequest /></PendingRentalsProvider>} />
+
         </Route>
 
         {/* Other pages */}

@@ -1,8 +1,8 @@
-import { ChangeEvent, useEffect, useState } from "react";
-import { Button, FormControl, Grid,  InputLabel, MenuItem, Select, SelectChangeEvent, Stack, TextField, } from "@mui/material";
+import {  useEffect, useState } from "react";
+import { Button, FormControl, Grid,  InputLabel, MenuItem, Select, Stack, TextField, } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import VehicleService from "../../api/VehicleService";
-import axios from "axios";
+
 
 const ViewandUpdateVehicle  = () =>{
     
@@ -21,86 +21,57 @@ const ViewandUpdateVehicle  = () =>{
         rented: false,
     })
     const { plateNumber, route, vehicleType, makeModel,vin,orStatus,vehicleCondition,rentalFee, rented} = vehicle;
-    const updateVehicle = async (e: { preventDefault: () => void; }) => {
-        e.preventDefault();
-        await axios.put(`http://localhost:8080/vehicle/putVehicle/${para.id}`,{
-        // VehicleService.putVehicle( {
-        route:vehicle.route,
-        rentalFee:Number(vehicle.rentalFee),
-        orStatus:vehicle.orStatus,
-        vehicleCondition:vehicle.vehicleCondition,
-    })
-    .then((res:any)=> console.log('Editing Data'))
-    .catch((err:string) => console.log(err))
-    // alert("Changes Successfully change")
-    // navigate("/operator/view-vehicle")
-    };
-
   useEffect(() => {
-    // console.log(isRented)
     VehicleService.getVehicleByVehicleId(para.id).then((response) => {
       setVehicle(response.data);
-    //   console.log(response.data)
     }).catch((error) => {
       console.log(error);
     })
   }, []);
-     
-    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setVehicle({ ...vehicle, [e.target.name]: e.target.value });
-        //console.log(e.target.name)
-    };
-    const handleSelectChange = (event: SelectChangeEvent) => {
-        setVehicle({ ...vehicle, [event.target.name]: event.target.value });
-    }
 
     return ( 
         <>
-        <Grid container spacing={2} onSubmit={updateVehicle}component="form" sx={{marginTop: 2, marginBottom: 5}}>
+        <Grid container spacing={2} component="form" sx={{marginTop: 2, marginBottom: 5}}>
         <Grid item xs={12} md={4}>
            <TextField 
-                onChange={handleChange} 
-                disabled
+                id="filled-read-only-input"
                 value={plateNumber} 
                 name="plateNumber"
                 label="Plate Number" 
-                size="small"
+                size="medium"
                 fullWidth 
                 sx={{margin: 1, }}>
             </TextField> 
         </Grid>
         <Grid item xs={12} md={4}>
-           <TextField 
-                onChange={handleChange} 
+           <TextField
+                id="filled-read-only-input"
                 value={route} 
                 name="route"
                 label="Route" 
-                size="small" 
+                size="medium"
                 fullWidth 
-                required
                 sx={{margin: 1,  }}> 
             </TextField>
         </Grid>
         <Grid item xs={12} md={4}>
            <TextField 
-                onChange={handleChange} 
+                id="filled-read-only-input"
                 value={vehicleType}
                 name="vehicleType"
-                disabled
                 label="Vehicle Type" 
-                size="small" 
+                size="medium"
                 fullWidth 
                 sx={{margin: 1, }} >
            </TextField>
         </Grid>
         <Grid item xs={12} md={6}>
             <TextField 
-                onChange={handleChange} 
+                id="filled-read-only-input"
                 value={vin}
                 label="VIN" 
                 name="vin"
-                disabled
-                size="small" 
+                size="medium"
                 variant="outlined" 
                 fullWidth
                 sx={{margin: 1, }}>
@@ -108,12 +79,10 @@ const ViewandUpdateVehicle  = () =>{
             </Grid>
         <Grid item xs={12} md={6}>
             <TextField 
-
+                id="filled-read-only-input"
                 value={rented===false?"Not Rented" : "Rented"}
-                disabled
-                onChange={handleChange} 
+                size="medium"
                 label="Rental Status" 
-                size="small" 
                 name="rented"
                 fullWidth
                 variant="outlined" 
@@ -125,13 +94,12 @@ const ViewandUpdateVehicle  = () =>{
                 <InputLabel id="demo-simple-select-label" >OR, CR Status</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
-                        id="demo-simple-select"
+                        id="demo-simple-select-required-label"
                         value={orStatus}
                         label="OR, CR Status"
                         required
                         name="orStatus"
-                        size="small" 
-                        onChange={handleSelectChange}
+                        size="medium"
                         sx={{margin: 1}}>
                             <MenuItem value={'Updated'}>Updated</MenuItem>
                             <MenuItem value={'Renewed'}>Renewed</MenuItem>
@@ -145,13 +113,12 @@ const ViewandUpdateVehicle  = () =>{
                 <InputLabel id="demo-simple-select-label" >Vehicle Condition</InputLabel>
                     <Select
                         labelId="demo-simple-select-label"
-                        id="demo-simple-select"
+                        id="demo-simple-select-required-label"
                         value={vehicleCondition}
                         label="Vehicle Condition"
                         required
                         name="vehicleCondition"
-                        size="small" 
-                        onChange={handleSelectChange}
+                        size="medium"
                         sx={{margin: 1}}>
                             <MenuItem value={'Ready to use'}>Ready To Use</MenuItem>
                             <MenuItem value={'Not Ready To Use'}>Not Ready To Use</MenuItem> 
@@ -161,11 +128,10 @@ const ViewandUpdateVehicle  = () =>{
         </Grid>
             <Grid item xs={12} md={6}>
                 <TextField 
-                    onChange={handleChange} 
+                    id="filled-read-only-input" 
                     value={makeModel}label="Make and Model" 
-                    size="small" 
+                    size="medium"
                     variant="outlined" 
-                    disabled
                     name="makeModel"
                     fullWidth
                     sx={{margin: 1,  height:"8vh"}}>
@@ -173,10 +139,10 @@ const ViewandUpdateVehicle  = () =>{
                 </Grid>
                 <Grid item xs={12} md={6}>
                 <TextField 
-                    onChange={handleChange} 
+                    id="filled-read-only-input"
                     value={rentalFee}
                     label="Rental Fee" 
-                    size="small" 
+                    size="medium"
                     variant="outlined"
                     name="rentalFee"
                     required 
@@ -186,9 +152,7 @@ const ViewandUpdateVehicle  = () =>{
             </Grid>
             <Grid item xs={12} >
             <Stack spacing={3} direction={{ xs: "column-reverse", md: "row" }} sx={{ justifyContent: "end" }}>
-              <Button  onClick={() => navigate(-1)} color="secondary" variant="contained" sx={{ width: "250px" }}>Cancel</Button>
-              <Button  type="submit" variant="contained" sx={{ width: "250px"}}>Save Changes</Button> 
-              {/* onClick={(e)=>{e.preventDefault(); console.log(data)}} */}
+              <Button  onClick={() => navigate("/operator/vehicles")} color="secondary" variant="contained" sx={{ width: "250px" }}>Go Back</Button>
             </Stack>
             </Grid>
         </Grid>
