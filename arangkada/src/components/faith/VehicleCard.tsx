@@ -3,7 +3,7 @@ import { BusinessCenter, Person, Phone } from "@mui/icons-material/";
 import { Rental, Vehicle } from "../../api/dataTypes";
 import RentalService from "../../api/RentalService";
 import { useModal } from "mui-modal-provider";
-import { NoticeModal } from "./Modals";
+import { NoticeModal } from "../Modals";
 import { useNavigate } from "react-router-dom";
 
 type VehicleCardProps = {
@@ -15,7 +15,7 @@ const VehicleCard = ({ vehicle }: VehicleCardProps) => {
   const navigate = useNavigate();
 
   const handleRentVehicle = () => {
-    RentalService.getCurrentRentalByDriver("1").then((response) => {
+    RentalService.getCurrentRentalByDriver("2").then((response) => {
       const currentRental: Rental = response.data;
       if (currentRental) {
         const modal = showModal(NoticeModal, {

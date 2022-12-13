@@ -6,7 +6,7 @@ import UpdateRentalForm from "../../components/faith/UpdateRentalForm";
 import VehicleDetails from "../../components/faith/VehicleDetails";
 import PageHeader from "../../components/PageHeader";
 import Footer from "../../components/Footer";
-import Loading from "../../components/faith/Loading";
+import Loading from "../../components/Loading";
 import ResponseError from "../../components/faith/ResponseError";
 import { CurrentRentalContext, CurrentRentalContextType } from "../../helpers/CurrentRentalContext";
 
@@ -16,7 +16,7 @@ const MyRental = () => {
   const { currentRental, handleSetCurrentRental } = useContext(CurrentRentalContext) as CurrentRentalContextType;
 
   useEffect(() => {
-    RentalService.getCurrentRentalByDriver("1").then((response) => {
+    RentalService.getCurrentRentalByDriver("2").then((response) => {
       handleSetCurrentRental(response.data)
       setError("");
     }).catch((error) => {

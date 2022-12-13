@@ -40,7 +40,7 @@ const RentVehicleForm = () => {
         startDate: startDate.toJSON(),
         endDate: endDate.toJSON(),
         vehicle: { vehicleId: +id },
-        driver: { driverId: 1 },
+        driver: { driverId: 2 },
       }).then(() => {
         handleSetMessage("Vehicle rented.");
         navigate("/driver/rental", { replace: true });

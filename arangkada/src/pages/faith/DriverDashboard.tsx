@@ -7,7 +7,7 @@ import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import RentalService from "../../api/RentalService";
 import { Rental } from "../../api/dataTypes";
 import Footer from "../../components/Footer";
-import Loading from "../../components/faith/Loading";
+import Loading from "../../components/Loading";
 import ResponseError from "../../components/faith/ResponseError";
 
 const DriverDashboard = () => {

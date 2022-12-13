@@ -27,7 +27,7 @@ import MyPayments from './pages/kerr/MyPayments';
 import PayRent from './pages/kerr/PayRent';
 import CancelRental from './pages/faith/CancelRental';
 import SnackbarContextProvider from './helpers/SnackbarContext';
-import Snackbar from './components/faith/Snackbar';
+import Snackbar from './components/Snackbar';
 import RentalApplications from './pages/faith/RentalApplications';
 import Drivers from './pages/faith/Drivers';
 import DischargeDriver from './pages/faith/DischargeDriver';

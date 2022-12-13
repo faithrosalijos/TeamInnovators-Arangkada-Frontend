@@ -6,7 +6,7 @@ import VehicleFilterForm from "../../components/faith/VehicleFilterForm";
 import PageHeader from "../../components/PageHeader";
 import Footer from "../../components/Footer";
 import VehicleService from "../../api/VehicleService";
-import Loading from "../../components/faith/Loading";
+import Loading from "../../components/Loading";
 import ResponseError from "../../components/faith/ResponseError";
 
 const VehicleRentals = () => {

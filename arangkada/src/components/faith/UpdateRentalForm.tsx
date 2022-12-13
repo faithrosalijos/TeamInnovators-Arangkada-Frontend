@@ -4,7 +4,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { useContext, useState } from "react";
 import { useModal } from "mui-modal-provider";
-import { ConfirmationModal, NoticeModal } from "./Modals";
+import { ConfirmationModal, NoticeModal } from "../Modals";
 import RentalService from "../../api/RentalService";
 import { CurrentRentalContext, CurrentRentalContextType } from "../../helpers/CurrentRentalContext";
 import { Rental } from "../../api/dataTypes";
