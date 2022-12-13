@@ -6,7 +6,7 @@ import MyVehicleCardList from "../../components/mariel/MyVehicleCardList";
 import MyVehicleSearch from "../../components/mariel/MyVehicleSearch";
 import { Vehicle } from "../../api/dataTypes";
 import VehicleService from "../../api/VehicleService";
-import Loading from "../../components/faith/Loading";
+import Loading from "../../components/Loading";
 import ResponseError from "../../components/faith/ResponseError";
 
 
