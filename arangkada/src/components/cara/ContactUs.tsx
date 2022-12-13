@@ -19,7 +19,7 @@ export default function ContactUs() {
                 </Stack>  
                 <Stack direction="row">
                     <LocationOnIcon sx={{color: '#ffffff', fontSize: 80, paddingTop: 2}}></LocationOnIcon>
-                    <p style={{color: '#ffffff', fontSize: 30, paddingLeft: 150}}>7VVJ+QFR, Natalio B. Bacalso Ave,<br></br> Cebu City, 6000 Cebu</p>
+                    <p style={{color: '#ffffff', fontSize: 30, paddingLeft: 150}}>7VVJ+QFR, Natalio B. Bacalso Ave, Cebu City, 6000 Cebu</p>
                 </Stack>    
             </div>
         </div>

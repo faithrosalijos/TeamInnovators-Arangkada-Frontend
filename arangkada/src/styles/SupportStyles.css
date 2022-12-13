@@ -99,10 +99,11 @@
 
   .bgimg{
     background-image: url('../images/Login.png');
-    background-position: center;
     background-size: cover;
-    height: 649px;
-    width: 1366px;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    width: 100%;
   }
 
   .leftL {
