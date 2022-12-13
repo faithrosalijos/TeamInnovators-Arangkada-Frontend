@@ -19,7 +19,7 @@ const MyVehicles = () => {
 
 
   useEffect(() => {
-    VehicleService.getVehicleByOperatorOperatorId("3").then((response) => {
+    VehicleService.getVehicleByOperatorOperatorId("1").then((response) => {
       setVehicles(response.data);
     }).catch((error) => {
       console.log(error);
