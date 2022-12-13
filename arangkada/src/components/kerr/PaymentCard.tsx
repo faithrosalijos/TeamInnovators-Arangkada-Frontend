@@ -19,7 +19,7 @@ const PaymentCard = ({ myPayment }: MyPaymentCardProps) => {
                 <RouteIcon/> <Typography variant="body1">{myPayment.amount}</Typography>
               </Stack>}
             action={
-              <Link to={"/operator/vehicles/view/"+ myPayment.paymentId } style={{ textDecoration: 'none' }}> 
+              <Link to={"/driver/payment/view/"+ myPayment.paymentId } style={{ textDecoration: 'none' }}> 
               <Button 
                 variant="text" 
                 fullWidth
@@ -46,7 +46,7 @@ const PaymentCard = ({ myPayment }: MyPaymentCardProps) => {
               </Typography>
           </CardContent>
           <CardActions sx={{ justifyContent: "end" }}>
-          <Link to={"/driver/payments/delete/" + myPayment.paymentId} style={{ textDecoration: 'none' }}> 
+          <Link to={"/driver/payment/delete/" + myPayment.paymentId} style={{ textDecoration: 'none' }}> 
             <Button 
               size="small" 
               variant="contained" 
@@ -56,7 +56,7 @@ const PaymentCard = ({ myPayment }: MyPaymentCardProps) => {
               Remove
             </Button>
             </Link>
-            <Link to={"/driver/payments/update/"+ myPayment.paymentId } style={{ textDecoration: 'none' }}> 
+            <Link to={"/driver/payment/update/"+ myPayment.paymentId } style={{ textDecoration: 'none' }}> 
             <Button
                size="small" 
                variant="contained"
