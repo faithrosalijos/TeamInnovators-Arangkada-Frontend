@@ -18,7 +18,7 @@ const MyVehicleCard = ({ myVehicle }: MyVehicleCardProps) => {
             <RouteIcon/> <Typography variant="body1">{myVehicle.route}</Typography>
           </Stack>}
         action={
-          <Link to={"/operator/view-vehicle/"+ myVehicle.vehicleId } style={{ textDecoration: 'none' }}> 
+          <Link to={"/operator/vehicles/view/"+ myVehicle.vehicleId } style={{ textDecoration: 'none' }}> 
           <Button 
             variant="text" 
             fullWidth
@@ -48,7 +48,7 @@ const MyVehicleCard = ({ myVehicle }: MyVehicleCardProps) => {
           </Typography>
       </CardContent>
       <CardActions sx={{ justifyContent: "end" }}>
-      <Link to={"/operator/delete-vehicle/" + myVehicle.vehicleId} style={{ textDecoration: 'none' }}> 
+      <Link to={"/operator/vehicles/delete/" + myVehicle.vehicleId} style={{ textDecoration: 'none' }}> 
         <Button 
           size="small" 
           variant="contained" 
@@ -58,7 +58,7 @@ const MyVehicleCard = ({ myVehicle }: MyVehicleCardProps) => {
           Remove
         </Button>
         </Link>
-        <Link to={"/operator/update-vehicle/"+ myVehicle.vehicleId } style={{ textDecoration: 'none' }}> 
+        <Link to={"/operator/vehicles/update/"+ myVehicle.vehicleId } style={{ textDecoration: 'none' }}> 
         <Button
            size="small" 
            variant="contained"
