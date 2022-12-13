@@ -74,7 +74,7 @@ const App = () => {
             <Route index element={<CurrentRentalProvider><Rental /></CurrentRentalProvider>} />
             <Route path="cancel" element={<CurrentRentalProvider><CancelRental /></CurrentRentalProvider>} />
           </Route>
-          <Route path="payments">
+          <Route path="payment">
               <Route index element={<MyPayments />} />
               <Route path="payrent" element={<PayRent />} />
             </Route>
