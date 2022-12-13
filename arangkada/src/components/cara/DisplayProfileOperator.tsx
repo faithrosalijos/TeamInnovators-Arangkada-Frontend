@@ -1,12 +1,53 @@
 import { Box, Button, FormControl, InputLabel, MenuItem, Select, Stack, TextField } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import AccountService from "../../api/AccountService";
+import { Account } from "../../api/dataTypes";
+import OperatorService from "../../api/OperatorService";
 
 
-export default function OperatorInfo() {
+export default function DisplayProfileOperator() {
     const navigate = useNavigate();
+    const para = useParams() as { id: string };
+
+    const [account, setAccount]= useState({
+        firstname: "",
+        middlename: "",
+        lastname: "",
+        birthdate: "",
+        age: "",
+        contactNumber: "",
+        address: "",
+        gender: "",
+        username: "",
+        password: "",
+        accountType: "",
+    })
+
+    const [businessNameOp, setBusinessNameOp]=useState({
+        businessName: "",
+    })
+
+    const [permitNumberOp, setPermitNumberOp]=useState({
+        permitNumber: "",
+    })
+
+    const { firstname, middlename, lastname, birthdate, age, contactNumber, address, gender, username, password, accountType } = account;
+    
+
+    useEffect(() => {
+        OperatorService.getOperatorbyOperatorId("26").then((response) => {
+            setAccount(response.data.account);
+            console.log(response.data.account)
+            setBusinessNameOp(response.data.businessName)
+            setPermitNumberOp(response.data.permitNumber)
+           //console.log(response.data.businessName)
+        }).catch((error) => {
+          console.log(error);
+        })
+      }, []);
 
     const handleUserEditClick = () => {
-        //navigate("driver/vehicles/"+vehicle.vehicleId);
         navigate("/operator/operatorprofile/editoperatorprof/");
     }
     const handleBusinessEditClick = () => {
@@ -24,23 +65,24 @@ export default function OperatorInfo() {
             </div>
         
             <div className="three">
-                <TextField id="outlined-read-only-input" label="Firstname" defaultValue="John" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
-                <TextField id="outlined-read-only-input" label="Middlename" defaultValue="Santos" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
-                <TextField id="outlined-read-only-input" label="Lastname" defaultValue="Doe" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
+                <TextField id="outlined-read-only-input" name="firstname" value={firstname} label="Firstname" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
+                <TextField id="outlined-read-only-input" name="middlename" value={middlename} label="Middlename" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
+                <TextField id="outlined-read-only-input" name="lastname" value={lastname}  label="Lastname" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
             </div>
             <div className="two">
-                <TextField id="outlined-read-only-input" label="Contact Number" defaultValue="09231819397" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
-                <TextField id="outlined-read-only-input" label="Birthdate" defaultValue="2001-10-23" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
+                <TextField id="outlined-read-only-input" name="contactNumber" value={contactNumber}  label="Contact Number" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
+                <TextField id="outlined-read-only-input" name="birthdate" value={birthdate} label="Birthdate" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
             </div>
             <div className="two">
-                <TextField id="outlined-read-only-input" label="Age" defaultValue="30" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
+                <TextField id="outlined-read-only-input" name="age" value={age} label="Age" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
                 <FormControl>
                     <InputLabel id="demo-simple-select-readonly-label" sx={{margin: 2}}>Gender</InputLabel>
                     <Select
                     labelId="demo-simple-select-readonly-label"
                     id="demo-simple-select"
                     label="Gender"
-                    defaultValue="Male"
+                    name="gender"
+                    value={gender} 
                     inputProps={{ readOnly: true }}
                     sx={{margin: 2}}
                     >
@@ -50,9 +92,9 @@ export default function OperatorInfo() {
                 </FormControl>
             </div>
             <div className="one">
-                <TextField id="outlined-read-only-input" label="Address" defaultValue="Natalio B. Bacalso Ave, Cebu City, 6000 Cebu" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
-                <TextField id="outlined-read-only-input" label="Username" defaultValue="johndoe123" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
-                <TextField id="outlined-read-only-input" label="Password" defaultValue="qwerty00" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
+                <TextField id="outlined-read-only-input" name="address" value={address}  label="Address" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
+                <TextField id="outlined-read-only-input" name="username" value={username}  label="Username" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
+                <TextField id="outlined-read-only-input" name="password" value={password}  label="Password" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
                 <Stack direction="row" justifyContent="end">
                     <Button variant="contained" onClick={handleUserEditClick} style={{backgroundColor: '#D2A857', marginTop: 25, marginLeft: 15, marginRight: 15, paddingInline: 60}}>Edit</Button>
                 </Stack>
@@ -60,8 +102,8 @@ export default function OperatorInfo() {
                     <h2 style={{textAlign: 'left', color: '#90794C'}}>Business Information</h2>
                     <hr className="line"></hr><br></br>
                 </div>
-                <TextField id="outlined-read-only-input" label="Business Name" defaultValue="TriWheels" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
-                <TextField id="outlined-read-only-input" label="Business Permit Number" defaultValue="001492" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
+                <TextField id="outlined-read-only-input" name="businessName" value={businessNameOp} label="Business Name" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
+                <TextField id="outlined-read-only-input" name="permitNumber" value={permitNumberOp} label="Business Permit Number" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
             </div>
             
             <Stack direction="row" justifyContent="end" paddingBottom={7}>
