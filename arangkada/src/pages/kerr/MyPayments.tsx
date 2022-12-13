@@ -5,8 +5,12 @@ import PageHeader from "../../components/PageHeader";
 import Footer from "../../components/Footer";
 import PaymentService from "../../api/PaymentService";
 import { useNavigate } from "react-router-dom";
+import Loading from "../../components/Loading";
+import ResponseError from "../../components/faith/ResponseError";
 
 const MyPayments = () => {
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
     const navigate = useNavigate();
     const [currentPayment, setCurrentPayment] = useState<Payment>();
 
@@ -16,10 +20,17 @@ const MyPayments = () => {
     useEffect(() => {
       PaymentService.getPaymentsByDriverId("2").then((response) => {
         setCurrentPayment(response.data)
+        setError("");
       }).catch((error) => {
-        console.log(error);
+        setError(error.message);
+      }).finally(() => {
+        setLoading(false);
       })
     }, []);
+
+    if (loading) return (<Loading />)
+
+    if (error !== "") return (<ResponseError message={error} />)
 
     return (
         <>
