@@ -16,7 +16,7 @@ const PaymentCard = ({ myPayment }: MyPaymentCardProps) => {
                       but it displays blank white space when calling the myPayment.rent...etc. 
                       I left some comments in specific lines below which causes the problem.
                       Data types paymentId, amount, and datePaid are the only ones that can be
-                      displayed.*/}
+                      displayed. Need help please.*/}
         <Card>
           <CardHeader 
             title={myPayment.rent.vehicle.plateNumber}    // Cause of Error/Blank white space is here
