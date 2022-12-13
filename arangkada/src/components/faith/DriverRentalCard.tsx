@@ -2,44 +2,31 @@ import { Button, Card, CardContent, Divider, Typography, Stack } from "@mui/mate
 import { Person, Home, Phone } from "@mui/icons-material/";
 import { Rental } from "../../api/dataTypes";
 import { useModal } from "mui-modal-provider";
-import { ConfirmationModal } from "./Modals";
+import { ConfirmationModal } from "../Modals";
 import Status from "./Status";
 import RentalService from "../../api/RentalService";
-import { PendingRentalsContext, PendingRentalsContextType } from "../../helpers/PendingRentalsContext";
-import { useContext } from "react";
 import { SnackbarContext, SnackbarContextType } from "../../helpers/SnackbarContext";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
 
-type RentalCardProps = {
+
+type DriverRentalCardProps = {
   rental: Rental,
+  handleDriverRentalDecline?: (rentalId: number) => void,
+  handleDriverRentalApprove?: (rentalId: number) => void,
 }
 
-const DriverApplicantCard = ({ rental }: RentalCardProps) => {
+const DriverRentalCard = ({ rental, handleDriverRentalApprove, handleDriverRentalDecline }: DriverRentalCardProps) => {
   const { showModal } = useModal();
   const { handleSetMessage } = useContext(SnackbarContext) as SnackbarContextType;
-  const { pendingRentals, handleSetPendingRentals } = useContext(PendingRentalsContext) as PendingRentalsContextType;
+  const navigate = useNavigate();
 
-  const handleApprove = () => {
-    const modal = showModal(ConfirmationModal, {
-      title: "Approve this rental application?",
-      content: "If you approve this application, the driver will be notified of your response.",
-      onCancel: () => {
-        modal.hide();
-      },
-      onConfirm: () => {
-        modal.hide();
-        RentalService.putRental(rental.rentalId.toString(), {
-          startDate: rental.startDate,
-          endDate: rental.endDate,
-          status: "APPROVED",
-          current: rental.current,
-        }).then((response) => {
-          handleSetMessage("Rental approved.");
-          handleSetPendingRentals(pendingRentals.filter((pendingRental) => pendingRental.rentalId !== response.data.rentalId));
-        }).catch((error) => {
-          handleSetMessage(error.message + ". Failed to approve rental.");
-        })
-      }
-    });
+  const handleDischarge = () => {
+    navigate("/operator/drivers/discharge", { state: {rental: rental }});
+  }
+
+  const handleViewPayments = () => {
+
   }
 
   const handleDecline = () => {
@@ -59,7 +46,7 @@ const DriverApplicantCard = ({ rental }: RentalCardProps) => {
           current: false,
         }).then((response) => {
           handleSetMessage("Rental declined.");
-          handleSetPendingRentals(pendingRentals.filter((pendingRental) => pendingRental.rentalId !== response.data.rentalId));
+          handleDriverRentalDecline!(response.data.rentalId);
         }).catch((error) => {
           handleSetMessage(error.message + ". Failed to declined rental.");
         })
@@ -67,11 +54,31 @@ const DriverApplicantCard = ({ rental }: RentalCardProps) => {
     });
   }
 
-  const handleCancelRental = () => {
-
+  const handleApprove = () => {
+    const modal = showModal(ConfirmationModal, {
+      title: "Approve this rental application?",
+      content: "If you approve this application, the driver will be notified of your response.",
+      onCancel: () => {
+        modal.hide();
+      },
+      onConfirm: () => {
+        modal.hide();
+        RentalService.putRental(rental.rentalId.toString(), {
+          startDate: rental.startDate,
+          endDate: rental.endDate,
+          status: "APPROVED",
+          current: rental.current,
+        }).then((response) => {
+          handleSetMessage("Rental approved.");
+          handleDriverRentalApprove!(+response.data.rentalId);
+        }).catch((error) => {
+          handleSetMessage(error.message + ". Failed to approve rental.");
+        })
+      }
+    });
   }
 
-  return (
+  return ( 
     <Card>
       <CardContent>
         <Typography variant="h5">Driver ID: {rental.driver.driverId}</Typography>
@@ -109,15 +116,28 @@ const DriverApplicantCard = ({ rental }: RentalCardProps) => {
 
       <CardContent >
         <Stack direction={{ xs: "column", lg: "row" }} alignItems="center" spacing={4} width="100%">
-          {rental.status === "PENDING" && <Status status="Pending" message="Driver is waiting for your response." />}
-          <Stack direction={{ xs: "column-reverse", md: "row" }} width="100%" spacing={{ xs: 2, md: 3 }} justifyContent="end" >
-            <Button variant="contained" color="error" sx={{ width: "250px" }} onClick={handleDecline}>Decline</Button>
-            <Button variant="contained" color="success" sx={{ width: "250px" }} onClick={handleApprove}>Approve</Button>
-          </Stack>
+          {
+            rental.status === "PENDING"?
+              <>
+                <Status status="Pending" message="Driver is waiting for your response." />
+                <Stack direction={{ xs: "column-reverse", md: "row" }} width="100%" spacing={{ xs: 2, md: 3 }} justifyContent="end" >
+                  <Button variant="contained" color="error" sx={{ width: "250px" }} onClick={handleDecline}>Decline</Button>
+                  <Button variant="contained" color="success" sx={{ width: "250px" }} onClick={handleApprove}>Approve</Button>
+                </Stack>
+              </>:
+              <>
+                {rental.status === "APPROVED" && <Status status="Approved" message="Driver is currently renting your vehicle." />}
+                {rental.status === "FINISHED" && <Status status="Finished" message="Driver is done with his rental." />}
+                <Stack direction={{ xs: "column-reverse", md: "row" }} width="100%" spacing={{ xs: 2, md: 3 }} justifyContent="end" >
+                  {rental.status === "APPROVED" && <Button variant="contained" color="error" sx={{ width: "250px" }} onClick={handleDischarge}>Discharge</Button>}
+                  <Button variant="contained" sx={{ width: "250px" }} onClick={handleViewPayments}>View Payments</Button>
+                </Stack>
+              </>   
+          }
         </Stack>
       </CardContent>
     </Card>
-  );
+   );
 }
-
-export default DriverApplicantCard;
+ 
+export default DriverRentalCard;

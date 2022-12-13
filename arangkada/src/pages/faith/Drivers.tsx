@@ -2,9 +2,9 @@ import { Box, Pagination, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Rental } from "../../api/dataTypes";
 import RentalService from "../../api/RentalService";
+import DriverRentalCardList from "../../components/faith/DriverRentalCardList";
 import DriverRentalFilterForm from "../../components/faith/DriverRentalFilterForm";
-import DriverRentingCardList from "../../components/faith/DriverRentingCardList";
-import Loading from "../../components/faith/Loading";
+import Loading from "../../components/Loading";
 import ResponseError from "../../components/faith/ResponseError";
 import Footer from "../../components/Footer";
 import PageHeader from "../../components/PageHeader";
@@ -22,7 +22,6 @@ const Drivers = () => {
       "2"
       ).then((response) => {
         setRentals(response.data);
-        setError("");
       }).catch((error) => {
         setError(error.message);
       }).finally(() => {
@@ -67,7 +66,7 @@ const Drivers = () => {
         {
           filteredRentals.length !== 0?
           <>
-            <DriverRentingCardList rentals={filteredRentals.slice(pagination.from, pagination.to)} />
+            <DriverRentalCardList rentals={filteredRentals.slice(pagination.from, pagination.to)} />
             <br />
             { 
               filteredRentals.length > PAGE_SIZE && 

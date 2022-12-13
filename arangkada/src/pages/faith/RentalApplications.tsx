@@ -3,24 +3,25 @@ import { useContext, useEffect, useState } from "react";
 import Footer from "../../components/Footer";
 import PageHeader from "../../components/PageHeader";
 import RentalService from "../../api/RentalService";
-import DriverApplicantCardList from "../../components/faith/DriverApplicantCardList";
-import Loading from "../../components/faith/Loading";
+import Loading from "../../components/Loading";
 import ResponseError from "../../components/faith/ResponseError";
-import { PendingRentalsContext, PendingRentalsContextType } from "../../helpers/PendingRentalsContext";
 import DriverRentalFilterForm from "../../components/faith/DriverRentalFilterForm";
 import { Rental } from "../../api/dataTypes";
+import DriverRentalCardList from "../../components/faith/DriverRentalCardList";
 
 const RentalApplications = () => {
   const PAGE_SIZE = 5;
   const [pagination, setPagination] = useState({ from: 0, to: PAGE_SIZE });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const { pendingRentals, handleSetPendingRentals } = useContext(PendingRentalsContext) as PendingRentalsContextType;
+  // const { pendingRentals, handleSetPendingRentals } = useContext(PendingRentalsContext) as PendingRentalsContextType;
+  const [pendingRentals, setPendingRentals] = useState<Rental[]>([]);
   const [filteredPendingRentals, setFilteredPendingRentals] = useState<Rental[]>([]);
 
   useEffect(() => {
     RentalService.getRentalsByOperatorAndStatus("2", "PENDING").then((response) => {
-      handleSetPendingRentals(response.data);
+      // handleSetPendingRentals(response.data);
+      setPendingRentals(response.data);
       setError("");
     }).catch((error) => {
       setError(error.message);
@@ -52,6 +53,18 @@ const RentalApplications = () => {
     setFilteredPendingRentals(pendingRentals);
   }
 
+  const handleDriverRentalApprove = (rentalId: number) => {
+    setPendingRentals(pendingRentals.filter((pendingRental => 
+      pendingRental.rentalId !== rentalId
+    )))
+  }
+
+  const handleDriverRentalDecline = (rentalId: number) => {
+    setPendingRentals(pendingRentals.filter((pendingRental => 
+      pendingRental.rentalId !== rentalId
+    )))
+  }
+
   if (loading) return (<Loading />)
 
   if (error !== "") return (<ResponseError message={error} />)
@@ -61,12 +74,16 @@ const RentalApplications = () => {
       <Box mt="12px" display="flex" flexDirection="column" sx={{ minHeight: "80vh" }}>
         <PageHeader title="Rental Applications" />
         <br></br>
-          <DriverRentalFilterForm handleFilterClear={handleFilterClear} handleFilterSubmit={handleFilterSubmit} />
+        <DriverRentalFilterForm handleFilterClear={handleFilterClear} handleFilterSubmit={handleFilterSubmit} />
         <br></br>
         {
           filteredPendingRentals.length !== 0 ?
             <>
-              <DriverApplicantCardList rentals={filteredPendingRentals.slice(pagination.from, pagination.to)} />
+              <DriverRentalCardList 
+                rentals={filteredPendingRentals.slice(pagination.from, pagination.to)} 
+                handleDriverRentalApprove={handleDriverRentalApprove}
+                handleDriverRentalDecline={handleDriverRentalDecline}
+              />
               <br />
               { 
                 filteredPendingRentals.length > PAGE_SIZE && 
