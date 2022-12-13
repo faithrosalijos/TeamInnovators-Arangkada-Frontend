@@ -7,8 +7,12 @@ import { useEffect, useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import RentalService from "../../api/RentalService";
 import { Rental } from "../../api/dataTypes";
+import Loading from "../../components/Loading";
+import ResponseError from "../../components/faith/ResponseError";
 
 const OperatorDashboard = () => {
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
     const [pageSize, setPageSize] = useState<number>(5);
     const [rentals, setRentals] = useState<Rental[]>([]);
   
@@ -23,12 +27,21 @@ const OperatorDashboard = () => {
     ]
   
     useEffect(() => {
-      RentalService.getRentalsByDriver("2").then((response) => {
+      RentalService.getRentalsByOperatorAndStatus(
+        "1", "APPROVED"
+        ).then((response) => {
         setRentals(response.data);
+        setError("");
       }).catch((error) => {
-        console.log(error);
+        setError(error.message);
+      }).finally(() => {
+        setLoading(false);
       })
     }, []);
+
+    if (loading) return (<Loading />)
+
+    if (error !== "") return (<ResponseError message={error} />)
   
     return (
       <>
@@ -37,7 +50,7 @@ const OperatorDashboard = () => {
           <br></br>
           <Grid container spacing={2} alignItems="center" justifyContent="center" >
             <Grid item xs={12} md={6} lg={3}>
-              <DashboardCard title="Total Vehicles Rented" count={rentals.filter((rental) => rental.vehicle.vehicleCondition === "OCCUPIED").length}>
+              <DashboardCard title="Total Vehicles Rented" count={rentals.filter((rental) => rental.vehicle.rented === true).length}>
                 <Commute fontSize="large" color="secondary" />
               </DashboardCard>
             </Grid>
@@ -47,7 +60,7 @@ const OperatorDashboard = () => {
               </DashboardCard>
             </Grid>
             <Grid item xs={12} md={6} lg={3}>
-              <DashboardCard title="Total Number of Paid Drivers" count={rentals.filter((rental) => rental.status === "PAID").length}>
+              <DashboardCard title="Total Number of Paid Drivers" count={rentals.filter((rental) => rental.status === "FINISHED").length}>
                 <Cancel fontSize="large" color="error" />
               </DashboardCard>
             </Grid>
