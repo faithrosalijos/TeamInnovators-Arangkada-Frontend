@@ -1,4 +1,4 @@
-import { Box, Pagination, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { Vehicle } from "../../api/dataTypes";
 import VehicleCardList from "../../components/faith/VehicleCardList";
@@ -10,16 +10,14 @@ import Loading from "../../components/Loading";
 import ResponseError from "../../components/faith/ResponseError";
 
 const VehicleRentals = () => {
-  const PAGE_SIZE = 5;
-  const [pagination, setPagination] = useState({ from: 0, to: PAGE_SIZE });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [filteredVehicles, setFilteredVehicles] = useState<Vehicle[]>([])
   const [vehicles, setVehicles] = useState<Vehicle[]>([]);
 
   useEffect(() => {
-    VehicleService.getVehicleByVehicleType(
-      "Jeepney"
+    VehicleService.getAvailableVehicles(
+      false, "Jeepney", "Ready to use"
     ).then((response) => {
       setVehicles(response.data);
       setError("");
@@ -48,13 +46,6 @@ const VehicleRentals = () => {
     setFilteredVehicles(vehicles);
   }
 
-  const handlePaginationChange = (page: number) => {
-    const from = (page - 1) * PAGE_SIZE;
-    const to = (page - 1) * PAGE_SIZE + PAGE_SIZE;
-    setPagination({ from: from, to: to });
-    window.scroll(0, 0);
-  }
-
   if (loading) return (<Loading />)
 
   if (error !== "") return (<ResponseError message={error} />)
@@ -66,22 +57,8 @@ const VehicleRentals = () => {
         <br></br>
         <VehicleFilterForm handleFilterSubmit={handleFilterSubmit} handleFilterClear={handleFilterClear} />
         <br></br>
-        {
-          filteredVehicles.length !== 0 ?
-            <>
-              <VehicleCardList vehicles={filteredVehicles.slice(pagination.from, pagination.to)} />
-              <br />
-              { 
-                filteredVehicles.length > PAGE_SIZE && 
-                <Pagination
-                  color="primary"
-                  count={Math.ceil(filteredVehicles.length / PAGE_SIZE)}
-                  onChange={(event, page) => handlePaginationChange(page)}
-                />
-              }
-            </> :
-            <Typography variant="body1" color="text.secondary">No available vehicles.</Typography>
-        }
+        {filteredVehicles.length !== 0 &&<VehicleCardList vehicles={filteredVehicles} />}
+        {filteredVehicles.length === 0 &&<Typography variant="body1" color="text.secondary">No available vehicles.</Typography>}     
       </Box>
       <Footer name="Faith Rosalijos" course="BSIT" section="G1" />
     </>

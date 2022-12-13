@@ -1,5 +1,5 @@
-import { Box, Pagination, Typography } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
+import { Box, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 import Footer from "../../components/Footer";
 import PageHeader from "../../components/PageHeader";
 import RentalService from "../../api/RentalService";
@@ -10,17 +10,13 @@ import { Rental } from "../../api/dataTypes";
 import DriverRentalCardList from "../../components/faith/DriverRentalCardList";
 
 const RentalApplications = () => {
-  const PAGE_SIZE = 5;
-  const [pagination, setPagination] = useState({ from: 0, to: PAGE_SIZE });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  // const { pendingRentals, handleSetPendingRentals } = useContext(PendingRentalsContext) as PendingRentalsContextType;
   const [pendingRentals, setPendingRentals] = useState<Rental[]>([]);
   const [filteredPendingRentals, setFilteredPendingRentals] = useState<Rental[]>([]);
 
   useEffect(() => {
-    RentalService.getRentalsByOperatorAndStatus("2", "PENDING").then((response) => {
-      // handleSetPendingRentals(response.data);
+    RentalService.getRentalsByOperatorAndStatus("3", "PENDING").then((response) => {
       setPendingRentals(response.data);
       setError("");
     }).catch((error) => {
@@ -33,13 +29,6 @@ const RentalApplications = () => {
   useEffect(() => {
     setFilteredPendingRentals(pendingRentals);
   }, [pendingRentals])
-
-  const handlePaginationChange = (page: number) => {
-    const from = (page - 1) * PAGE_SIZE;
-    const to = (page - 1) * PAGE_SIZE + PAGE_SIZE;
-    setPagination({ from: from, to: to });
-    window.scroll(0, 0);
-  }
 
   const handleFilterSubmit = (filters: { driverName: string }) => {
     const { driverName } = filters;
@@ -76,26 +65,8 @@ const RentalApplications = () => {
         <br></br>
         <DriverRentalFilterForm handleFilterClear={handleFilterClear} handleFilterSubmit={handleFilterSubmit} />
         <br></br>
-        {
-          filteredPendingRentals.length !== 0 ?
-            <>
-              <DriverRentalCardList 
-                rentals={filteredPendingRentals.slice(pagination.from, pagination.to)} 
-                handleDriverRentalApprove={handleDriverRentalApprove}
-                handleDriverRentalDecline={handleDriverRentalDecline}
-              />
-              <br />
-              { 
-                filteredPendingRentals.length > PAGE_SIZE && 
-                <Pagination
-                  color="primary"
-                  count={Math.ceil(filteredPendingRentals.length / PAGE_SIZE)}
-                  onChange={(event, page) => handlePaginationChange(page)}
-                />
-              }
-            </> :
-            <Typography variant="body1" color="text.secondary">No pending applications.</Typography>
-        }
+        {filteredPendingRentals.length !== 0 && <DriverRentalCardList rentals={filteredPendingRentals} handleDriverRentalApprove={handleDriverRentalApprove}handleDriverRentalDecline={handleDriverRentalDecline} />}
+        {filteredPendingRentals.length === 0 && <Typography variant="body1" color="text.secondary">No pending applications.</Typography>}  
       </Box>
       <Footer name="Faith Rosalijos" course="BSIT" section="G1" />
     </>
