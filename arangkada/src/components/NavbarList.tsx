@@ -11,7 +11,7 @@ const NavbarList = ({ open, user }: NavbarListProps) => {
   const operatorList: { text: string, icon: React.ReactNode, link: string, end: boolean }[] = [
     { text: "Dashboard", icon: <Dashboard />, link: "/operator", end: true },
     { text: "Vehicles", icon: <Commute />, link: "/operator/vehicles", end: false },
-    { text: "Add Vehicles", icon: <DriveEta />, link: "/operator/vehicles/addvehicle", end: false },
+    { text: "Add Vehicles", icon: <DriveEta />, link: "/operator/add-vehicle", end: false },
     { text: "Drivers", icon: <People />, link: "/operator/drivers", end: false },
     { text: "Rental Applications", icon: <Mail />, link: "/operator/rental-applications", end: false },
   ];

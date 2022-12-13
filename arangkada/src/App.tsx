@@ -23,18 +23,17 @@ import ContactUsPage from './pages/cara/ContactUsPage';
 import AboutUsPageD from './pages/karylle/AboutUsPageD';
 import MyPayments from './pages/kerr/MyPayments';
 import PayRent from './pages/kerr/PayRent';
+import MyVehicles from './pages/mariel/MyVehicles';
+import AddVehiclePage from './pages/mariel/AddVehiclePage';
+import UpdateVehiclePage from './pages/mariel/UpdateVehiclePage';
+import DeleteVehiclePage from './pages/mariel/DeleteVehiclePage';
+import ViewVehiclePage from './pages/mariel/ViewVehiclePage';
 import CancelRental from './pages/faith/CancelRental';
 import SnackbarContextProvider from './helpers/SnackbarContext';
 import Snackbar from './components/Snackbar';
 import RentalApplications from './pages/faith/RentalApplications';
 import Drivers from './pages/faith/Drivers';
 import DischargeDriver from './pages/faith/DischargeDriver';
-import MyVehicles from './pages/mariel/MyVehicles';
-import AddVehiclePage from './pages/mariel/AddVehiclePage';
-import ViewandUpdateVehicle from './components/mariel/ViewVehicle';
-import UpdateVehiclePage from './pages/mariel/UpdateVehiclePage';
-import DeleteVehiclePage from './pages/mariel/DeleteVehiclePage';
-import ViewVehiclePage from './pages/mariel/ViewVehiclePage';
 
 /* Customize default mui theme */
 const theme = createTheme({
@@ -81,39 +80,28 @@ const App = () => {
             </Route>
           <Route path="rental" element={<CurrentRentalProvider><Rental /></CurrentRentalProvider>} />
           </Route>
-        <Route path="operator" element={<OperatorMainLayout />}>
-          <Route index element={<OperatorDashboard/>} />
-          <Route path="vehicles" element={<MyVehicles />} />
-          <Route path="update-vehicle/:id" element={<UpdateVehiclePage />} />
-          <Route path="delete-vehicle/:id" element={<DeleteVehiclePage />} />
-          <Route path="add-vehicle" element={<AddVehiclePage />} />
-          <Route path="view-vehicle/:id" element={<ViewVehiclePage />} />
-          <Route path="requests" element={<PendingRentalsProvider><ApprovalRequest /></PendingRentalsProvider>} />
-        </Route>
 
         {/* Operator Pages */}
-        {/* Driver Pages */}
         <Route path="operator" element={<OperatorMainLayout />}>
-          <Route index element={<OperatorDashboard />} />
+          <Route index element={<OperatorDashboard/>} />
           <Route path="vehicles">
             <Route index element={<MyVehicles />} />
-            <Route path="addvehicle" element={<AddVehiclePage />} />
-            {/* TODO: Insert deletevehicle and updatevehicle here. */}
+            <Route path="update/:id" element={<UpdateVehiclePage />} />
+            <Route path="delete/:id" element={<DeleteVehiclePage />} />
+            <Route path="view/:id" element={<ViewVehiclePage />} />
           </Route>
-          <Route path="rental-applications" element={<PendingRentalsProvider><RentalApplications /></PendingRentalsProvider>} />
+          <Route path="add-vehicle" element={<AddVehiclePage />} />
           <Route path="drivers">
-            <Route index element={<Drivers></Drivers>} />
-            <Route path="discharge" element={<DischargeDriver></DischargeDriver>} />
+            <Route index element={<Drivers />} />
+            <Route path="discharge" element={<DischargeDriver />} />
           </Route>
+          <Route path="rental-applications" element={<RentalApplications />} />
           <Route path="operatorprofile">
-            <Route index element={<ProfilePageOp />} />
-            <Route path="editoperatorprof" element={<EditProfilePageOp />} />
-            <Route path="editbusinessinfo" element={<EditBusinessInfoPage />} />
-            <Route path="deleteop" element={<DeleteAccPage />} />
+            <Route index element={<ProfilePageOp/>} />
+            <Route path="editoperatorprof" element={<EditProfilePageOp/>} />
+            <Route path="editbusinessinfo" element={<EditBusinessInfoPage/>} />
+            <Route path="deleteop" element={<DeleteAccPage/>} />
           </Route>
-          <Route index element={<OperatorDashboard/>} />
-          <Route path="requests" element={<PendingRentalsProvider><ApprovalRequest /></PendingRentalsProvider>} />
-
         </Route>
 
         {/* Other pages */}
