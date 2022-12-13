@@ -1,7 +1,7 @@
 import { Snackbar as SnackbarBase, IconButton } from "@mui/material";
 import { useContext } from "react";
 import { Close } from "@mui/icons-material";
-import { SnackbarContext, SnackbarContextType } from "../../helpers/SnackbarContext";
+import { SnackbarContext, SnackbarContextType } from "../helpers/SnackbarContext";
 
 const Snackbar = () => {
   const { message, handleSetMessage } = useContext(SnackbarContext) as SnackbarContextType;
