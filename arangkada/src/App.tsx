@@ -21,7 +21,7 @@ import RegistrationTwoOp from './pages/cara/RegistrationTwoOp';
 import Landing from './components/karylle/LandingPage';
 import ContactUsPage from './pages/cara/ContactUsPage';
 import AboutUsPageD from './pages/karylle/AboutUsPageD';
-import MyPayments from './pages/kerr/Payments';
+import Payments from './pages/kerr/Payments';
 import PayRent from './pages/kerr/PayRent';
 import MyVehicles from './pages/mariel/MyVehicles';
 import AddVehiclePage from './pages/mariel/AddVehiclePage';
@@ -75,7 +75,7 @@ const App = () => {
             <Route path="cancel" element={<CurrentRentalProvider><CancelRental /></CurrentRentalProvider>} />
           </Route>
           <Route path="payment">
-              <Route index element={<MyPayments />} />
+              <Route index element={<Payments />} />
               <Route path="payrent" element={<PayRent />} />
             </Route>
           <Route path="rental" element={<CurrentRentalProvider><Rental /></CurrentRentalProvider>} />
