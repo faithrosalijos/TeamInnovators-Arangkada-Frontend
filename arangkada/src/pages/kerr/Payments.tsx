@@ -34,11 +34,11 @@ const Payments = () => {
     if (error !== "") return (<ResponseError message={error} />)
 
     return (
-        <>
-          <Box mt="12px" sx={{ minHeight: "80vh" }}>
-            <PageHeader title="My Payments" />
-            <br></br>
-            <Grid item xs={60} md={50}>
+      <>
+      <Box sx={{ padding: "12px 0 0" }}>
+        <PageHeader title="My Payments" />
+        <br></br>
+        <Grid item xs={60} md={50}>
               <Button 
                 id="AddBtn"
                 onClick={handlePayRentClick}
@@ -47,16 +47,12 @@ const Payments = () => {
                 sx={{marginLeft:160, height: "65px",width: "65px",borderRadius: "100px", marginTop: 2,marginRight: 2, marginBottom: 4}}>
                 <h1>+</h1>
               </Button>
-            </Grid>
-          </Box>
-          <Box mt="12px" display="flex" flexDirection="column" sx={{ minHeight: "80vh" }}>
-            <PageHeader title="Drivers" />
-            <br></br>
-            {<PaymentCardList myPayment={payments} />}
-            {<Typography variant="body1" color="text.secondary">No drivers renting.</Typography>}
-          </Box>
+          </Grid>
+          {payments.length !== 0 && <PaymentCardList myPayment={payments} />}
+          {payments.length === 0 && <Typography variant="body1" color="text.secondary">No rents paid.</Typography>}
           <Footer name="Kerr Labajo" course="BSCS" section="F1" />
-        </>
+      </Box>
+      </>
       );
 }
 export default Payments;
