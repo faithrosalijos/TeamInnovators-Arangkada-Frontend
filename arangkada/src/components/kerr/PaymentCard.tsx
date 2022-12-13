@@ -12,9 +12,14 @@ type MyPaymentCardProps = {
 const PaymentCard = ({ myPayment }: MyPaymentCardProps) => {
     return (
         <>
+        {/* HELP REQUEST: It successfully iterates each payments of the current logged in driver
+                      but it displays blank white space when calling the myPayment.rent...etc. 
+                      I left some comments in specific lines below which causes the problem.
+                      Data types paymentId, amount, and datePaid are the only ones that can be
+                      displayed.*/}
         <Card>
           <CardHeader 
-            title={myPayment.rent.vehicle.plateNumber}       
+            title={myPayment.rent.vehicle.plateNumber}    // Cause of Error/Blank white space is here
             subheader={
                 <Stack spacing={0.5} direction="row" alignItems="center">
                     <RouteIcon/> <Typography variant="body1">{myPayment.amount}</Typography>
@@ -38,10 +43,10 @@ const PaymentCard = ({ myPayment }: MyPaymentCardProps) => {
                   variant="body1">Date Paid: <b>{myPayment.datePaid}</b> 
               </Typography>
               <Typography 
-                  variant="body1">Business Name: <b>{myPayment.rent.vehicle.operator.businessName}</b>
+                  variant="body1">Business Name: <b>{myPayment.rent.vehicle.operator.businessName}</b> {/*Cause of Error/Blank white space is here*/}   
               </Typography>
               <Typography 
-                  variant="body1">Operator Name: <b>{myPayment.rent.vehicle.operator.account.firstname + ' ' + myPayment.rent.vehicle.operator.account.lastname}</b>
+                  variant="body1">Operator Name: <b>{myPayment.rent.vehicle.operator.account.firstname + ' ' + myPayment.rent.vehicle.operator.account.lastname}</b> {/*Cause of Error/Blank white space is here*/}   
               </Typography>
           </CardContent>
           <CardActions sx={{ justifyContent: "end" }}>
