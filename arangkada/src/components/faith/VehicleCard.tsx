@@ -1,4 +1,4 @@
-import { Button, Card, CardContent, Divider, Typography, Stack } from "@mui/material";
+import { Button, Card, CardContent, Divider, Typography, Stack, CardActions, CardHeader } from "@mui/material";
 import { BusinessCenter, Person, Phone } from "@mui/icons-material/";
 import { Rental, Vehicle } from "../../api/dataTypes";
 import RentalService from "../../api/RentalService";
@@ -33,46 +33,46 @@ const VehicleCard = ({ vehicle }: VehicleCardProps) => {
 
   return (
     <Card>
-      <CardContent>
-        <Typography variant="h5">Vehicle ID: {vehicle.vehicleId}</Typography>
-        {/* Operator Information */}
-        <Stack spacing={{ xs: 1, sm: 2 }} direction={{ xs: "column", sm: "row" }}>
-          <Stack spacing={0.5} direction="row" alignItems="center">
-            <BusinessCenter sx={{ color: "text.secondary" }} />
-            <Typography variant="body1">{vehicle.operator.businessName}</Typography>
+      <CardHeader 
+        title={vehicle.operator.businessName}
+        subheader={
+          <Stack spacing={1} direction="row" mt={1} justifyContent="space-between" alignItems="end">
+            <Stack spacing={{ xs: 1, sm: 2 }} direction={{ xs: "column", sm: "row" }}>
+              <Stack spacing={0.5} direction="row" alignItems="center">
+                <Person sx={{ color: "text.secondary" }} />
+                <Typography variant="body1">{vehicle.operator.account.firstname + " " + vehicle.operator.account.lastname}</Typography>
+              </Stack>
+              <Stack spacing={0.5} direction="row" alignItems="center">
+                <Phone sx={{ color: "text.secondary" }} />
+                <Typography variant="body1">{vehicle.operator.account.contactNumber}</Typography>
+              </Stack>
+            </Stack>
+            <Typography variant="body2" color="text.secondary"><b>VEHICLE ID: {vehicle.vehicleId}</b></Typography>
           </Stack>
-          <Stack spacing={0.5} direction="row" alignItems="center">
-            <Person sx={{ color: "text.secondary" }} />
-            <Typography variant="body1">{vehicle.operator.account.firstname + " " + vehicle.operator.account.lastname}</Typography>
-          </Stack>
-          <Stack spacing={0.5} direction="row" alignItems="center">
-            <Phone sx={{ color: "text.secondary" }} />
-            <Typography variant="body1">{vehicle.operator.account.contactNumber}</Typography>
-          </Stack>
-        </Stack>
-      </CardContent>
+        }
+      />
       <Divider />
 
       {/* Vehicle Information */}
       <CardContent>
-        <Typography variant="body1">Plate Number: {vehicle.plateNumber}</Typography>
-        <Typography variant="body1">Vehicle Type: {vehicle.vehicleType} </Typography>
-        <Typography variant="body1">Vehicle Make: {vehicle.makeModel}</Typography>
-        <Typography variant="body1">Route: {vehicle.route}</Typography>
+        <Typography variant="body1">Plate Number: <b>{vehicle.plateNumber}</b></Typography>
+        <Typography variant="body1">Vehicle Type: <b>{vehicle.vehicleType}</b></Typography>
+        <Typography variant="body1">Vehicle Make: <b>{vehicle.makeModel}</b></Typography>
+        <Typography variant="body1">Route: <b>{vehicle.route}</b></Typography>
       </CardContent>
 
-      <CardContent >
-        <Stack direction={{ xs: "column", md: "row" }} alignItems="center" spacing={4} width="100%">
+      <CardActions >
+        <Stack direction={{ xs: "column", md: "row" }} padding={1} alignItems="center" spacing={4} width="100%">
           {/* Vehicle Rental Fee */}
           <Stack width="100%">
             <Typography variant="h6"><strong>PHP {vehicle.rentalFee}</strong></Typography>
             <Typography variant="body2">per rent</Typography>
           </Stack>
           <Stack direction={{ xs: "column-reverse", md: "row" }} width="100%" justifyContent="end" >
-            <Button variant="contained" sx={{ width: "250px" }} onClick={handleRentVehicle}>Rent Vehicle</Button>
+            <Button size="small" variant="contained" sx={{ width: "150px" }} onClick={handleRentVehicle}>Rent Vehicle</Button>
           </Stack>
         </Stack>
-      </CardContent>
+      </CardActions>
     </Card>
   );
 }
