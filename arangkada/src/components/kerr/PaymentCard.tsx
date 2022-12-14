@@ -1,8 +1,6 @@
 import { Payment } from "../../api/dataTypes";
 import RouteIcon from '@mui/icons-material/Route';
-import PaymentService from "../../api/PaymentService";
 import { Link } from "react-router-dom";
-import { useContext } from "react";
 import { Button, Card, CardActions, CardContent, CardHeader, Divider, Stack, Typography } from "@mui/material";
 
 type MyPaymentCardProps = {
@@ -19,7 +17,7 @@ const PaymentCard = ({ myPayment }: MyPaymentCardProps) => {
                       displayed. Need help please.*/}
         <Card>
           <CardHeader 
-            title={myPayment.rent.vehicle.plateNumber}    // Cause of Error/Blank white space is here
+            title={myPayment.rental.vehicle.plateNumber}    // Cause of Error/Blank white space is here
             subheader={
                 <Stack spacing={0.5} direction="row" alignItems="center">
                     <RouteIcon/> <Typography variant="body1">{myPayment.amount}</Typography>
@@ -32,7 +30,7 @@ const PaymentCard = ({ myPayment }: MyPaymentCardProps) => {
                 fullWidth
                 size="small"
                 sx={{color: "gray",marginTop:5,}} >
-                Rental Id: {myPayment.rent.rentalId}
+                Rental Id: {myPayment.rental.rentalId}
               </Button>
               </Link>
             }
@@ -43,10 +41,10 @@ const PaymentCard = ({ myPayment }: MyPaymentCardProps) => {
                   variant="body1">Date Paid: <b>{myPayment.datePaid}</b> 
               </Typography>
               <Typography 
-                  variant="body1">Business Name: <b>{myPayment.rent.vehicle.operator.businessName}</b> {/*Cause of Error/Blank white space is here*/}   
+                  variant="body1">Business Name: <b>{myPayment.rental.vehicle.operator.businessName}</b> {/*Cause of Error/Blank white space is here*/}   
               </Typography>
               <Typography 
-                  variant="body1">Operator Name: <b>{myPayment.rent.vehicle.operator.account.firstname + ' ' + myPayment.rent.vehicle.operator.account.lastname}</b> {/*Cause of Error/Blank white space is here*/}   
+                  variant="body1">Operator Name: <b>{myPayment.rental.vehicle.operator.account.firstname + ' ' + myPayment.rental.vehicle.operator.account.lastname}</b> {/*Cause of Error/Blank white space is here*/}   
               </Typography>
           </CardContent>
           <CardActions sx={{ justifyContent: "end" }}>

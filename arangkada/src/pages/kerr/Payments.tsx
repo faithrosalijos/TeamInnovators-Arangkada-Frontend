@@ -16,11 +16,12 @@ const Payments = () => {
     const [payments, setPayments] = useState<Payment[]>([]);
 
     const handlePayRentClick = () => {
-      navigate("/driver/payments/payrent/");
+      navigate("/driver/payments/pay-rent/");
   }
     useEffect(() => {
       PaymentService.getPaymentsByDriverId("1").then((response) => {
-        setPayments(response.data)
+        setPayments(response.data);
+        // console.log(response.data); 
         setError("");
       }).catch((error) => {
         setError(error.message);
@@ -48,7 +49,7 @@ const Payments = () => {
                 <h1>+</h1>
               </Button>
           </Grid>
-          {payments.length !== 0 && <PaymentCardList myPayment={payments} />}
+          {payments.length !== 0 && <PaymentCardList myPayments={payments} />}
           {payments.length === 0 && <Typography variant="body1" color="text.secondary">No rents paid.</Typography>}
           <Footer name="Kerr Labajo" course="BSCS" section="F1" />
       </Box>
