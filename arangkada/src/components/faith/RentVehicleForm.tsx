@@ -7,8 +7,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import RentalService from "../../api/RentalService";
 import { SnackbarContext, SnackbarContextType } from "../../helpers/SnackbarContext";
 import VehicleService from "../../api/VehicleService";
-import { Vehicle } from "../../api/dataTypes";
-import axios from "axios";
 
 const RentVehicleForm = () => {
   const navigate = useNavigate();
@@ -43,17 +41,17 @@ const RentVehicleForm = () => {
         startDate: startDate.toJSON(),
         endDate: endDate.toJSON(),
         vehicle: { vehicleId: +id },
-        driver: { driverId: 1 },
+        driver: { driverId: 2 },
       }).then((response) => {
-          VehicleService.putVehicleRented(
-            response.data.vehicle.vehicleId.toString(),
-            true
-          ).then(() => {
-            navigate("/driver/rental", { replace: true });
-            handleSetMessage("Vehicle rented.");
-          }).catch((error) => {
-            handleSetMessage(error.message + ". Failed to rent vehicle.");
-          })      
+        VehicleService.putVehicleRented(
+          response.data.vehicle.vehicleId.toString(),
+          true
+        ).then(() => {
+          navigate("/driver/rental", { replace: true });
+          handleSetMessage("Vehicle rented.");
+        }).catch((error) => {
+          handleSetMessage(error.message + ". Failed to rent vehicle.");
+        })
       }).catch((error) => {
         handleSetMessage(error.message + ". Failed to rent vehicle.");
       })

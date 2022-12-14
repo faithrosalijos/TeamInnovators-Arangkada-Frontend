@@ -9,7 +9,7 @@ type DriverRentalCardListProps = {
 }
 
 const DriverRentalCardList = ({ rentals, handleDriverRentalApprove, handleDriverRentalDecline }: DriverRentalCardListProps) => {
-  return ( 
+  return (
     <Grid container spacing={2}>
       {rentals.map((rental) => (
         <Grid xs={12} item key={rental.rentalId}>
@@ -17,7 +17,7 @@ const DriverRentalCardList = ({ rentals, handleDriverRentalApprove, handleDriver
         </Grid>
       ))}
     </Grid>
-   );
+  );
 }
- 
+
 export default DriverRentalCardList;

@@ -1,6 +1,6 @@
 import { Typography, Stack } from "@mui/material";
 import { Vehicle } from "../../api/dataTypes";
-import { BusinessCenter, Person, Phone } from "@mui/icons-material/";
+import { Person, Phone } from "@mui/icons-material/";
 
 type VehicleDetailsProps = {
   vehicle: Vehicle,
@@ -29,10 +29,10 @@ const VehicleDetails = ({ vehicle }: VehicleDetailsProps) => {
       <br></br>
 
       {/* Vehicle Information */}
-      <Typography variant="body1">Plate Number: {vehicle.plateNumber}</Typography>
-      <Typography variant="body1">Vehicle Type: {vehicle.vehicleType}</Typography>
-      <Typography variant="body1">Vehicle Make: {vehicle.makeModel}</Typography>
-      <Typography variant="body1">Route: {vehicle.route}</Typography>
+      <Typography variant="body1">Plate Number: <b>{vehicle.plateNumber}</b></Typography>
+      <Typography variant="body1">Vehicle Type: <b>{vehicle.vehicleType}</b></Typography>
+      <Typography variant="body1">Vehicle Make: <b>{vehicle.makeModel}</b></Typography>
+      <Typography variant="body1">Route: <b>{vehicle.route}</b></Typography>
       <br></br>
 
       {/* Vehicle Rental Fee */}

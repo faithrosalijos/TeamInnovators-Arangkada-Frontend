@@ -1,5 +1,5 @@
 import { Button, Card, CardContent, Divider, Typography, Stack, CardActions, CardHeader } from "@mui/material";
-import { BusinessCenter, Person, Phone } from "@mui/icons-material/";
+import { Person, Phone } from "@mui/icons-material/";
 import { Rental, Vehicle } from "../../api/dataTypes";
 import RentalService from "../../api/RentalService";
 import { useModal } from "mui-modal-provider";
@@ -33,7 +33,7 @@ const VehicleCard = ({ vehicle }: VehicleCardProps) => {
 
   return (
     <Card>
-      <CardHeader 
+      <CardHeader
         title={vehicle.operator.businessName}
         subheader={
           <Stack spacing={1} direction="row" mt={1} justifyContent="space-between" alignItems="end">

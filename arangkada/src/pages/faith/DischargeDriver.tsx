@@ -8,7 +8,7 @@ import PageHeader from "../../components/PageHeader";
 const DischargeDriver = () => {
   const location = useLocation();
 
-  return ( 
+  return (
     <>
       <Box mt="12px" sx={{ minHeight: "80vh" }}>
         <PageHeader title="Discharge Driver" />
@@ -21,11 +21,11 @@ const DischargeDriver = () => {
         />
         <br></br>
         <br></br>
-        <DischargeDriverForm rental={location.state.rental}/>
+        <DischargeDriverForm rental={location.state.rental} />
       </Box>
       <Footer name="Faith Rosalijos" course="BSIT" section="G1" />
     </>
-   );
+  );
 }
- 
+
 export default DischargeDriver;

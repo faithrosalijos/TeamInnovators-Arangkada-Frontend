@@ -1,5 +1,5 @@
 import { Button, Card, CardContent, Divider, Typography, Stack, CardActions, CardHeader } from "@mui/material";
-import { Person, Home, Phone } from "@mui/icons-material/";
+import { Home, Phone } from "@mui/icons-material/";
 import { Rental } from "../../api/dataTypes";
 import { useModal } from "mui-modal-provider";
 import { ConfirmationModal } from "../Modals";
@@ -8,7 +8,6 @@ import RentalService from "../../api/RentalService";
 import { SnackbarContext, SnackbarContextType } from "../../helpers/SnackbarContext";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
-
 
 type DriverRentalCardProps = {
   rental: Rental,
@@ -22,7 +21,7 @@ const DriverRentalCard = ({ rental, handleDriverRentalApprove, handleDriverRenta
   const navigate = useNavigate();
 
   const handleDischarge = () => {
-    navigate("/operator/drivers/discharge", { state: {rental: rental }});
+    navigate("/operator/drivers/discharge", { state: { rental: rental } });
   }
 
   const handleViewPayments = () => {
@@ -78,9 +77,9 @@ const DriverRentalCard = ({ rental, handleDriverRentalApprove, handleDriverRenta
     });
   }
 
-  return ( 
+  return (
     <Card>
-      <CardHeader 
+      <CardHeader
         title={rental.driver.account.firstname + " " + rental.driver.account.lastname}
         subheader={
           <Stack spacing={1} direction="row" mt={1} justifyContent="space-between" alignItems="end">
@@ -116,14 +115,14 @@ const DriverRentalCard = ({ rental, handleDriverRentalApprove, handleDriverRenta
       <CardActions >
         <Stack direction={{ xs: "column", lg: "row" }} padding={1} alignItems="center" spacing={4} width="100%">
           {
-            rental.status === "PENDING"?
+            rental.status === "PENDING" ?
               <>
                 <Status status="Pending" message="Driver is waiting for your response." />
                 <Stack direction={{ xs: "column-reverse", md: "row" }} width="100%" spacing={{ xs: 2, md: 3 }} justifyContent="end" >
                   <Button size="small" variant="contained" color="error" sx={{ width: "150px" }} onClick={handleDecline}>Decline</Button>
                   <Button size="small" variant="contained" color="success" sx={{ width: "150px" }} onClick={handleApprove}>Approve</Button>
                 </Stack>
-              </>:
+              </> :
               <>
                 {rental.status === "APPROVED" && <Status status="Approved" message="Driver is currently renting your vehicle." />}
                 {rental.status === "FINISHED" && <Status status="Finished" message="Driver is done with his rental." />}
@@ -131,12 +130,12 @@ const DriverRentalCard = ({ rental, handleDriverRentalApprove, handleDriverRenta
                   {rental.status === "APPROVED" && <Button size="small" variant="contained" color="error" sx={{ width: "150px" }} onClick={handleDischarge}>Discharge</Button>}
                   <Button size="small" variant="contained" sx={{ width: "150px" }} onClick={handleViewPayments}>View Payments</Button>
                 </Stack>
-              </>   
+              </>
           }
         </Stack>
       </CardActions>
     </Card>
-   );
+  );
 }
- 
+
 export default DriverRentalCard;

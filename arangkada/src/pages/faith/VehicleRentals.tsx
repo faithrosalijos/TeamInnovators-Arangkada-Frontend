@@ -57,8 +57,8 @@ const VehicleRentals = () => {
         <br></br>
         <VehicleFilterForm handleFilterSubmit={handleFilterSubmit} handleFilterClear={handleFilterClear} />
         <br></br>
-        {filteredVehicles.length !== 0 &&<VehicleCardList vehicles={filteredVehicles} />}
-        {filteredVehicles.length === 0 &&<Typography variant="body1" color="text.secondary">No available vehicles.</Typography>}     
+        {filteredVehicles.length !== 0 && <VehicleCardList vehicles={filteredVehicles} />}
+        {filteredVehicles.length === 0 && <Typography variant="body1" color="text.secondary">No available vehicles.</Typography>}
       </Box>
       <Footer name="Faith Rosalijos" course="BSIT" section="G1" />
     </>

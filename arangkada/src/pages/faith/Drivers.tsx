@@ -18,22 +18,22 @@ const Drivers = () => {
   useEffect(() => {
     RentalService.getCurrentRentalsByOperator(
       "3"
-      ).then((response) => {
-        setRentals(response.data);
-      }).catch((error) => {
-        setError(error.message);
-      }).finally(() => {
-        setLoading(false);
-      })
+    ).then((response) => {
+      setRentals(response.data);
+    }).catch((error) => {
+      setError(error.message);
+    }).finally(() => {
+      setLoading(false);
+    })
   }, [])
 
-  useEffect(() =>{
+  useEffect(() => {
     setFilteredRentals(rentals);
   }, [rentals])
 
   const handleFilterSubmit = (filters: { driverName: string }) => {
     const { driverName } = filters;
-    const temp = rentals.filter((rental) => 
+    const temp = rentals.filter((rental) =>
       (rental.driver.account.firstname + " " + rental.driver.account.lastname).toLowerCase().includes(driverName.toLowerCase())
     );
     setFilteredRentals(temp);
@@ -47,7 +47,7 @@ const Drivers = () => {
 
   if (error !== "") return (<ResponseError message={error} />)
 
-  return ( 
+  return (
     <>
       <Box mt="12px" display="flex" flexDirection="column" sx={{ minHeight: "80vh" }}>
         <PageHeader title="Drivers" />
@@ -60,7 +60,7 @@ const Drivers = () => {
       <br></br>
       <Footer name="Faith Rosalijos" course="BSIT" section="G1" />
     </>
-   );
+  );
 }
- 
+
 export default Drivers;

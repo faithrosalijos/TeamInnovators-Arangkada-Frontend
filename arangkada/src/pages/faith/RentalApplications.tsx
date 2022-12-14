@@ -32,7 +32,7 @@ const RentalApplications = () => {
 
   const handleFilterSubmit = (filters: { driverName: string }) => {
     const { driverName } = filters;
-    const temp = pendingRentals.filter((pendingRental) => 
+    const temp = pendingRentals.filter((pendingRental) =>
       (pendingRental.driver.account.firstname + " " + pendingRental.driver.account.lastname).toLowerCase().includes(driverName.toLowerCase())
     );
     setFilteredPendingRentals(temp);
@@ -43,13 +43,13 @@ const RentalApplications = () => {
   }
 
   const handleDriverRentalApprove = (rentalId: number) => {
-    setPendingRentals(pendingRentals.filter((pendingRental => 
+    setPendingRentals(pendingRentals.filter((pendingRental =>
       pendingRental.rentalId !== rentalId
     )))
   }
 
   const handleDriverRentalDecline = (rentalId: number) => {
-    setPendingRentals(pendingRentals.filter((pendingRental => 
+    setPendingRentals(pendingRentals.filter((pendingRental =>
       pendingRental.rentalId !== rentalId
     )))
   }
@@ -65,8 +65,8 @@ const RentalApplications = () => {
         <br></br>
         <DriverRentalFilterForm handleFilterClear={handleFilterClear} handleFilterSubmit={handleFilterSubmit} />
         <br></br>
-        {filteredPendingRentals.length !== 0 && <DriverRentalCardList rentals={filteredPendingRentals} handleDriverRentalApprove={handleDriverRentalApprove}handleDriverRentalDecline={handleDriverRentalDecline} />}
-        {filteredPendingRentals.length === 0 && <Typography variant="body1" color="text.secondary">No pending applications.</Typography>}  
+        {filteredPendingRentals.length !== 0 && <DriverRentalCardList rentals={filteredPendingRentals} handleDriverRentalApprove={handleDriverRentalApprove} handleDriverRentalDecline={handleDriverRentalDecline} />}
+        {filteredPendingRentals.length === 0 && <Typography variant="body1" color="text.secondary">No pending applications.</Typography>}
       </Box>
       <Footer name="Faith Rosalijos" course="BSIT" section="G1" />
     </>
