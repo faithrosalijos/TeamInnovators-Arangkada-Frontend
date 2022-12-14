@@ -7,8 +7,8 @@ export default function ContactUs() {
 
         <div>
             <div className="App">
-                <p style={{fontSize: 40, color: '#90794C', textAlign: 'left', marginLeft: 200}}>About Us</p>
-                <div style={{backgroundColor: '#D2A857', borderRadius: 30, padding: 30, maxWidth: 800, marginLeft: 215, opacity:'0.94'}}>
+                <p style={{fontSize: 40, color: '#90794C', textAlign: 'left', marginLeft: 310}}>About Us</p>
+                <div style={{backgroundColor: '#D2A857', borderRadius: 30, padding: 30, maxWidth: 800, marginLeft: 290, opacity:'0.94'}}>
                     <div>
                         <p style={{color: '#261D0C', fontSize: 17, paddingLeft: 5, textAlign:'justify'}}>
                         Arangkada is a PUV rental management system app that helps both PUV Operators and Professional
@@ -25,7 +25,7 @@ export default function ContactUs() {
                 <p style={{fontSize: 40, color: '#90794C', textAlign: 'center', marginLeft: 20}}>Team Innovators
                 <p style={{color: 'grey', fontSize: 15,  textAlign:'center'}}> Meet the entire team</p></p>
 
-                <div style={{backgroundColor: '#ffffff', borderRadius: 30, padding: 5, maxWidth: 300, marginLeft: 470}}>
+                <div style={{backgroundColor: '#ffffff', borderRadius: 30, padding: 5, maxWidth: 300, marginLeft: 560}}>
                     <img src={ProfileF} alt={"profile female"} style={{width: 150, height: 150}}/>
                     <div className='contain3'>
                         <p style={{color: 'black', fontSize: 14,  textAlign:'center'}}> Team Leader Name
@@ -37,7 +37,7 @@ export default function ContactUs() {
 
                 <div className="wrapperA">
                   <div className='leftA'>
-                    <div style={{backgroundColor: '#ffffff', borderRadius: 30, padding: 5, maxWidth: 300, marginLeft: 50}}>
+                    <div style={{backgroundColor: '#ffffff', borderRadius: 30, padding: 5, maxWidth: 300, marginLeft: 80}}>
                         <img src={ProfileF} alt={"profile female"} style={{width: 150, height: 150}}/>
                     <div className='contain3'>
                         <p style={{color: 'black', fontSize: 14,  textAlign:'center'}}> Team Member Name
@@ -48,7 +48,7 @@ export default function ContactUs() {
                 </div>
                   </div>
                   <div className='rightL'>
-                  <div style={{backgroundColor: '#ffffff', borderRadius: 30, padding: 5, maxWidth: 300, marginLeft: 120}}>
+                  <div style={{backgroundColor: '#ffffff', borderRadius: 30, padding: 5, maxWidth: 300, marginLeft: 180}}>
                     <img src={ProfileM} alt={"profile male"} style={{width: 150, height: 150}}/>
                     <div className='contain3'>
                         <p style={{color: 'black', fontSize: 14,  textAlign:'center'}}> Team Member Name
@@ -61,7 +61,7 @@ export default function ContactUs() {
             </div>
             <div className="wrapperA">
                   <div className='leftA'>
-                    <div style={{backgroundColor: '#ffffff', borderRadius: 30, padding: 5, maxWidth: 300, marginLeft: 50, marginTop:20}}>
+                    <div style={{backgroundColor: '#ffffff', borderRadius: 30, padding: 5, maxWidth: 300, marginLeft: 80, marginTop:20}}>
                         <img src={ProfileF} alt={"profile female"} style={{width: 150, height: 150}}/>
                     <div className='contain3'>
                         <p style={{color: 'black', fontSize: 14,  textAlign:'center'}}> Team Member Name
@@ -72,7 +72,7 @@ export default function ContactUs() {
                 </div>
                   </div>
                   <div className='rightL'>
-                  <div style={{backgroundColor: '#ffffff', borderRadius: 30, padding: 5, maxWidth: 300, marginLeft: 120, marginTop:20}}>
+                  <div style={{backgroundColor: '#ffffff', borderRadius: 30, padding: 5, maxWidth: 300, marginLeft: 180, marginTop:20}}>
                     <img src={ProfileF} alt={"profile female"} style={{width: 150, height: 150}}/>
                     <div className='contain3'>
                         <p style={{color: 'black', fontSize: 14,  textAlign:'center'}}> Team Member Name
