@@ -10,21 +10,20 @@ const VehicleDetails = ({ vehicle }: VehicleDetailsProps) => {
 
   return (
     <div>
-      <Typography variant="h6">Vehicle ID: {vehicle.vehicleId}</Typography>
+      <Typography variant="h6">{vehicle.operator.businessName}</Typography>
 
       {/* Operator Information */}
-      <Stack spacing={{ xs: 1, sm: 2 }} direction={{ xs: "column", sm: "row" }}>
-        <Stack spacing={0.5} direction="row" alignItems="center">
-          <BusinessCenter sx={{ color: "text.secondary" }} />
-          <Typography variant="body1">{vehicle.operator.businessName}</Typography>
-        </Stack>
-        <Stack spacing={0.5} direction="row" alignItems="center">
-          <Person sx={{ color: "text.secondary" }} />
-          <Typography variant="body1">{vehicle.operator.account.firstname + " " + vehicle.operator.account.lastname}</Typography>
-        </Stack>
-        <Stack spacing={0.5} direction="row" alignItems="center">
-          <Phone sx={{ color: "text.secondary" }} />
-          <Typography variant="body1">{vehicle.operator.account.contactNumber}</Typography>
+      <Stack spacing={1} direction="column" mt={1}>
+        <Typography variant="body2" color="text.secondary"><b>VEHICLE ID: {vehicle.vehicleId}</b></Typography>
+        <Stack spacing={{ xs: 1, sm: 2 }} direction={{ xs: "column", sm: "row" }}>
+          <Stack spacing={0.5} direction="row" alignItems="center">
+            <Person sx={{ color: "text.secondary" }} />
+            <Typography variant="body1">{vehicle.operator.account.firstname + " " + vehicle.operator.account.lastname}</Typography>
+          </Stack>
+          <Stack spacing={0.5} direction="row" alignItems="center">
+            <Phone sx={{ color: "text.secondary" }} />
+            <Typography variant="body1">{vehicle.operator.account.contactNumber}</Typography>
+          </Stack>
         </Stack>
       </Stack>
       <br></br>
