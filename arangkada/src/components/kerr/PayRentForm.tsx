@@ -1,7 +1,12 @@
 import { Button, Stack, TextField, Grid } from "@mui/material";
 import { useState } from "react";
+import { Rental } from "../../api/dataTypes";
 
-const PayRentForm = () => {
+type RentalDetailsProps = {
+  rental: Rental,
+}
+
+const PayRentForm = ({rental}: RentalDetailsProps) => {
     const [amount, setAmount] = useState("");
 
   

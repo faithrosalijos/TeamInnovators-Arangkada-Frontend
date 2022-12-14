@@ -41,7 +41,7 @@ const PayRent = () => {
           <RentalDetails rental={currentRental} />
           <br></br>
           <br></br>
-          <PayRentForm />
+          <PayRentForm rental={currentRental}/>
         </Box>
         <Footer name="Kerr Labajo" course="BSCS" section="F1" />
       </>
