@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import RentalService from "../../api/RentalService";
 import Status from "../../components/faith/Status";
 import UpdateRentalForm from "../../components/faith/UpdateRentalForm";
@@ -8,16 +8,16 @@ import PageHeader from "../../components/PageHeader";
 import Footer from "../../components/Footer";
 import Loading from "../../components/Loading";
 import ResponseError from "../../components/faith/ResponseError";
-import { CurrentRentalContext, CurrentRentalContextType } from "../../helpers/CurrentRentalContext";
+import { Rental } from "../../api/dataTypes";
 
 const MyRental = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const { currentRental, handleSetCurrentRental } = useContext(CurrentRentalContext) as CurrentRentalContextType;
+  const [currentRental, setCurrentRental] = useState<Rental>({} as Rental);
 
   useEffect(() => {
     RentalService.getCurrentRentalByDriver("2").then((response) => {
-      handleSetCurrentRental(response.data)
+      setCurrentRental(response.data)
       setError("");
     }).catch((error) => {
       setError(error.message);
@@ -25,6 +25,10 @@ const MyRental = () => {
       setLoading(false);
     })
   }, []);
+
+  const handleSetCurrentRental = (rental: Rental) => {
+    setCurrentRental(rental);
+  }
 
   if (loading) return (<Loading />)
 
@@ -47,7 +51,7 @@ const MyRental = () => {
               <VehicleDetails vehicle={currentRental.vehicle} />
               <br></br>
               <br></br>
-              <UpdateRentalForm />
+              <UpdateRentalForm currentRental={currentRental} handleSetCurrentRental={handleSetCurrentRental} />
             </> :
             <Typography variant="body1" color="text.secondary">No ongoing or pending rental.</Typography>
         }

@@ -2,7 +2,6 @@ import { Button, Stack, TextField, InputAdornment, IconButton } from "@mui/mater
 import { useContext, useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import RentalService from "../../api/RentalService";
-import { CurrentRentalContext, CurrentRentalContextType } from "../../helpers/CurrentRentalContext";
 import { Rental } from "../../api/dataTypes";
 import { useNavigate } from "react-router-dom";
 import { SnackbarContext, SnackbarContextType } from "../../helpers/SnackbarContext";

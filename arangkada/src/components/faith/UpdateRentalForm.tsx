@@ -6,16 +6,19 @@ import { useContext, useState } from "react";
 import { useModal } from "mui-modal-provider";
 import { ConfirmationModal, NoticeModal } from "../Modals";
 import RentalService from "../../api/RentalService";
-import { CurrentRentalContext, CurrentRentalContextType } from "../../helpers/CurrentRentalContext";
 import { Rental } from "../../api/dataTypes";
 import { useNavigate } from "react-router-dom";
 import { SnackbarContext, SnackbarContextType } from "../../helpers/SnackbarContext";
 
-const UpdateRentalForm = () => {
+type UpdateRentalFormProps = {
+  currentRental: Rental,
+  handleSetCurrentRental: (rental: Rental) => void,
+}
+
+const UpdateRentalForm = ({ currentRental, handleSetCurrentRental }: UpdateRentalFormProps) => {
   const navigate = useNavigate();
   const { showModal } = useModal();
   const { handleSetMessage } = useContext(SnackbarContext) as SnackbarContextType;
-  const { currentRental, handleSetCurrentRental } = useContext(CurrentRentalContext) as CurrentRentalContextType;
 
   const currentDate = new Date(new Date().setHours(0, 0, 0, 0));
   const [startDate, setStartDate] = useState<Date | null>(new Date(currentRental.startDate));
