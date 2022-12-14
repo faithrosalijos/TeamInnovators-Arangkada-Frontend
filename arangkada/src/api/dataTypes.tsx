@@ -70,5 +70,5 @@ export type Payment = {
   paymentId: number,
   amount: number,
   datePaid: string,
-  rent: Rental
+  rental: Rental
 }
