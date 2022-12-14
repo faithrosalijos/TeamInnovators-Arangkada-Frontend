@@ -7,7 +7,6 @@ import { Route, Routes } from 'react-router-dom';
 import DriverDashboard from './pages/faith/DriverDashboard';
 import VehicleRentals from './pages/faith/VehicleRentals';
 import Rental from './pages/faith/Rental';
-import CurrentRentalProvider from './helpers/CurrentRentalContext';
 import RentVehicle from './pages/faith/RentVehicle';
 import OperatorMainLayout from './layouts/OperatorMainLayout';
 import OperatorDashboard from './pages/kerr/OperatorDashboard';
@@ -71,14 +70,13 @@ const App = () => {
                 <Route path=":id" element={<RentVehicle />} />
               </Route>
               <Route path="rental">
-                <Route index element={<CurrentRentalProvider><Rental /></CurrentRentalProvider>} />
-                <Route path="cancel" element={<CurrentRentalProvider><CancelRental /></CurrentRentalProvider>} />
+                <Route index element={<Rental />} />
+                <Route path="cancel" element={<CancelRental />} />
               </Route>
               <Route path="payments">
                 <Route index element={<Payments />} />
                 <Route path="pay-rent" element={<PayRent />} />
               </Route>
-              <Route path="rental" element={<CurrentRentalProvider><Rental /></CurrentRentalProvider>} />
             </Route>
 
             {/* Operator Pages */}
