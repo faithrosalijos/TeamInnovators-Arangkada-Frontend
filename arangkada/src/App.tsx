@@ -11,14 +11,12 @@ import CurrentRentalProvider from './helpers/CurrentRentalContext';
 import RentVehicle from './pages/faith/RentVehicle';
 import OperatorMainLayout from './layouts/OperatorMainLayout';
 import OperatorDashboard from './pages/kerr/OperatorDashboard';
-import PendingRentalsProvider from './helpers/PendingRentalsContext';
 import ProfilePageOp from './pages/cara/ProfilePageOp';
 import EditProfilePageOp from './pages/cara/EditProfilePageOp';
 import EditBusinessInfoPage from './pages/cara/EditBusinessInfoPage';
 import DeleteAccPage from './pages/cara/DeleteAccPage';
 import RegistrationOneOp from './pages/cara/RegistrationOneOp';
 import RegistrationTwoOp from './pages/cara/RegistrationTwoOp';
-import Landing from './components/karylle/Landing';
 import ContactUsPage from './pages/cara/ContactUsPage';
 import AboutUsPageD from './pages/karylle/AboutUsPageD';
 import Payments from './pages/kerr/Payments';
@@ -34,6 +32,8 @@ import Snackbar from './components/Snackbar';
 import RentalApplications from './pages/faith/RentalApplications';
 import Drivers from './pages/faith/Drivers';
 import DischargeDriver from './pages/faith/DischargeDriver';
+import LandingPage from './pages/karylle/LandingPage';
+import LoginPage from './pages/karylle/LoginPage';
 
 /* Customize default mui theme */
 const theme = createTheme({
@@ -60,66 +60,67 @@ const App = () => {
 
   return (
     <ThemeProvider theme={theme}>
-    <ModalProvider>
-    <SnackbarContextProvider>
-      <Routes>
-        {/* Driver Pages */}
-         <Route path="driver" element={<DriverMainLayout />}>
-          <Route index element={<DriverDashboard />} />
-          <Route path="vehicle-rentals">
-            <Route index element={<VehicleRentals />} />
-            <Route path=":id" element={<RentVehicle />} />
-          </Route>
-          <Route path="rental">
-            <Route index element={<CurrentRentalProvider><Rental /></CurrentRentalProvider>} />
-            <Route path="cancel" element={<CurrentRentalProvider><CancelRental /></CurrentRentalProvider>} />
-          </Route>
-          <Route path="payment">
-              <Route index element={<Payments />} />
-              <Route path="payrent" element={<PayRent />} />
+      <ModalProvider>
+        <SnackbarContextProvider>
+          <Routes>
+            {/* Driver Pages */}
+            <Route path="driver" element={<DriverMainLayout />}>
+              <Route index element={<DriverDashboard />} />
+              <Route path="vehicle-rentals">
+                <Route index element={<VehicleRentals />} />
+                <Route path=":id" element={<RentVehicle />} />
+              </Route>
+              <Route path="rental">
+                <Route index element={<CurrentRentalProvider><Rental /></CurrentRentalProvider>} />
+                <Route path="cancel" element={<CurrentRentalProvider><CancelRental /></CurrentRentalProvider>} />
+              </Route>
+              <Route path="payments">
+                <Route index element={<Payments />} />
+                <Route path="pay-rent" element={<PayRent />} />
+              </Route>
+              <Route path="rental" element={<CurrentRentalProvider><Rental /></CurrentRentalProvider>} />
             </Route>
-          <Route path="rental" element={<CurrentRentalProvider><Rental /></CurrentRentalProvider>} />
-          </Route>
 
-        {/* Operator Pages */}
-        <Route path="operator" element={<OperatorMainLayout />}>
-          <Route index element={<OperatorDashboard/>} />
-          <Route path="vehicles">
-            <Route index element={<MyVehicles />} />
-            <Route path="update/:id" element={<UpdateVehiclePage />} />
-            <Route path="delete/:id" element={<DeleteVehiclePage />} />
-            <Route path="view/:id" element={<ViewVehiclePage />} />
-          </Route>
-          <Route path="add-vehicle" element={<AddVehiclePage />} />
-          <Route path="drivers">
-            <Route index element={<Drivers />} />
-            <Route path="discharge" element={<DischargeDriver />} />
-          </Route>
-          <Route path="rental-applications" element={<RentalApplications />} />
-          <Route path="operatorprofile">
-            <Route index element={<ProfilePageOp/>} />
-            <Route path="editoperatorprof" element={<EditProfilePageOp/>} />
-            <Route path="editbusinessinfo" element={<EditBusinessInfoPage/>} />
-            <Route path="deleteop" element={<DeleteAccPage/>} />
-          </Route>
-        </Route>
+            {/* Operator Pages */}
+            <Route path="operator" element={<OperatorMainLayout />}>
+              <Route index element={<OperatorDashboard />} />
+              <Route path="vehicles">
+                <Route index element={<MyVehicles />} />
+                <Route path="update/:id" element={<UpdateVehiclePage />} />
+                <Route path="delete/:id" element={<DeleteVehiclePage />} />
+                <Route path="view/:id" element={<ViewVehiclePage />} />
+              </Route>
+              <Route path="add-vehicle" element={<AddVehiclePage />} />
+              <Route path="drivers">
+                <Route index element={<Drivers />} />
+                <Route path="discharge" element={<DischargeDriver />} />
+              </Route>
+              <Route path="rental-applications" element={<RentalApplications />} />
+              <Route path="operatorprofile">
+                <Route index element={<ProfilePageOp />} />
+                <Route path="editoperatorprof" element={<EditProfilePageOp />} />
+                <Route path="editbusinessinfo" element={<EditBusinessInfoPage />} />
+                <Route path="deleteop" element={<DeleteAccPage />} />
+              </Route>
+            </Route>
 
-        {/* Other pages */}
-        <Route path="registration">
-          <Route index element={<RegistrationOneOp />} />
-          <Route path="registeroperator" element={<RegistrationTwoOp />} />
-        </Route>
+            {/* Other pages */}
+            <Route path="registration">
+              <Route index element={<RegistrationOneOp />} />
+              <Route path="operator" element={<RegistrationTwoOp />} />
+            </Route>
 
-        <Route path="landing" element={<Landing />} />
-        <Route path="aboutus" element={<AboutUsPageD />} />
-        <Route path="contactus" element={<ContactUsPage />} />
-        <Route path="login" element={<ContactUsPage />} />
+            <Route path="/">
+              <Route index element={<LandingPage />} />
+              <Route path="about" element={<AboutUsPageD />} />
+              <Route path="contact" element={<ContactUsPage />} />
+              <Route path="login" element={<LoginPage />} />
+            </Route>
+          </Routes>
 
-      </Routes>
-
-      <Snackbar />
-    </SnackbarContextProvider>
-    </ModalProvider>
+          <Snackbar />
+        </SnackbarContextProvider>
+      </ModalProvider>
     </ThemeProvider>
   );
 }

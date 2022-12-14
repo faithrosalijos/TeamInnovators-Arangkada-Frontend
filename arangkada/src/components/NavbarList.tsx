@@ -20,7 +20,7 @@ const NavbarList = ({ open, user }: NavbarListProps) => {
     { text: "Dashboard", icon: <Dashboard />, link: "/driver", end: true },
     { text: "Vehicle Rentals", icon: <Commute />, link: "/driver/vehicle-rentals", end: false },
     { text: "Rental", icon: <DriveEta />, link: "/driver/rental", end: false },
-    { text: "Payments", icon: <Payment />, link: "/driver/payment", end: false }
+    { text: "Payments", icon: <Payment />, link: "/driver/payments", end: false }
   ];
 
   const handleLogout = () => {
