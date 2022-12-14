@@ -8,12 +8,15 @@ import PageHeader from "../../components/PageHeader";
 const MyVehicles = () => {
 
   return ( 
-    <Box sx={{ padding: "12px 0 0" }}>
-      <PageHeader title="Update Vehicle Information"/>
-      <ViewVehicle/>
-      <Divider/>
+    <>
+      <Box mt="12px" sx={{ minHeight: "80vh" }}>
+        <PageHeader title="Update Vehicle Information"/>
+        <br></br>
+        <br></br>
+        <ViewVehicle/>
+      </Box>
       <Footer name="Mariel Genodiala" course="BSIT" section="G3"/>
-    </Box>
+    </>
    );
 }
 export default MyVehicles;

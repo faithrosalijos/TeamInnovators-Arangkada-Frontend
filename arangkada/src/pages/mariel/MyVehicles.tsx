@@ -46,15 +46,19 @@ const MyVehicles = () => {
   // if (error !== '') return (<ResponseError message={error} />)
 
   return ( 
-    <Box sx={{ padding: "12px 0 0" }}>
-      <PageHeader title="My Vehicle" />
-      <MyVehicleSearch handleFilterSubmit={handleFilterSubmit} handleFilterClear={handleFilterClear}/>
-      <br></br>
-        {filteredVehicles.length !== 0 && <MyVehicleCardList myVehicle={filteredVehicles} />}
-        {filteredVehicles.length === 0 && <Typography variant="body1" color="text.secondary" align="center">Vehicle Not Found.</Typography>}
+    <>
+      <Box mt="12px" sx={{ minHeight: "80vh"}}>
+        <PageHeader title="Vehicles" />
+        <br></br>
+        <MyVehicleSearch handleFilterSubmit={handleFilterSubmit} handleFilterClear={handleFilterClear}/>
+        <br></br>
+          {filteredVehicles.length !== 0 && <MyVehicleCardList myVehicle={filteredVehicles} />}
+          {filteredVehicles.length === 0 && <Typography variant="body1" color="text.secondary" align="center">Vehicle Not Found.</Typography>}
+      </Box>
       <Footer name="Mariel Genodiala" course="BSIT" section="G3"/>
-    </Box>
-   );
+    </>
+
+  );
 }
  
 export default MyVehicles;
