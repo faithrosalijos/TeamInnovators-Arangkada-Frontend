@@ -1,85 +1,44 @@
 import { Box } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Rental } from "../../api/dataTypes";
+import RentalService from "../../api/RentalService";
 import Instructions from "../../components/faith/Instructions";
 import PayRentForm from "../../components/kerr/PayRentForm";
 import RentalDetails from "../../components/kerr/RentalDetails";
 import PageHeader from "../../components/PageHeader";
 import Footer from "../../components/Footer";
+import Loading from "../../components/Loading";
+import ResponseError from "../../components/faith/ResponseError";
 
 const PayRent = () => {
-    const [rental, setRental] = useState<Rental>(
-      {
-        rentalId: 1, 
-        startDate: "2022-12-01", 
-        endDate: "2022-12-02",
-        status: "PENDING",
-        current: true,
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState("");
+    const [currentRental, setCurrentRental] = useState<Rental>({} as Rental);
+    
+    useEffect(() => {
+      RentalService.getRentalById("1").then((response) => {
+        setCurrentRental(response.data)
+        console.log(response.data);
+        setError("");
+      }).catch((error) => {
+        setError(error.message);
+      }).finally(() => {
+        setLoading(false);
+      })
+    }, []);
 
-        vehicle: {
-            vehicleId: 1, 
-            plateNumber: "XXX-XX1", 
-            route: "01K", 
-            vehicleType: "Jeepney", 
-            makeModel: "Model XX", 
-            vin: 1, 
-            orStatus: "OR Status", 
-            vehicleCondition: "Vehicle Condition", 
-            rentalFee: 500.0,
+    if (loading) return (<Loading />)
 
-            operator: {
-                operatorId: 1, 
-                businessName: "Doe PUV", 
-                permitNumber: "XXX-XXX",
-
-                account: { 
-                    accountId: 3, 
-                    firstname: "John", 
-                    middlename: "", 
-                    lastname: "Doe", 
-                    birthdate: "2000-12-31", 
-                    age: 24, 
-                    contactNumber: "9998765544", 
-                    address: "ABC City", 
-                    gender: "Male", 
-                    username: "john.doe", 
-                    password: "john", 
-                    accountType: "operator" 
-                }
-            }
-        },
-
-        driver: {
-            driverId: 1, 
-            licenseNumber: "GXX-XX-XXXXXX", 
-            licenseCode: "A,A1,B,B1",
-            
-            account: {
-                accountId: 1, 
-                firstname: "Jobert", 
-                middlename: "", 
-                lastname: "Doe", 
-                birthdate: "2000-12-31", 
-                age: 48, 
-                contactNumber: "9998765544", 
-                address: "DEF City", 
-                gender: "Male", 
-                username: "jobert.doe", 
-                password: "jobert", 
-                accountType: "driver" 
-            }
-        }
-      }
-    );
-  
+    if (error !== "") return (<ResponseError message={error} />)
+    
     return (
       <>
-        <Box mt="12px" sx={{ minHeight: "80vh" }}>
+        <Box mt="12px" display="flex" flexDirection="column" sx={{ minHeight: "80vh" }}>
           <PageHeader title="Pay Rent" />
           <br></br>
           <Instructions header="Please provide the amount to pay the rent." subheader="" />
           <br></br>
-          <RentalDetails rental={rental} />
+          <RentalDetails rental={currentRental} />
           <br></br>
           <br></br>
           <PayRentForm />
