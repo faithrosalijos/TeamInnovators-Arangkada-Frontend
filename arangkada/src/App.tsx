@@ -34,6 +34,7 @@ import Snackbar from './components/Snackbar';
 import RentalApplications from './pages/faith/RentalApplications';
 import Drivers from './pages/faith/Drivers';
 import DischargeDriver from './pages/faith/DischargeDriver';
+import UpdatePayment from './pages/kerr/UpdatePayment';
 
 /* Customize default mui theme */
 const theme = createTheme({
@@ -74,9 +75,10 @@ const App = () => {
                 <Route index element={<CurrentRentalProvider><Rental /></CurrentRentalProvider>} />
                 <Route path="cancel" element={<CurrentRentalProvider><CancelRental /></CurrentRentalProvider>} />
               </Route>
-              <Route path="payments">
+              <Route path="payment">
                 <Route index element={<Payments />} />
                 <Route path="pay-rent" element={<PayRent />} />
+                <Route path="update" element={<UpdatePayment />}/>
               </Route>
               <Route path="rental" element={<CurrentRentalProvider><Rental /></CurrentRentalProvider>} />
             </Route>
