@@ -18,7 +18,8 @@ import EditBusinessInfoPage from './pages/cara/EditBusinessInfoPage';
 import DeleteAccPage from './pages/cara/DeleteAccPage';
 import RegistrationOneOp from './pages/cara/RegistrationOneOp';
 import RegistrationTwoOp from './pages/cara/RegistrationTwoOp';
-import Landing from './components/karylle/LandingPage';
+import LandingPage from './pages/karylle/LandingPage';
+import LoginPage from './pages/karylle/LoginPage';
 import ContactUsPage from './pages/cara/ContactUsPage';
 import AboutUsPageD from './pages/karylle/AboutUsPageD';
 import MyPayments from './pages/kerr/MyPayments';
@@ -110,10 +111,10 @@ const App = () => {
           <Route path="registeroperator" element={<RegistrationTwoOp />} />
         </Route>
 
-        <Route path="landing" element={<Landing />} />
+        <Route path="landing" element={<LandingPage />} />
         <Route path="aboutus" element={<AboutUsPageD />} />
         <Route path="contactus" element={<ContactUsPage />} />
-        <Route path="login" element={<ContactUsPage />} />
+        <Route path="login" element={<LoginPage />} />
 
       </Routes>
 
