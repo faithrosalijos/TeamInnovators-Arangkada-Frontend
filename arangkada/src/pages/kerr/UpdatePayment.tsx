@@ -1,7 +1,7 @@
 import { Box, Divider } from "@mui/material";
 import PageHeader from "../../components/PageHeader";
 import Footer from "../../components/Footer";
-import SelectedPayment from "../../components/kerr/SelectedPayment";
+import UpdateSelectedPayment from "../../components/kerr/SelectedPayment";
 
 const UpdatePayment = () => {
 
@@ -11,7 +11,7 @@ const UpdatePayment = () => {
           <PageHeader title="Update Payment Information"/>
           <br></br>
           <br></br>
-          <SelectedPayment/>
+          <UpdateSelectedPayment/>
         </Box>
         <Footer name="Kerr Labajo" course="BSCS" section="F1"/>
       </>
