@@ -43,22 +43,12 @@ const PaymentCard = ({ myPayment }: MyPaymentCardProps) => {
               </Typography>
           </CardContent>
           <CardActions sx={{ justifyContent: "end" }}>
-          <Link to={"/driver/payment/delete/" + myPayment.paymentId} style={{ textDecoration: 'none' }}> 
-            <Button 
-              size="small" 
-              variant="contained" 
-              className='remove'
-              color="error"
-              sx={{width:"150px"}}>
-              Remove
-            </Button>
-            </Link>
             <Link to={"/driver/payment/update/"+ myPayment.paymentId } style={{ textDecoration: 'none' }}> 
             <Button
                size="small" 
                variant="contained"
                sx={{width:"150px"}}>
-                Update
+                Edit
               </Button>
               </Link>
           </CardActions>
