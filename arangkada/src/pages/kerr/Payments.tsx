@@ -36,7 +36,7 @@ const Payments = () => {
 
     return (
       <>
-      <Box sx={{ padding: "12px 0 0" }}>
+      <Box mt="12px" display="flex" flexDirection="column" sx={{ minHeight: "80vh" }}>
         <PageHeader title="My Payments" />
         <br></br>
         <Grid item xs={60} md={50}>

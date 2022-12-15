@@ -1,5 +1,5 @@
 import { Payment } from "../../api/dataTypes";
-import RouteIcon from '@mui/icons-material/Route';
+import PaidIcon from '@mui/icons-material/Paid';
 import { Link } from "react-router-dom";
 import { Button, Card, CardActions, CardContent, CardHeader, Divider, Stack, Typography } from "@mui/material";
 
@@ -10,17 +10,12 @@ type MyPaymentCardProps = {
 const PaymentCard = ({ myPayment }: MyPaymentCardProps) => {
     return (
         <>
-        {/* HELP REQUEST: It successfully iterates each payments of the current logged in driver
-                      but it displays blank white space when calling the myPayment.rent...etc. 
-                      I left some comments in specific lines below which causes the problem.
-                      Data types paymentId, amount, and datePaid are the only ones that can be
-                      displayed. Need help please.*/}
         <Card>
           <CardHeader 
-            title={myPayment.rental.vehicle.plateNumber}    // Cause of Error/Blank white space is here
+            title={myPayment.rental.vehicle.plateNumber}
             subheader={
                 <Stack spacing={0.5} direction="row" alignItems="center">
-                    <RouteIcon/> <Typography variant="body1">{myPayment.amount}</Typography>
+                    <PaidIcon/> <Typography variant="body1">{myPayment.amount}</Typography>
                 </Stack>
                 }
             action={
@@ -41,10 +36,10 @@ const PaymentCard = ({ myPayment }: MyPaymentCardProps) => {
                   variant="body1">Date Paid: <b>{myPayment.datePaid}</b> 
               </Typography>
               <Typography 
-                  variant="body1">Business Name: <b>{myPayment.rental.vehicle.operator.businessName}</b> {/*Cause of Error/Blank white space is here*/}   
+                  variant="body1">Business Name: <b>{myPayment.rental.vehicle.operator.businessName}</b> 
               </Typography>
               <Typography 
-                  variant="body1">Operator Name: <b>{myPayment.rental.vehicle.operator.account.firstname + ' ' + myPayment.rental.vehicle.operator.account.lastname}</b> {/*Cause of Error/Blank white space is here*/}   
+                  variant="body1">Operator Name: <b>{myPayment.rental.vehicle.operator.account.firstname + ' ' + myPayment.rental.vehicle.operator.account.lastname}</b>
               </Typography>
           </CardContent>
           <CardActions sx={{ justifyContent: "end" }}>
