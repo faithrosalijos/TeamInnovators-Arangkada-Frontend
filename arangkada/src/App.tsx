@@ -16,6 +16,8 @@ import EditBusinessInfoPage from './pages/cara/EditBusinessInfoPage';
 import DeleteAccPage from './pages/cara/DeleteAccPage';
 import RegistrationOneOp from './pages/cara/RegistrationOneOp';
 import RegistrationTwoOp from './pages/cara/RegistrationTwoOp';
+import LandingPage from './pages/karylle/LandingPage';
+import LoginPage from './pages/karylle/LoginPage';
 import ContactUsPage from './pages/cara/ContactUsPage';
 import AboutUsPageD from './pages/karylle/AboutUsPageD';
 import Payments from './pages/kerr/Payments';
@@ -31,8 +33,6 @@ import Snackbar from './components/Snackbar';
 import RentalApplications from './pages/faith/RentalApplications';
 import Drivers from './pages/faith/Drivers';
 import DischargeDriver from './pages/faith/DischargeDriver';
-import LandingPage from './pages/karylle/LandingPage';
-import LoginPage from './pages/karylle/LoginPage';
 
 /* Customize default mui theme */
 const theme = createTheme({
@@ -108,13 +108,10 @@ const App = () => {
               <Route path="operator" element={<RegistrationTwoOp />} />
             </Route>
 
-            <Route path="/">
-              <Route index element={<LandingPage />} />
-              <Route path="about" element={<AboutUsPageD />} />
-              <Route path="contact" element={<ContactUsPage />} />
-              <Route path="login" element={<LoginPage />} />
-            </Route>
-          </Routes>
+        <Route path="landing" element={<LandingPage />} />
+        <Route path="aboutus" element={<AboutUsPageD />} />
+        <Route path="contactus" element={<ContactUsPage />} />
+        <Route path="login" element={<LoginPage />} />
 
           <Snackbar />
         </SnackbarContextProvider>
