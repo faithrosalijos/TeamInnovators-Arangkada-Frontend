@@ -1,5 +1,6 @@
 import { Payment } from "../../api/dataTypes";
-import PaidIcon from '@mui/icons-material/Paid';
+import PaymentIcon from '@mui/icons-material/Payment';
+import RentIcon from '@mui/icons-material/CarRental';
 import { Link } from "react-router-dom";
 import { Button, Card, CardActions, CardContent, CardHeader, Divider, Stack, Typography } from "@mui/material";
 
@@ -14,21 +15,15 @@ const PaymentCard = ({ myPayment }: MyPaymentCardProps) => {
           <CardHeader 
             title={myPayment.rental.vehicle.plateNumber}
             subheader={
-                <Stack spacing={0.5} direction="row" alignItems="center">
-                    <PaidIcon/> <Typography variant="body1">{myPayment.amount}</Typography>
-                </Stack>
+                <>
+                  <Stack spacing={0.5} direction="row" alignItems="center">
+                    <PaymentIcon /> <Typography variant="body1">PHP {myPayment.amount}.00</Typography>
+                  </Stack>
+                  <Stack spacing={0.5} direction="row" alignItems="center">
+                    <RentIcon /> <Typography variant="body1">Rental Id: {myPayment.rental.rentalId}</Typography>
+                  </Stack>
+                </>
                 }
-            action={
-              <Link to={"/driver/payment/view/"+ myPayment.paymentId } style={{ textDecoration: 'none' }}> 
-              <Button 
-                variant="text" 
-                fullWidth
-                size="small"
-                sx={{color: "gray",marginTop:5,}} >
-                Rental Id: {myPayment.rental.rentalId}
-              </Button>
-              </Link>
-            }
           />
           <Divider />
           <CardContent>
