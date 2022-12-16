@@ -87,6 +87,7 @@ const MyVehicleDeleteForm  = () =>{
         <TextField 
                 onChange={(event) => setPassword(event.target.value)}
                 value={password} 
+                type={showPassword ? "text" : "password"}
                 fullWidth
                 error={passwordError !== null}
                 helperText={passwordError}
@@ -94,7 +95,15 @@ const MyVehicleDeleteForm  = () =>{
                 id="filled-password-input"
                 label="Password"
                 required
-                InputProps={{ endAdornment: (<InputAdornment position="end"> <IconButton onClick={handlePasswordShow}>{showPassword? <VisibilityOff />: <Visibility />}</IconButton> </InputAdornment>) }} 
+                InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton onClick={handlePasswordShow}>
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    )
+                  }} 
                 autoComplete="current-password"
                 variant="outlined"
                 sx={{margin: 1, marginBottom: 3}}>
