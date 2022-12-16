@@ -56,30 +56,33 @@ export default function OperatorInfo() {
 
     const putAccount = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
-        await axios.put(`http://localhost:8080/account/putAccount?accountId=${para.id}`,{
-            firstname:account.firstname,
-            middlename:account.middlename,
-            lastname: account.lastname,
-            contactNumber:account.contactNumber,
-            address:account.address,
-            username: account.username,
-            password: account.password,
-        })
-        .then((res:any)=> {
-            console.log('Editing Data'); 
-            navigate("/operator/operatorprofile/");
-            handleSetUser({
-                userId: para.id,
-                type: res.data.account.accountType,
-                username: res.data.account.username,
-                password: res.data.account.password,
-                firstname: res.data.account.firstname,
-                lastname: res.data.account.lastname,
-                accountId: res.data.account.accountId,
-            });
-        
-        })
-        .catch((err:string) => console.log(err))
+        if(user !== null) {
+            await axios.put(`http://localhost:8080/account/putAccount?accountId=${para.id}`,{
+                firstname:account.firstname,
+                middlename:account.middlename,
+                lastname: account.lastname,
+                contactNumber:account.contactNumber,
+                address:account.address,
+                username: account.username,
+                password: account.password,
+            })
+            .then((res)=> {
+                console.log('Editing Data'); 
+                console.log(res); 
+                navigate("/operator/operatorprofile/");
+                handleSetUser({
+                    userId: user.userId,
+                    type: res.data.accountType,
+                    username: res.data.username,
+                    password: res.data.password,
+                    firstname: res.data.firstname,
+                    lastname: res.data.lastname,
+                    accountId: res.data.accountId,
+                });
+            
+            })
+            .catch((err:string) => console.log(err))
+        }
     };
     
     return (
