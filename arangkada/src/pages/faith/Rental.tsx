@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import RentalService from "../../api/RentalService";
 import Status from "../../components/faith/Status";
 import UpdateRentalForm from "../../components/faith/UpdateRentalForm";
@@ -9,21 +9,27 @@ import Footer from "../../components/Footer";
 import Loading from "../../components/Loading";
 import ResponseError from "../../components/faith/ResponseError";
 import { Rental } from "../../api/dataTypes";
+import { UserContext, UserContextType } from "../../helpers/UserContext";
 
 const MyRental = () => {
+  const { user } = useContext(UserContext) as UserContextType;
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [currentRental, setCurrentRental] = useState<Rental>({} as Rental);
 
   useEffect(() => {
-    RentalService.getCurrentRentalByDriver("2").then((response) => {
-      setCurrentRental(response.data)
-      setError("");
-    }).catch((error) => {
-      setError(error.message);
-    }).finally(() => {
-      setLoading(false);
-    })
+    if(user !== null) {
+      RentalService.getCurrentRentalByDriver(
+        user.userId
+      ).then((response) => {
+        setCurrentRental(response.data)
+        setError("");
+      }).catch((error) => {
+        setError(error.message);
+      }).finally(() => {
+        setLoading(false);
+      })
+    }
   }, []);
 
   const handleSetCurrentRental = (rental: Rental) => {

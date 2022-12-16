@@ -9,6 +9,7 @@ import RentalService from "../../api/RentalService";
 import { Rental } from "../../api/dataTypes";
 import { useNavigate } from "react-router-dom";
 import { SnackbarContext, SnackbarContextType } from "../../helpers/SnackbarContext";
+import VehicleService from "../../api/VehicleService";
 
 type UpdateRentalFormProps = {
   currentRental: Rental,
@@ -81,9 +82,16 @@ const UpdateRentalForm = ({ currentRental, handleSetCurrentRental }: UpdateRenta
         endDate: currentRental.endDate,
         status: currentRental.status,
         current: false,
-      }).then(() => {
-        handleSetCurrentRental({} as Rental);
-        handleSetMessage("Rental finished.");
+      }).then((response) => {
+        VehicleService.putVehicleRented(
+          response.data.vehicle.vehicleId,
+          false
+        ).then(() => {
+          handleSetCurrentRental({} as Rental);
+          handleSetMessage("Rental finished.");
+        }).catch((error) => {
+          handleSetMessage(error.message + ". Failed to finish rental.");
+        })
       }).catch((error) => {
         handleSetMessage(error.message + ". Failed to finish rental.");
       })
@@ -110,8 +118,16 @@ const UpdateRentalForm = ({ currentRental, handleSetCurrentRental }: UpdateRenta
         RentalService.deleteRental(
           currentRental.rentalId.toString()
         ).then(() => {
-          handleSetCurrentRental({} as Rental);
-          handleSetMessage("Rental application cancelled.");
+          VehicleService.putVehicleRented(
+            currentRental.vehicle.vehicleId.toString(),
+            false
+          ).then(() => {
+            handleSetCurrentRental({} as Rental);
+            handleSetMessage("Rental application cancelled.");
+          }).catch((error) => {
+            handleSetMessage(error.message + ". Failed to cancel rental application.");
+          })
+          
         }).catch((error) => {
           handleSetMessage(error.message + ". Failed to cancel rental application.");
         })

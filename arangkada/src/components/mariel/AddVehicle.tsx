@@ -1,11 +1,13 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useContext, useState } from "react";
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, TextField, } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import VehicleService from "../../api/VehicleService";
 import { Vehicle } from "../../api/dataTypes";
+import { UserContext, UserContextType } from "../../helpers/UserContext";
 
 
 const MyVehicleForm = () => {
+    const { user } = useContext(UserContext) as UserContextType;
     const navigate = useNavigate();
 
     const [data, setData] = useState({
@@ -17,45 +19,48 @@ const MyVehicleForm = () => {
         orStatus: "",
         vehicleCondition: "",
         rentalFee: "",
-        operatorId: 3,
         rented: false,
     })
 
     const onSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
-
-        VehicleService.postVehicle({
-            vehicleId: -1,
-            plateNumber: data.plateNumber,
-            route: data.route,
-            vehicleType: data.vehicleType,
-            vin: Number(data.vin),
-            makeModel: data.makeModel,
-            rentalFee: Number(data.rentalFee),
-            operator: {
-                operatorId: 3, businessName: "", permitNumber: "", account: {
-                    accountId: -1,
-                    firstname: "",
-                    middlename: "",
-                    lastname: "",
-                    birthdate: "",
-                    age: 0,
-                    contactNumber: "",
-                    address: "",
-                    gender: "",
-                    username: "",
-                    password: "",
-                    accountType: "",
-                }
-            },
-            orStatus: data.orStatus,
-            vehicleCondition: data.vehicleCondition,
-            rented: data.rented,
-        })
-            .then((res: any) => console.log('Posting Data'))
-            .catch((err: string) => console.log(err))
-        alert("Vehicle Successfully added.")
-        navigate('/operator/vehicles')
+        
+        if(user !== null) {
+            VehicleService.postVehicle({
+                vehicleId: -1,
+                plateNumber: data.plateNumber,
+                route: data.route,
+                vehicleType: data.vehicleType,
+                vin: Number(data.vin),
+                makeModel: data.makeModel,
+                rentalFee: Number(data.rentalFee),
+                operator: {
+                    operatorId: +user.userId, businessName: "", permitNumber: "", account: {
+                        accountId: -1,
+                        firstname: "",
+                        middlename: "",
+                        lastname: "",
+                        birthdate: "",
+                        age: 0,
+                        contactNumber: "",
+                        address: "",
+                        gender: "",
+                        username: "",
+                        password: "",
+                        accountType: "",
+                    }
+                },
+                orStatus: data.orStatus,
+                vehicleCondition: data.vehicleCondition,
+                rented: data.rented,
+            }).then((res: any) => {
+                console.log('Posting Data')
+                alert("Vehicle Successfully added.")
+                navigate('/operator/vehicles')
+            }).catch((err: string) => {
+                console.log(err)
+            })
+        }
     }
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setData({ ...data, [e.target.name]: e.target.value });

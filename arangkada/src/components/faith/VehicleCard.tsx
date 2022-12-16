@@ -5,30 +5,37 @@ import RentalService from "../../api/RentalService";
 import { useModal } from "mui-modal-provider";
 import { NoticeModal } from "../Modals";
 import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { UserContext, UserContextType } from "../../helpers/UserContext";
 
 type VehicleCardProps = {
   vehicle: Vehicle,
 }
 
 const VehicleCard = ({ vehicle }: VehicleCardProps) => {
+  const { user } = useContext(UserContext) as UserContextType;
   const { showModal } = useModal();
   const navigate = useNavigate();
 
   const handleRentVehicle = () => {
-    RentalService.getCurrentRentalByDriver("2").then((response) => {
-      const currentRental: Rental = response.data;
-      if (currentRental) {
-        const modal = showModal(NoticeModal, {
-          title: "You have an ogoing or pending rental.",
-          content: "You can only have one rental at a time. Finish or cancel your ongoing or pending rental first.",
-          onOkay: () => {
-            modal.hide();
-          }
-        });
-      } else {
-        navigate("/driver/vehicle-rentals/" + vehicle.vehicleId);
-      }
-    })
+    if(user !== null) {
+      RentalService.getCurrentRentalByDriver(
+        user.userId
+      ).then((response) => {
+        const currentRental: Rental = response.data;
+        if (currentRental) {
+          const modal = showModal(NoticeModal, {
+            title: "You have an ogoing or pending rental.",
+            content: "You can only have one rental at a time. Finish or cancel your ongoing or pending rental first.",
+            onOkay: () => {
+              modal.hide();
+            }
+          });
+        } else {
+          navigate("/driver/vehicle-rentals/" + vehicle.vehicleId);
+        }
+      })
+    }
   }
 
   return (

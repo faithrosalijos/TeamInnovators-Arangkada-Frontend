@@ -8,6 +8,7 @@ import RentalService from "../../api/RentalService";
 import { SnackbarContext, SnackbarContextType } from "../../helpers/SnackbarContext";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
+import VehicleService from "../../api/VehicleService";
 
 type DriverRentalCardProps = {
   rental: Rental,
@@ -21,7 +22,7 @@ const DriverRentalCard = ({ rental, handleDriverRentalApprove, handleDriverRenta
   const navigate = useNavigate();
 
   const handleDischarge = () => {
-    navigate("/operator/drivers/discharge", { state: { rental: rental } });
+    navigate("/operator/drivers/discharge/" + rental.driver.driverId, { state: { rental: rental } });
   }
 
   const handleViewPayments = () => {
@@ -44,8 +45,15 @@ const DriverRentalCard = ({ rental, handleDriverRentalApprove, handleDriverRenta
           status: "DECLINED",
           current: false,
         }).then((response) => {
-          handleSetMessage("Rental declined.");
-          handleDriverRentalDecline!(response.data.rentalId);
+          VehicleService.putVehicleRented(
+            response.data.vehicle.vehicleId,
+            false
+          ).then(() => {
+            handleSetMessage("Rental declined.");
+            handleDriverRentalDecline!(response.data.rentalId);
+          }).catch((error) => {
+            handleSetMessage(error.message + ". Failed to cancel rental.");
+          })
         }).catch((error) => {
           handleSetMessage(error.message + ". Failed to declined rental.");
         })

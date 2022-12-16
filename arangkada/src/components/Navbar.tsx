@@ -4,12 +4,11 @@ import NavbarList from './NavbarList';
 import { Divider, IconButton } from '@mui/material';
 
 type NavbarProps = {
-  user: "Driver" | "Operator",
   open: boolean,
   handleDrawerClose: () => void,
 }
 
-const Navbar = ({ user, open, handleDrawerClose }: NavbarProps) => {
+const Navbar = ({ open, handleDrawerClose }: NavbarProps) => {
 
   return (
     <Drawer variant="permanent" open={open} sx={{ "& .MuiPaper-root": { backgroundColor: "primary.main" } }}>
@@ -19,7 +18,7 @@ const Navbar = ({ user, open, handleDrawerClose }: NavbarProps) => {
         </IconButton>
       </DrawerHeader>
       <Divider />
-      <NavbarList open={open} user={user} />
+      <NavbarList open={open} />
     </Drawer>
   );
 }
