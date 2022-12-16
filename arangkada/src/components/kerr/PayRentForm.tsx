@@ -2,7 +2,11 @@ import { Button, Stack, TextField, Grid } from "@mui/material";
 import { useState } from "react";
 import { Rental } from "../../api/dataTypes";
 import { useNavigate, useParams } from "react-router-dom";
+import { useContext } from "react";
 import PaymentService from "../../api/PaymentService";
+import RentalService from "../../api/RentalService";
+import VehicleService from "../../api/VehicleService";
+import { SnackbarContext, SnackbarContextType } from "../../helpers/SnackbarContext";
 
 type RentalDetailsProps = {
   rental: Rental,
@@ -10,7 +14,7 @@ type RentalDetailsProps = {
 
 const PayRentForm = ({rental}: RentalDetailsProps) => {
     const navigate = useNavigate();
-
+    const { handleSetMessage } = useContext(SnackbarContext) as SnackbarContextType;
     const [data, setData] = useState({
       paymentId: "",
       amount: "",
@@ -32,18 +36,48 @@ const PayRentForm = ({rental}: RentalDetailsProps) => {
           amount: Number(data.amount),
           datePaid: new Date(new Date().setHours(0, 0, 0, 0)).toJSON(),
           rental: rental
-        }).then((response: any) => console.log('Posting Data'))
-          .catch((error: string) => console.log(error))
-          alert("Successfully paid the rent.")
+        }).then((response) => {
+          RentalService.putRental(response.data.rental.rentalId.toString(),
+          {
+            startDate: rental.startDate,
+            endDate: rental.endDate,
+            status: "FINISHED",
+            current: false,
+          }).then((response) => {
+            VehicleService.putVehicleRented(
+              response.data.vehicle.vehicleId,
+              false
+            ).then(() => {})
+          }).catch((error) => {
+            handleSetMessage(error.message + ". Failed to update previous rental after payment.");
+          })
+        }).catch((error) => {
+          handleSetMessage(error.message);
+        })
+          handleSetMessage("Successfully paid the rent.")
           navigate('/driver/payments')
       }
       else
       {
-        alert("Amount is not correct.")
+        handleSetMessage("Amount is not correct.")
       }
     }
 
     const handleBack = () => {
+      RentalService.putRental(rental.rentalId.toString(),
+      {
+        startDate: rental.startDate,
+        endDate: rental.endDate,
+        status: "APPROVED",
+        current: true,
+      }).then((response) => {
+        VehicleService.putVehicleRented(
+          response.data.vehicle.vehicleId,
+          true
+        ).then(() => {})
+      }).catch((error) => {
+        handleSetMessage(error.message + ". Failed to cancel payment.");
+      })
       navigate("../", { replace: true });
     }
   
