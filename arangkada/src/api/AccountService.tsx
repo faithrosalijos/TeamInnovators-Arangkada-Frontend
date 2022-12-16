@@ -6,7 +6,7 @@ const ACCOUNT_BASE_URL = "http://localhost:8080/account";
 class AccountService {
 
     getAccountByUsername(username: string) {
-        return axios.get(ACCOUNT_BASE_URL + "/getByUsername/?username=" + username);
+        return axios.get(ACCOUNT_BASE_URL + "/getByUsername?username=" + username);
     }
 
     getAccountById(id: string) {
