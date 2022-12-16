@@ -1,24 +1,44 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { useEffect, useState, useContext } from "react";
-import { Payment } from "../../api/dataTypes";
+import { Payment, Rental } from "../../api/dataTypes";
 import PageHeader from "../../components/PageHeader";
 import Footer from "../../components/Footer";
 import PaymentService from "../../api/PaymentService";
+import RentalService from "../../api/RentalService";
 import { useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading";
 import ResponseError from "../../components/faith/ResponseError";
 import PaymentCardList from "../../components/kerr/PaymentCardList";
 import { UserContext, UserContextType } from "../../helpers/UserContext";
+import { SnackbarContext, SnackbarContextType } from "../../helpers/SnackbarContext";
 
 const Payments = () => {
+    const { handleSetMessage } = useContext(SnackbarContext) as SnackbarContextType;
     const { user } = useContext(UserContext) as UserContextType;
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const navigate = useNavigate();
     const [payments, setPayments] = useState<Payment[]>([]);
+    const [currentRental, setCurrentRental] = useState<Rental>({} as Rental);
 
     const handlePayRentClick = () => {
-      navigate("/driver/payments/pay-rent/");
+      if (user !== null) {
+        RentalService.getCurrentRentalByDriver(
+          user.userId
+          ).then((response) => {
+            if(response.data === null){
+              handleSetMessage("You are not currently renting any vehicles.");
+            }
+          setError("");
+        }).catch((error) => {
+          setError(error.message);
+        }).finally(() => {
+          setLoading(false);
+        })
+      }
+      else{
+        navigate("/driver/payments/pay-rent/");
+      }
   }
     useEffect(() => {
       if (user !== null) {
