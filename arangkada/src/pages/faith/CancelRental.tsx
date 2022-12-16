@@ -3,12 +3,9 @@ import CancelRentalForm from "../../components/faith/CancelRentalForm";
 import Instructions from "../../components/faith/Instructions";
 import PageHeader from "../../components/PageHeader";
 import Footer from "../../components/Footer";
-import { useContext } from "react";
-import { CurrentRentalContext, CurrentRentalContextType } from "../../helpers/CurrentRentalContext";
 import { useLocation } from "react-router-dom";
 
 const CancelRental = () => {
-  const { currentRental } = useContext(CurrentRentalContext) as CurrentRentalContextType;
   const location = useLocation();
 
   return (
@@ -24,7 +21,7 @@ const CancelRental = () => {
         />
         <br></br>
         <br></br>
-        <CancelRentalForm rental={location.state.rental}/>
+        <CancelRentalForm rental={location.state.rental} />
       </Box>
       <Footer name="Faith Rosalijos" course="BSIT" section="G1" />
     </>

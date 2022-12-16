@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Rental } from "../../api/dataTypes";
 import RentalService from "../../api/RentalService";
 import DriverRentalCardList from "../../components/faith/DriverRentalCardList";
@@ -8,16 +8,19 @@ import Loading from "../../components/Loading";
 import ResponseError from "../../components/faith/ResponseError";
 import Footer from "../../components/Footer";
 import PageHeader from "../../components/PageHeader";
+import { UserContext, UserContextType } from "../../helpers/UserContext";
 
 const Drivers = () => {
+  const { user } = useContext(UserContext) as UserContextType;
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [rentals, setRentals] = useState<Rental[]>([]);
   const [filteredRentals, setFilteredRentals] = useState<Rental[]>([]);
 
   useEffect(() => {
-    RentalService.getCurrentRentalsByOperator(
-      "3"
+    if (user !== null) {
+      RentalService.getCurrentRentalsByOperator(
+        user.userId
       ).then((response) => {
         setRentals(response.data);
       }).catch((error) => {
@@ -25,15 +28,18 @@ const Drivers = () => {
       }).finally(() => {
         setLoading(false);
       })
+    }
   }, [])
 
-  useEffect(() =>{
-    setFilteredRentals(rentals);
+  useEffect(() => {
+    setFilteredRentals(rentals?.reverse().sort((r1, r2) =>
+      (r1.status > r2.status) ? 1 : (r1.status < r2.status) ? -1 : 0
+    ));
   }, [rentals])
 
   const handleFilterSubmit = (filters: { driverName: string }) => {
     const { driverName } = filters;
-    const temp = rentals.filter((rental) => 
+    const temp = rentals.filter((rental) =>
       (rental.driver.account.firstname + " " + rental.driver.account.lastname).toLowerCase().includes(driverName.toLowerCase())
     );
     setFilteredRentals(temp);
@@ -47,7 +53,7 @@ const Drivers = () => {
 
   if (error !== "") return (<ResponseError message={error} />)
 
-  return ( 
+  return (
     <>
       <Box mt="12px" display="flex" flexDirection="column" sx={{ minHeight: "80vh" }}>
         <PageHeader title="Drivers" />
@@ -60,7 +66,7 @@ const Drivers = () => {
       <br></br>
       <Footer name="Faith Rosalijos" course="BSIT" section="G1" />
     </>
-   );
+  );
 }
- 
+
 export default Drivers;

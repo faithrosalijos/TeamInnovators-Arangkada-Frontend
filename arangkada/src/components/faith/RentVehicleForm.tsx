@@ -7,10 +7,10 @@ import { useNavigate, useParams } from "react-router-dom";
 import RentalService from "../../api/RentalService";
 import { SnackbarContext, SnackbarContextType } from "../../helpers/SnackbarContext";
 import VehicleService from "../../api/VehicleService";
-import { Vehicle } from "../../api/dataTypes";
-import axios from "axios";
+import { UserContext, UserContextType } from "../../helpers/UserContext";
 
 const RentVehicleForm = () => {
+  const { user } = useContext(UserContext) as UserContextType;
   const navigate = useNavigate();
   const { id } = useParams() as { id: string };
   const { handleSetMessage } = useContext(SnackbarContext) as SnackbarContextType;
@@ -26,25 +26,26 @@ const RentVehicleForm = () => {
     setEndDateError(null);
     setStartDateError(null);
 
-    if (startDate === null)
-      setStartDateError("Please enter a start date.");
-    else if (startDate.toString() === "Invalid Date")
-      setStartDateError("Invalid date.")
-    else if (startDate < currentDate)
-      setStartDateError("Start date must be today or later.")
-    else if (endDate === null)
-      setEndDateError("Please enter an end date.");
-    else if (endDate.toString() === "Invalid Date")
-      setEndDateError("Invalid end date.");
-    else if (endDate < startDate)
-      setEndDateError("End date must not be before the start date.");
-    else {
-      RentalService.postRental({
-        startDate: startDate.toJSON(),
-        endDate: endDate.toJSON(),
-        vehicle: { vehicleId: +id },
-        driver: { driverId: 1 },
-      }).then((response) => {
+    if (user !== null) {
+      if (startDate === null)
+        setStartDateError("Please enter a start date.");
+      else if (startDate.toString() === "Invalid Date")
+        setStartDateError("Invalid date.")
+      else if (startDate < currentDate)
+        setStartDateError("Start date must be today or later.")
+      else if (endDate === null)
+        setEndDateError("Please enter an end date.");
+      else if (endDate.toString() === "Invalid Date")
+        setEndDateError("Invalid end date.");
+      else if (endDate < startDate)
+        setEndDateError("End date must not be before the start date.");
+      else {
+        RentalService.postRental({
+          startDate: startDate.toJSON(),
+          endDate: endDate.toJSON(),
+          vehicle: { vehicleId: +id },
+          driver: { driverId: +user.userId },
+        }).then((response) => {
           VehicleService.putVehicleRented(
             response.data.vehicle.vehicleId.toString(),
             true
@@ -53,10 +54,11 @@ const RentVehicleForm = () => {
             handleSetMessage("Vehicle rented.");
           }).catch((error) => {
             handleSetMessage(error.message + ". Failed to rent vehicle.");
-          })      
-      }).catch((error) => {
-        handleSetMessage(error.message + ". Failed to rent vehicle.");
-      })
+          })
+        }).catch((error) => {
+          handleSetMessage(error.message + ". Failed to rent vehicle.");
+        })
+      }
     }
   }
 

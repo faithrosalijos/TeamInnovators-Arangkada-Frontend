@@ -1,13 +1,18 @@
 import { Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import { Logout, Person, Dashboard, Payment, Commute, People, Mail, DriveEta } from '@mui/icons-material';
 import { NavbarLink } from './NavbarLink';
+import { useContext } from 'react';
+import { UserContext, UserContextType } from '../helpers/UserContext';
+import { useNavigate } from 'react-router-dom';
 
 type NavbarListProps = {
-  user: "Driver" | "Operator",
   open: boolean,
 };
 
-const NavbarList = ({ open, user }: NavbarListProps) => {
+const NavbarList = ({ open }: NavbarListProps) => {
+  const { user, handleSetUser } = useContext(UserContext) as UserContextType;
+  const navigate = useNavigate();
+  
   const operatorList: { text: string, icon: React.ReactNode, link: string, end: boolean }[] = [
     { text: "Dashboard", icon: <Dashboard />, link: "/operator", end: true },
     { text: "Vehicles", icon: <Commute />, link: "/operator/vehicles", end: false },
@@ -24,14 +29,15 @@ const NavbarList = ({ open, user }: NavbarListProps) => {
   ];
 
   const handleLogout = () => {
-
+    handleSetUser(null);
+    navigate("/", { replace: true });
   }
 
   return (
     <>
       {/* Main List */}
       <List>
-        {(user === "Driver" ? driverList : operatorList).map((listItem, index) => (
+        {(user?.type === "Driver" ? driverList : operatorList).map((listItem, index) => (
           <ListItem key={index} disablePadding sx={{ display: 'block' }} >
             <NavbarLink to={listItem.link} text={listItem.text} icon={listItem.icon} open={open} end={listItem.end} />
           </ListItem>
@@ -42,7 +48,7 @@ const NavbarList = ({ open, user }: NavbarListProps) => {
       {/* Secondary List */}
       <List>
         <ListItem disablePadding sx={{ display: 'block' }}>
-          <NavbarLink to={user === "Driver" ? "" : "/operator/operatorprofile"} text="Account" icon={<Person />} open={open} end={false} />
+          <NavbarLink to={user?.type === "Driver" ? "/driver/driverprofile" : "/operator/operatorprofile"} text="Account" icon={<Person />} open={open} end={false} />
         </ListItem>
         <ListItem disablePadding sx={{ display: 'block' }}>
           <ListItemButton onClick={handleLogout}

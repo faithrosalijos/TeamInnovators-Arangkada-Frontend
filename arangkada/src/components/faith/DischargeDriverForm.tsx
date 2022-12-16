@@ -5,6 +5,8 @@ import RentalService from "../../api/RentalService";
 import { Rental } from "../../api/dataTypes";
 import { useNavigate } from "react-router-dom";
 import { SnackbarContext, SnackbarContextType } from "../../helpers/SnackbarContext";
+import { UserContext, UserContextType } from "../../helpers/UserContext";
+import VehicleService from "../../api/VehicleService";
 
 type DischargeDriverFormProps = {
   rental: Rental,
@@ -13,7 +15,7 @@ type DischargeDriverFormProps = {
 const DischargeDriverForm = ({ rental }: DischargeDriverFormProps) => {
   const navigate = useNavigate();
   const { handleSetMessage } = useContext(SnackbarContext) as SnackbarContextType;
-
+  const { user } = useContext(UserContext) as UserContextType;
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState(false);
   const [passwordError, setPasswordError] = useState<string | null>(null);
@@ -25,7 +27,7 @@ const DischargeDriverForm = ({ rental }: DischargeDriverFormProps) => {
 
     if (password === "") {
       setPasswordError("Please enter your password to confirm cancellation.")
-    } else if (password !== "password") {
+    } else if (password !== user?.password) {
       setPasswordError("Password is incorrect.")
     } else {
       RentalService.putRental(
@@ -35,9 +37,16 @@ const DischargeDriverForm = ({ rental }: DischargeDriverFormProps) => {
           endDate: rental.endDate,
           status: "CANCELLED",
           current: false,
-        }).then(() => {
-          handleSetMessage("Driver discharged.");
-          navigate("../", { replace: true });
+        }).then((response) => {
+          VehicleService.putVehicleRented(
+            response.data.vehicle.vehicleId,
+            false
+          ).then(() => {
+            handleSetMessage("Driver discharged.");
+            navigate("../", { replace: true });
+          }).catch((error) => {
+            handleSetMessage(error.message + ". Failed to discharge driver.");
+          })
         }).catch((error) => {
           handleSetMessage(error.message + ". Failed to discharge driver.");
         })
@@ -52,7 +61,7 @@ const DischargeDriverForm = ({ rental }: DischargeDriverFormProps) => {
     navigate("../", { replace: true });
   }
 
-  return ( 
+  return (
     <Stack spacing={3} component="form" onSubmit={handleSubmit}>
       <TextField
         onChange={(event) => setPassword(event.target.value)}
@@ -78,7 +87,7 @@ const DischargeDriverForm = ({ rental }: DischargeDriverFormProps) => {
         <Button type="submit" variant="contained" sx={{ width: "250px" }}>Yes, Proceed</Button>
       </Stack>
     </Stack>
-   );
+  );
 }
- 
+
 export default DischargeDriverForm;

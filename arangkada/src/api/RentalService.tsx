@@ -5,6 +5,10 @@ const RENTAL_BASE_URL = "http://localhost:8080/rental";
 
 class RentalService {
 
+  getRentalById(id: string) {
+    return axios.get(RENTAL_BASE_URL + "/getRentalById/" + id);
+  }
+
   getRentalsByDriver(id: string) {
     return axios.get(RENTAL_BASE_URL + "/getRentalsByDriverId/" + id);
   }

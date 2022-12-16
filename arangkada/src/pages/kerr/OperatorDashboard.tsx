@@ -3,12 +3,18 @@ import DashboardCard from "../../components/faith/DashboardCard";
 import { CarRental, Commute, Cancel, DoneAll } from "@mui/icons-material";
 import PageHeader from "../../components/PageHeader";
 import Footer from "../../components/Footer";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import RentalService from "../../api/RentalService";
 import { Rental } from "../../api/dataTypes";
+import Loading from "../../components/Loading";
+import ResponseError from "../../components/faith/ResponseError";
+import { UserContext, UserContextType } from "../../helpers/UserContext";
 
 const OperatorDashboard = () => {
+    const { user } = useContext(UserContext) as UserContextType;
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
     const [pageSize, setPageSize] = useState<number>(5);
     const [rentals, setRentals] = useState<Rental[]>([]);
   
@@ -23,31 +29,43 @@ const OperatorDashboard = () => {
     ]
   
     useEffect(() => {
-      RentalService.getRentalsByDriver("2").then((response) => {
-        setRentals(response.data);
-      }).catch((error) => {
-        console.log(error);
-      })
+      if(user !== null) {
+        RentalService.getRentalsByOperatorAndStatus(
+          user.userId, 
+          "APPROVED"
+        ).then((response) => {
+          setRentals(response.data);
+          setError("");
+        }).catch((error) => {
+          setError(error.message);
+        }).finally(() => {
+          setLoading(false);
+        })
+      }
     }, []);
+
+    if (loading) return (<Loading />)
+
+    if (error !== "") return (<ResponseError message={error} />)
   
     return (
       <>
         <Box mt="12px" sx={{ minHeight: "80vh" }}>
-          <PageHeader title={"Welcome, Name!"} />
+          <PageHeader title={"Welcome, " + user?.firstname + "!"} />
           <br></br>
           <Grid container spacing={2} alignItems="center" justifyContent="center" >
             <Grid item xs={12} md={6} lg={3}>
-              <DashboardCard title="Total Vehicles Rented" count={rentals.filter((rental) => rental.vehicle.vehicleCondition === "OCCUPIED").length}>
+              <DashboardCard title="Vehicles Rented" count={rentals.filter((rental) => rental.vehicle.rented === true).length}>
                 <Commute fontSize="large" color="secondary" />
               </DashboardCard>
             </Grid>
             <Grid item xs={12} md={6} lg={3}>
-              <DashboardCard title="Total Drivers Renting" count={rentals.filter((rental) => rental.status === "APPROVED").length}>
+              <DashboardCard title="Drivers Renting" count={rentals.filter((rental) => rental.status === "APPROVED").length}>
                 <CarRental fontSize="large" color="info" />
               </DashboardCard>
             </Grid>
             <Grid item xs={12} md={6} lg={3}>
-              <DashboardCard title="Total Number of Paid Drivers" count={rentals.filter((rental) => rental.status === "PAID").length}>
+              <DashboardCard title="Paid Drivers" count={rentals.filter((rental) => rental.status === "FINISHED").length}>
                 <Cancel fontSize="large" color="error" />
               </DashboardCard>
             </Grid>

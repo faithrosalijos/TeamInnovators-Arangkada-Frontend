@@ -20,11 +20,11 @@ const DriverRentalFilterForm = ({ handleFilterSubmit, handleFilterClear }: Drive
     handleFilterClear();
   }
 
-  return ( 
+  return (
     <Grid container spacing={2} onSubmit={handleSubmit} component="form">
       <Grid item xs={12} md={9}>
         <TextField
-          onChange={(event) => setFilters({...filters, driverName: event.target.value})}
+          onChange={(event) => setFilters({ ...filters, driverName: event.target.value })}
           value={filters.driverName}
           label="Search by Driver's Name"
           size="small"
@@ -39,7 +39,7 @@ const DriverRentalFilterForm = ({ handleFilterSubmit, handleFilterClear }: Drive
         <Button onClick={handleClear} color="error" size="small">Clear Filters</Button>
       </Grid>
     </Grid>
-   );
+  );
 }
- 
+
 export default DriverRentalFilterForm;

@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { Button, FormControl, Grid,  InputLabel, MenuItem, Select, SelectChangeEvent, Stack, TextField, } from "@mui/material";
+import { Button, FormControl, Grid,  InputLabel, MenuItem, Select, SelectChangeEvent, Stack, TextField, Typography, } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import VehicleService from "../../api/VehicleService";
 import axios from "axios";
@@ -56,7 +56,7 @@ const ViewandUpdateVehicle  = () =>{
 
     return ( 
         <>
-        <Grid container spacing={2} onSubmit={updateVehicle}component="form" sx={{marginTop: 2, marginBottom: 5}}>
+        <Grid container spacing={4} onSubmit={updateVehicle}component="form">
         <Grid item xs={12} md={4}>
            <TextField 
                 onChange={handleChange} 
@@ -66,7 +66,7 @@ const ViewandUpdateVehicle  = () =>{
                 label="Plate Number" 
                 size="small"
                 fullWidth 
-                sx={{margin: 1, }}>
+            >
             </TextField> 
         </Grid>
         <Grid item xs={12} md={4}>
@@ -78,7 +78,7 @@ const ViewandUpdateVehicle  = () =>{
                 size="small" 
                 fullWidth 
                 required
-                sx={{margin: 1,  }}> 
+            > 
             </TextField>
         </Grid>
         <Grid item xs={12} md={4}>
@@ -90,7 +90,7 @@ const ViewandUpdateVehicle  = () =>{
                 label="Vehicle Type" 
                 size="small" 
                 fullWidth 
-                sx={{margin: 1, }} >
+            >
            </TextField>
         </Grid>
         <Grid item xs={12} md={6}>
@@ -103,12 +103,11 @@ const ViewandUpdateVehicle  = () =>{
                 size="small" 
                 variant="outlined" 
                 fullWidth
-                sx={{margin: 1, }}>
+            >
             </TextField>
             </Grid>
         <Grid item xs={12} md={6}>
             <TextField 
-
                 value={rented===false?"Not Rented" : "Rented"}
                 disabled
                 onChange={handleChange} 
@@ -117,44 +116,40 @@ const ViewandUpdateVehicle  = () =>{
                 name="rented"
                 fullWidth
                 variant="outlined" 
-                sx={{margin: 1,}}>
+            >
             </TextField>
         </Grid>
         <Grid item xs={12} md={6}>
-          <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label" >OR, CR Status</InputLabel>
+          <FormControl fullWidth size="small">
+                <InputLabel >OR, CR Status</InputLabel>
                     <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
                         value={orStatus}
                         label="OR, CR Status"
                         required
                         name="orStatus"
                         size="small" 
                         onChange={handleSelectChange}
-                        sx={{margin: 1}}>
-                            <MenuItem value={'Updated'}>Updated</MenuItem>
-                            <MenuItem value={'Renewed'}>Renewed</MenuItem>
-                            <MenuItem value={'Expired'}>Expired</MenuItem> 
+                    >
+                        <MenuItem value={'Updated'}>Updated</MenuItem>
+                        <MenuItem value={'Renewed'}>Renewed</MenuItem>
+                        <MenuItem value={'Expired'}>Expired</MenuItem> 
                     {/* {myVehicle.orStatus} */}
                     </Select>  
             </FormControl> 
         </Grid>
         <Grid item xs={12} md={6}>
-            <FormControl fullWidth >
-                <InputLabel id="demo-simple-select-label" >Vehicle Condition</InputLabel>
+            <FormControl fullWidth size="small">
+                <InputLabel >Vehicle Condition</InputLabel>
                     <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
                         value={vehicleCondition}
                         label="Vehicle Condition"
                         required
                         name="vehicleCondition"
                         size="small" 
                         onChange={handleSelectChange}
-                        sx={{margin: 1}}>
-                            <MenuItem value={'Ready to use'}>Ready To Use</MenuItem>
-                            <MenuItem value={'Not Ready To Use'}>Not Ready To Use</MenuItem> 
+                    >
+                        <MenuItem value={'Ready to use'}>Ready To Use</MenuItem>
+                        <MenuItem value={'Not Ready To Use'}>Not Ready To Use</MenuItem> 
                     {/* {myVehicle.condition} */}
                     </Select>  
             </FormControl> 
@@ -168,7 +163,7 @@ const ViewandUpdateVehicle  = () =>{
                     disabled
                     name="makeModel"
                     fullWidth
-                    sx={{margin: 1,  height:"8vh"}}>
+                >
                 </TextField>
                 </Grid>
                 <Grid item xs={12} md={6}>
@@ -181,7 +176,7 @@ const ViewandUpdateVehicle  = () =>{
                     name="rentalFee"
                     required 
                     fullWidth
-                    sx={{margin: 1, marginRight:25, height:"8vh" }}>
+                >
                 </TextField>
             </Grid>
             <Grid item xs={12} >

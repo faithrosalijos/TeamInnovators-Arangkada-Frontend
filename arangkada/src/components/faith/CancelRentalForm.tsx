@@ -2,16 +2,18 @@ import { Button, Stack, TextField, InputAdornment, IconButton } from "@mui/mater
 import { useContext, useState } from "react";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import RentalService from "../../api/RentalService";
-import { CurrentRentalContext, CurrentRentalContextType } from "../../helpers/CurrentRentalContext";
 import { Rental } from "../../api/dataTypes";
 import { useNavigate } from "react-router-dom";
 import { SnackbarContext, SnackbarContextType } from "../../helpers/SnackbarContext";
+import { UserContext, UserContextType } from "../../helpers/UserContext";
+import VehicleService from "../../api/VehicleService";
 
 type CancelRentalFormProps = {
   rental: Rental,
 }
 
 const CancelRentalForm = ({ rental }: CancelRentalFormProps) => {
+  const { user } = useContext(UserContext) as UserContextType;
   const navigate = useNavigate();
   const { handleSetMessage } = useContext(SnackbarContext) as SnackbarContextType;
 
@@ -25,7 +27,7 @@ const CancelRentalForm = ({ rental }: CancelRentalFormProps) => {
 
     if (password === "") {
       setPasswordError("Please enter your password to confirm cancellation.")
-    } else if (password !== "password") {
+    } else if (password !== user?.password) {
       setPasswordError("Password is incorrect.")
     } else {
       RentalService.putRental(
@@ -35,9 +37,16 @@ const CancelRentalForm = ({ rental }: CancelRentalFormProps) => {
           endDate: rental.endDate,
           status: "CANCELLED",
           current: false,
-        }).then(() => {
-          handleSetMessage("Rental cancelled.");
-          navigate("../", { replace: true });
+        }).then((response) => {
+          VehicleService.putVehicleRented(
+            response.data.vehicle.vehicleId,
+            false
+          ).then(() => {
+            handleSetMessage("Rental cancelled.");
+            navigate("../", { replace: true });
+          }).catch((error) => {
+            handleSetMessage(error.message + ". Failed to cancel rental.");
+          })
         }).catch((error) => {
           handleSetMessage(error.message + ". Failed to cancel rental.");
         })

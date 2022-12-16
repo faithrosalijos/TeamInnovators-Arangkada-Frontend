@@ -1,5 +1,5 @@
 import { Box, Typography, } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Footer from "../../components/Footer";
 import PageHeader from "../../components/PageHeader";
 import MyVehicleCardList from "../../components/mariel/MyVehicleCardList";
@@ -8,10 +8,12 @@ import { Vehicle } from "../../api/dataTypes";
 import VehicleService from "../../api/VehicleService";
 import Loading from "../../components/Loading";
 import ResponseError from "../../components/faith/ResponseError";
+import { UserContext, UserContextType } from "../../helpers/UserContext";
 
 
 
 const MyVehicles = () => {
+  const { user } = useContext(UserContext) as UserContextType;
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [filteredVehicles, setFilteredVehicles] = useState<Vehicle[]>([])
@@ -19,11 +21,13 @@ const MyVehicles = () => {
 
 
   useEffect(() => {
-    VehicleService.getVehicleByOperatorOperatorId("3").then((response) => {
-      setVehicles(response.data);
-    }).catch((error) => {
-      console.log(error);
-    })
+    if(user !== null) {
+      VehicleService.getVehicleByOperatorOperatorId(user.userId).then((response) => {
+        setVehicles(response.data);
+      }).catch((error) => {
+        console.log(error);
+      })
+    }
   }, []);
 
   useEffect(() => {
@@ -46,15 +50,19 @@ const MyVehicles = () => {
   // if (error !== '') return (<ResponseError message={error} />)
 
   return ( 
-    <Box sx={{ padding: "12px 0 0" }}>
-      <PageHeader title="My Vehicle" />
-      <MyVehicleSearch handleFilterSubmit={handleFilterSubmit} handleFilterClear={handleFilterClear}/>
-      <br></br>
-        {filteredVehicles.length !== 0 && <MyVehicleCardList myVehicle={filteredVehicles} />}
-        {filteredVehicles.length === 0 && <Typography variant="body1" color="text.secondary" align="center">Vehicle Not Found.</Typography>}
+    <>
+      <Box mt="12px" sx={{ minHeight: "80vh"}}>
+        <PageHeader title="Vehicles" />
+        <br></br>
+        <MyVehicleSearch handleFilterSubmit={handleFilterSubmit} handleFilterClear={handleFilterClear}/>
+        <br></br>
+          {filteredVehicles.length !== 0 && <MyVehicleCardList myVehicle={filteredVehicles} />}
+          {filteredVehicles.length === 0 && <Typography variant="body1" color="text.secondary">No vehicles added.</Typography>}
+      </Box>
       <Footer name="Mariel Genodiala" course="BSIT" section="G3"/>
-    </Box>
-   );
+    </>
+
+  );
 }
  
 export default MyVehicles;

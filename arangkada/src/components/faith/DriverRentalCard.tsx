@@ -1,5 +1,5 @@
-import { Button, Card, CardContent, Divider, Typography, Stack } from "@mui/material";
-import { Person, Home, Phone } from "@mui/icons-material/";
+import { Button, Card, CardContent, Divider, Typography, Stack, CardActions, CardHeader } from "@mui/material";
+import { Home, Phone } from "@mui/icons-material/";
 import { Rental } from "../../api/dataTypes";
 import { useModal } from "mui-modal-provider";
 import { ConfirmationModal } from "../Modals";
@@ -8,7 +8,7 @@ import RentalService from "../../api/RentalService";
 import { SnackbarContext, SnackbarContextType } from "../../helpers/SnackbarContext";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
-
+import VehicleService from "../../api/VehicleService";
 
 type DriverRentalCardProps = {
   rental: Rental,
@@ -22,7 +22,7 @@ const DriverRentalCard = ({ rental, handleDriverRentalApprove, handleDriverRenta
   const navigate = useNavigate();
 
   const handleDischarge = () => {
-    navigate("/operator/drivers/discharge", { state: {rental: rental }});
+    navigate("/operator/drivers/discharge/" + rental.driver.driverId, { state: { rental: rental } });
   }
 
   const handleViewPayments = () => {
@@ -45,8 +45,15 @@ const DriverRentalCard = ({ rental, handleDriverRentalApprove, handleDriverRenta
           status: "DECLINED",
           current: false,
         }).then((response) => {
-          handleSetMessage("Rental declined.");
-          handleDriverRentalDecline!(response.data.rentalId);
+          VehicleService.putVehicleRented(
+            response.data.vehicle.vehicleId,
+            false
+          ).then(() => {
+            handleSetMessage("Rental declined.");
+            handleDriverRentalDecline!(response.data.rentalId);
+          }).catch((error) => {
+            handleSetMessage(error.message + ". Failed to cancel rental.");
+          })
         }).catch((error) => {
           handleSetMessage(error.message + ". Failed to declined rental.");
         })
@@ -78,66 +85,65 @@ const DriverRentalCard = ({ rental, handleDriverRentalApprove, handleDriverRenta
     });
   }
 
-  return ( 
+  return (
     <Card>
-      <CardContent>
-        <Typography variant="h5">Driver ID: {rental.driver.driverId}</Typography>
-        {/* Driver Information */}
-        <Stack spacing={{ xs: 1, sm: 2 }} direction={{ xs: "column", sm: "row" }}>
-          <Stack spacing={0.5} direction="row" alignItems="center">
-            <Person sx={{ color: "text.secondary" }} />
-            <Typography variant="body1">{rental.driver.account.firstname + " " + rental.driver.account.lastname}</Typography>
+      <CardHeader
+        title={rental.driver.account.firstname + " " + rental.driver.account.lastname}
+        subheader={
+          <Stack spacing={1} direction="row" mt={1} justifyContent="space-between" alignItems="end">
+            <Stack spacing={{ xs: 1, sm: 2 }} direction={{ xs: "column", sm: "row" }}>
+              <Stack spacing={0.5} direction="row" alignItems="center">
+                <Home sx={{ color: "text.secondary" }} />
+                <Typography variant="body1">{rental.driver.account.address}</Typography>
+              </Stack>
+              <Stack spacing={0.5} direction="row" alignItems="center">
+                <Phone sx={{ color: "text.secondary" }} />
+                <Typography variant="body1">{rental.driver.account.contactNumber}</Typography>
+              </Stack>
+            </Stack>
+            <Typography variant="body2" color="text.secondary"><b>DRIVER ID: {rental.driver.driverId}</b></Typography>
           </Stack>
-          <Stack spacing={0.5} direction="row" alignItems="center">
-            <Home sx={{ color: "text.secondary" }} />
-            <Typography variant="body1">{rental.driver.account.address}</Typography>
-          </Stack>
-          <Stack spacing={0.5} direction="row" alignItems="center">
-            <Phone sx={{ color: "text.secondary" }} />
-            <Typography variant="body1">{rental.driver.account.contactNumber}</Typography>
-          </Stack>
-        </Stack>
-      </CardContent>
+        }
+      />
       <Divider />
 
       {/* License Information */}
       <CardContent>
-        <Typography variant="body1">License Number: {rental.driver.licenseNumber}</Typography>
-        <Typography variant="body1">License Code:  {rental.driver.licenseCode}</Typography>
+        <Typography variant="body1">License Number: <b>{rental.driver.licenseNumber}</b></Typography>
+        <Typography variant="body1">License Code:   <b>{rental.driver.licenseCode}</b></Typography>
       </CardContent>
 
       {/* Rental Information */}
       <CardContent>
-        <Typography variant="h6">Rental Details</Typography>
-        <Typography variant="body1">Start Date: {rental.startDate}</Typography>
-        <Typography variant="body1">End Date:  {rental.endDate}</Typography>
-        <Typography variant="body1">Vehicle ID:  {rental.vehicle.vehicleId}</Typography>
+        <Typography variant="body1">Start Date:  <b>{rental.startDate}</b></Typography>
+        <Typography variant="body1">End Date:   <b>{rental.endDate}</b></Typography>
+        <Typography variant="body1">Vehicle ID:   <b>{rental.vehicle.vehicleId}</b></Typography>
       </CardContent>
 
-      <CardContent >
-        <Stack direction={{ xs: "column", lg: "row" }} alignItems="center" spacing={4} width="100%">
+      <CardActions >
+        <Stack direction={{ xs: "column", lg: "row" }} padding={1} alignItems="center" spacing={4} width="100%">
           {
-            rental.status === "PENDING"?
+            rental.status === "PENDING" ?
               <>
                 <Status status="Pending" message="Driver is waiting for your response." />
                 <Stack direction={{ xs: "column-reverse", md: "row" }} width="100%" spacing={{ xs: 2, md: 3 }} justifyContent="end" >
-                  <Button variant="contained" color="error" sx={{ width: "250px" }} onClick={handleDecline}>Decline</Button>
-                  <Button variant="contained" color="success" sx={{ width: "250px" }} onClick={handleApprove}>Approve</Button>
+                  <Button size="small" variant="contained" color="error" sx={{ width: "150px" }} onClick={handleDecline}>Decline</Button>
+                  <Button size="small" variant="contained" color="success" sx={{ width: "150px" }} onClick={handleApprove}>Approve</Button>
                 </Stack>
-              </>:
+              </> :
               <>
                 {rental.status === "APPROVED" && <Status status="Approved" message="Driver is currently renting your vehicle." />}
                 {rental.status === "FINISHED" && <Status status="Finished" message="Driver is done with his rental." />}
                 <Stack direction={{ xs: "column-reverse", md: "row" }} width="100%" spacing={{ xs: 2, md: 3 }} justifyContent="end" >
-                  {rental.status === "APPROVED" && <Button variant="contained" color="error" sx={{ width: "250px" }} onClick={handleDischarge}>Discharge</Button>}
-                  <Button variant="contained" sx={{ width: "250px" }} onClick={handleViewPayments}>View Payments</Button>
+                  {rental.status === "APPROVED" && <Button size="small" variant="contained" color="error" sx={{ width: "150px" }} onClick={handleDischarge}>Discharge</Button>}
+                  <Button size="small" variant="contained" sx={{ width: "150px" }} onClick={handleViewPayments}>View Payments</Button>
                 </Stack>
-              </>   
+              </>
           }
         </Stack>
-      </CardContent>
+      </CardActions>
     </Card>
-   );
+  );
 }
- 
+
 export default DriverRentalCard;

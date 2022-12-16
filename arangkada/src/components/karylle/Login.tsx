@@ -1,65 +1,152 @@
-import { Card, Button, TextField, Grid } from "@mui/material"
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { Button, TextField, Stack, Paper, InputAdornment, IconButton } from "@mui/material"
 import axios from "axios";
-import React, { useState } from "react"
-import { useNavigate } from "react-router-dom";
+import { useContext, useState } from "react"
+import { Link, useNavigate } from "react-router-dom";
+import AccountService from "../../api/AccountService";
+import OperatorService from "../../api/OperatorService";
+import DriverService from "../../api/DriverService";
+import { SnackbarContext, SnackbarContextType } from "../../helpers/SnackbarContext";
+import { UserContext, UserContextType } from "../../helpers/UserContext";
 
-
-
-export default function Login(){
-
+export default function Login() {
     const navigate = useNavigate();
+    const [showPassword, setShowPassword] = useState(false);
+    const { user, handleSetUser } = useContext(UserContext) as UserContextType;
+    const { handleSetMessage } = useContext(SnackbarContext) as SnackbarContextType;
+    const [usernameError, setUsernameError] = useState<string | null>(null);
+    const [passwordError, setPasswordError] = useState<string | null>(null);
 
-    const[accounts,setAccount] = useState([]);
-    const[accountType,setAccountType] = useState([]);
-
-    const[loginData,setLoginData] = useState({
-        username:"",
-        password:""
+    const [loginData, setLoginData] = useState({
+        username: "",
+        password: ""
     });
 
-    const{ username, password } = loginData;
+    const { username, password } = loginData;
 
-    const onInputChange=(e: any)=>{
-        setLoginData({ ...loginData,[e.target.name]: e.target.value});
+    const onInputChange = (e: any) => {
+        setLoginData({ ...loginData, [e.target.name]: e.target.value });
     };
 
-    const checkInfo=async(event: { preventDefault: () => void; })=>{
+    const handlePasswordShow = () => {
+        setShowPassword(!showPassword);
+    }
+
+    const checkInfo = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
+        setUsernameError(null);
+        setPasswordError(null);
 
-        try{
-          const result = await axios.get(`http://localhost:8080/account/getByUsername?username=${username}`);
-          setAccount(result.data);
-          console.log((result.data))
-          console.log((result.data.accountType))
+        AccountService.getAccountByUsername(username).then((account) => {
+            if(account.data !== "") { // Check if username exist
+                console.log(account.data)
+                if(account.data.password === password) { // Check if password is correct
+                    if(account.data.accountType === "Operator") { // Check user type
+                        // Operator
+                        OperatorService.getByAccountId(account.data.accountId).then((operator) => {
+                            if(operator.data.length !== 0) { // Check if operator exist
+                                handleSetUser({
+                                    userId: operator.data[0].operatorId,
+                                    type: account.data.accountType,
+                                    username: account.data.username,
+                                    password: account.data.password,
+                                    firstname: account.data.firstname,
+                                    lastname: account.data.lastname,
+                                });
+                                navigate('/operator', { replace: true });
+                            }else { setUsernameError("Invalid user.") }
+                        }).catch((error) => handleSetMessage(error.message + ". Failed to login."))
+                    }else if(account.data.accountType === "Driver") {
+                        // Driver
+                        DriverService.getByAccountId(account.data.accountId).then((driver) => {
+                            if(driver.data.length !== 0) { // Check if driver exist
+                                handleSetUser({
+                                    userId: driver.data[0].driverId,
+                                    type: account.data.accountType,
+                                    username: account.data.username,
+                                    password: account.data.password,
+                                    firstname: account.data.firstname,
+                                    lastname: account.data.lastname,
+                                });
+                                navigate('/driver', { replace: true });
+                            }else { setUsernameError("Invalid user.") }
+                        }).catch((error) => handleSetMessage(error.message + ". Failed to login."))
+                    }else { setUsernameError("Invalid user.") }
+                } else { setPasswordError("Password is incorrect.") }
+            } else { setUsernameError("Username does not exists.") }
+        })
 
-        if(result.data.accountType==='Operator' && (result.data)!=null){
-            if((result.data.password)===password && (result.data.username)===username){
-                navigate('/operator');
-            }else{
-                alert("Username and password does not match!");
-            }
-        }else{ //driver
-            alert("Wrong account");
-        }
-        }catch(err){
-          console.log("Does not exist");
-        }
-      }
+        // try {
+        //     const result = await axios.get(`http://localhost:8080/account/getByUsername?username=${username}`);
 
+        //     if (result.data.accountType === 'Operator' && (result.data) != null) {
+        //         if ((result.data.password) === password && (result.data.username) === username) {
+        //             // user.handleSetAccount(result.data);
+        //             navigate('/operator', { replace: true });
+        //         } else {
+        //             setPasswordError("Password is incorrect.");
+        //         }
+        //     } else if (result.data.accountType === 'Driver' && (result.data) != null) {
+        //         console.log(result.data)
+        //         console.log(password)
+        //         console.log(username)
+        //         if ((result.data.password) === password && (result.data.username) === username) {
+        //             // user.handleSetAccount(result.data);
+        //             navigate('/driver', { replace: true });
+        //         } else {
+        //             setPasswordError("Password is incorrect.");
+        //         }
+        //     } else {
+        //         setUsernameError("Username does not exists.")
+        //     }
+        // } catch (err) {
+        //     console.log(err);
+        // }
+    }
 
     return (
-        <Grid onSubmit={checkInfo} component="form">
-            <div><br></br><br></br><br></br><br></br></div>
-            <div style={{ backgroundColor: 'white', padding: 2, marginLeft: -130, maxWidth: 600, maxHeight: 670, textAlign: 'left', marginBottom:'1rem', borderRadius:35, opacity:'0.91'}}>
-                <br></br>
-                <h1 style={{marginLeft: 70, color: '#90794C'}}>Log in</h1><br></br><br></br>
-                <TextField required id="outlined-basic" name="username" label="Username" variant="outlined" value={username} onChange={(e)=>onInputChange(e)} sx={{margin: 0, marginLeft: 8, marginRight: 8, width: { sm:400, md:400}}}/><br></br><br></br><br></br>
-                <TextField required id="outlined-basic" name="password" label="Password" variant="outlined" value={password} onChange={(e)=>onInputChange(e)} sx={{margin: 0, marginLeft: 8, marginRight: 8, width: { sm:400, md:400}}}/><br></br><br></br>
-                <p style={{color: 'brown', fontSize: '15px', textAlign: 'center'}}>  <a href="https://www.youtube.com"  className="links">Forgot password?</a></p><br></br>
-                <Button variant="contained" type="submit" style={{backgroundColor: '#D2A857', marginLeft: 200, marginTop:25, paddingInline:40, marginBottom:'45px', borderRadius:20}}>Log in</Button>
-                
-            </div>
-            <p style={{color: 'white', fontSize: '15px', marginLeft: '-8rem'}}>Not registered yet?  <a href="https://www.youtube.com"  className="linksL">Create an account</a></p>
-        </Grid>
+        <Stack width="100%" alignItems="center" spacing={2}>
+            <Paper sx={{ width: "70%", borderRadius: "20px", height: "450px" }}>
+                <Stack onSubmit={checkInfo} component="form" padding="64px 74px" spacing={4}>
+                    <h1 style={{ color: "#646464", margin: 0 }}>Log in</h1>
+                    <TextField
+                        size="small"
+                        required name="username"
+                        label="Username"
+                        variant="outlined"
+                        value={username}
+                        onChange={(e) => onInputChange(e)}
+                        error={usernameError !== null}
+                        helperText={usernameError}
+                    />
+                    <TextField
+                        required
+                        name="password"
+                        onChange={(e) => onInputChange(e)}
+                        type={showPassword ? "text" : "password"}
+                        value={password}
+                        label="Password"
+                        size="small"
+                        fullWidth
+                        error={passwordError !== null}
+                        helperText={passwordError}
+                        InputProps={{
+                            endAdornment: (
+                                <InputAdornment position="end">
+                                    <IconButton onClick={handlePasswordShow}>
+                                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                                    </IconButton>
+                                </InputAdornment>
+                            )
+                        }}
+                    />
+                    <p style={{ color: 'brown', fontSize: '15px', textAlign: 'center' }}>  <a href="https://www.youtube.com" className="links">Forgot password?</a></p>
+                    <Stack alignItems="center">
+                        <Button variant="contained" type="submit" sx={{ borderRadius: "20px", width: "200px" }}>Log in</Button>
+                    </Stack>
+                </Stack>
+            </Paper>
+            <p style={{ color: 'white', fontSize: '16px' }}>Not registered yet?  <Link to="/registration" style={{ color: "white" }}>Create an account</Link></p>
+        </Stack>
     )
 }

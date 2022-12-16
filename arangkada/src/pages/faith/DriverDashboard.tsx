@@ -1,7 +1,7 @@
 import { Box, Grid, Paper, Typography } from "@mui/material";
 import DashboardCard from "../../components/faith/DashboardCard";
 import PageHeader from "../../components/PageHeader";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { DriveEta, Cancel, TaskAlt, CheckCircle } from "@mui/icons-material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import RentalService from "../../api/RentalService";
@@ -9,8 +9,10 @@ import { Rental } from "../../api/dataTypes";
 import Footer from "../../components/Footer";
 import Loading from "../../components/Loading";
 import ResponseError from "../../components/faith/ResponseError";
+import { UserContext, UserContextType } from "../../helpers/UserContext";
 
 const DriverDashboard = () => {
+  const { user } = useContext(UserContext) as UserContextType;
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [pageSize, setPageSize] = useState<number>(5);
@@ -28,16 +30,18 @@ const DriverDashboard = () => {
   ]
 
   useEffect(() => {
-    RentalService.getRentalsByDriver(
-      "1"
-    ).then((response) => {
-      setRentals(response.data);
-      setError("");
-    }).catch((error) => {
-      setError(error.message);
-    }).finally(() => {
-      setLoading(false);
-    })
+    if (user !== null) {
+      RentalService.getRentalsByDriver(
+        user.userId
+      ).then((response) => {
+        setRentals(response.data);
+        setError("");
+      }).catch((error) => {
+        setError(error.message);
+      }).finally(() => {
+        setLoading(false);
+      })
+    }
   }, []);
 
   if (loading) return (<Loading />)
@@ -47,7 +51,7 @@ const DriverDashboard = () => {
   return (
     <>
       <Box mt="12px" display="flex" flexDirection="column" sx={{ minHeight: "80vh" }}>
-        <PageHeader title={"Welcome, Name!"} />
+        <PageHeader title={"Welcome, " + user?.firstname + "!"} />
         <br></br>
         {/* Approved Rental Counts */}
         <Grid container spacing={2}>

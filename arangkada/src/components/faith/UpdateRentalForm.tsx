@@ -6,16 +6,20 @@ import { useContext, useState } from "react";
 import { useModal } from "mui-modal-provider";
 import { ConfirmationModal, NoticeModal } from "../Modals";
 import RentalService from "../../api/RentalService";
-import { CurrentRentalContext, CurrentRentalContextType } from "../../helpers/CurrentRentalContext";
 import { Rental } from "../../api/dataTypes";
 import { useNavigate } from "react-router-dom";
 import { SnackbarContext, SnackbarContextType } from "../../helpers/SnackbarContext";
+import VehicleService from "../../api/VehicleService";
 
-const UpdateRentalForm = () => {
+type UpdateRentalFormProps = {
+  currentRental: Rental,
+  handleSetCurrentRental: (rental: Rental) => void,
+}
+
+const UpdateRentalForm = ({ currentRental, handleSetCurrentRental }: UpdateRentalFormProps) => {
   const navigate = useNavigate();
   const { showModal } = useModal();
   const { handleSetMessage } = useContext(SnackbarContext) as SnackbarContextType;
-  const { currentRental, handleSetCurrentRental } = useContext(CurrentRentalContext) as CurrentRentalContextType;
 
   const currentDate = new Date(new Date().setHours(0, 0, 0, 0));
   const [startDate, setStartDate] = useState<Date | null>(new Date(currentRental.startDate));
@@ -78,9 +82,16 @@ const UpdateRentalForm = () => {
         endDate: currentRental.endDate,
         status: currentRental.status,
         current: false,
-      }).then(() => {
-        handleSetCurrentRental({} as Rental);
-        handleSetMessage("Rental finished.");
+      }).then((response) => {
+        VehicleService.putVehicleRented(
+          response.data.vehicle.vehicleId,
+          false
+        ).then(() => {
+          handleSetCurrentRental({} as Rental);
+          handleSetMessage("Rental finished.");
+        }).catch((error) => {
+          handleSetMessage(error.message + ". Failed to finish rental.");
+        })
       }).catch((error) => {
         handleSetMessage(error.message + ". Failed to finish rental.");
       })
@@ -107,8 +118,16 @@ const UpdateRentalForm = () => {
         RentalService.deleteRental(
           currentRental.rentalId.toString()
         ).then(() => {
-          handleSetCurrentRental({} as Rental);
-          handleSetMessage("Rental application cancelled.");
+          VehicleService.putVehicleRented(
+            currentRental.vehicle.vehicleId.toString(),
+            false
+          ).then(() => {
+            handleSetCurrentRental({} as Rental);
+            handleSetMessage("Rental application cancelled.");
+          }).catch((error) => {
+            handleSetMessage(error.message + ". Failed to cancel rental application.");
+          })
+
         }).catch((error) => {
           handleSetMessage(error.message + ". Failed to cancel rental application.");
         })
