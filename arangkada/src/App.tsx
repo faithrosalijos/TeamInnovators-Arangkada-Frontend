@@ -90,7 +90,7 @@ const App = () => {
             </Route>
 
         {/* Operator Pages */}
-        <Route path="operator" element={<OperatorMainLayout />}>
+        <Route path="operator" element={<OperatorRoute><OperatorMainLayout /></OperatorRoute>}>
           <Route index element={<OperatorDashboard/>} />
           <Route path="vehicles">
             <Route index element={<MyVehicles />} />
@@ -115,7 +115,7 @@ const App = () => {
             {/* Public Pages */}
             <Route path="registration">
               <Route index element={<PublicRoute><RegistrationOneOp /></PublicRoute>} />
-              <Route path="operator" element={<PublicRoute><RegistrationTwoOp /></PublicRoute>} />
+              <Route path="registeroperator" element={<PublicRoute><RegistrationTwoOp /></PublicRoute>} />
             </Route>
             <Route path="about-us" element={<PublicRoute><AboutUsPageD /></PublicRoute>} />
             <Route path="contact-us" element={<PublicRoute><ContactUsPage /></PublicRoute>} />
