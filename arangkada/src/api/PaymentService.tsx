@@ -17,8 +17,8 @@ class PaymentService {
       return axios.post(PAYMENT_BASE_URL + "/postPayment/", payment);
     }
 
-    putPayment(id: string) {
-      return axios.put(PAYMENT_BASE_URL+"/putPayment/"+id);
+    putPayment(id: string, payment: Payment) {
+      return axios.put(PAYMENT_BASE_URL+"/putPayment/"+id, payment);
     }
 
     deletePayment(id: string) {
