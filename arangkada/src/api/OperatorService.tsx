@@ -10,7 +10,7 @@ class OperatorService {
         return axios.post(OPERATOR_BASE_URL + "/postOperator",data);
     }
 
-    getAccountbyAccountId(id: string){
+    getByAccountId(id: string){
         return axios.get(OPERATOR_BASE_URL + "/getByAccountId/" + id);
     }
 

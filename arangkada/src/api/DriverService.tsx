@@ -10,7 +10,7 @@ class DriverService {
         return axios.post(DRIVER_BASE_URL + "/postDriver",data);
     }
 
-    getAccountbyAccountId(id: string){
+    getByAccountId(id: string){
         return axios.get(DRIVER_BASE_URL + "/getByAccountId/" + id);
     }
 
