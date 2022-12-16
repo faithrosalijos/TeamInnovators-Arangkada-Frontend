@@ -1,10 +1,11 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Button, Grid, IconButton, InputAdornment, Stack, TextField } from "@mui/material";
 import axios from "axios";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AccountService from "../../api/AccountService";
 import OperatorService from "../../api/OperatorService";
+import {UserContext, UserContextType } from "../../helpers/UserContext";
 
 
 export default function DeleteAcc() {
@@ -13,6 +14,7 @@ export default function DeleteAcc() {
     const [passwordError, setPasswordError] = useState<string | null>(null);
     const navigate = useNavigate();
     const para = useParams() as { id: string };
+    const { user, handleSetUser } = useContext(UserContext) as UserContextType;
 
     const [account, setAccount]= useState({
         firstname: "",
@@ -48,11 +50,15 @@ export default function DeleteAcc() {
      const deleteAccount = async(e: { preventDefault: () => void; })  => {
         e.preventDefault();
         await axios.delete(`http://localhost:8080/operator/deleteOperator/${para.id}`)
-        .then((res:any)=> {console.log('Deleting Data'); console.log(res.data)})
+        .then((res:any)=> {
+            console.log('Deleting Data');
+            console.log(res.data)
+            handleSetUser(null);
+            navigate('/')
+        })
         .catch((err:string) => console.log(err))
         console.log(para.id)
         alert("Account successfully deleted.")
-        navigate('/login/')
     };
 
     /*useEffect(() => {
