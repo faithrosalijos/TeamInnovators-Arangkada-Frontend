@@ -40,6 +40,7 @@ export type Vehicle = {
   operator: Operator,
   isDeleted?: boolean,
   rented?: boolean,
+  deletionReason?:String,
 }
 
 export type Rental = {
