@@ -1,5 +1,4 @@
-import { Box, Divider } from "@mui/material";
-import Instructions from "../../components/faith/Instructions";
+import { Box, } from "@mui/material";
 import Footer from "../../components/Footer";
 import View from "../../components/mariel/View";
 import PageHeader from "../../components/PageHeader";

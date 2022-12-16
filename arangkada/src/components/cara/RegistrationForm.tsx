@@ -8,8 +8,6 @@ import AccountService from "../../api/AccountService";
 
 export default function RegistrationForm() {
     const [showPassword, setShowPassword] = useState(false);
-    const [checkedOp, setCheckedOp] = useState(false);
-    const [checkedDv, setCheckedDv] = useState(false);
     const navigate = useNavigate();
 
     const [data, setData]= useState({
@@ -29,7 +27,6 @@ export default function RegistrationForm() {
     const postAccount = async (event: { preventDefault: () => void; }) =>{
         event.preventDefault();
         
-        //await axios.post("http://localhost:8080/account/postAccount" , 
         if(data.accountType==='Operator'){
             AccountService.postAccount(  {
                 accountId:-1,
@@ -78,15 +75,6 @@ export default function RegistrationForm() {
         setData({ ...data, [event.target.name]: event.target.value });
     }
 
-    /*const handleTypeOperatorChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        //setCheckedOp(event.target.checked);
-        setCheckedOp({ ...data, [event.target.name]: event.target.checked });
-    };
-
-    const handleTypeDriverChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setCheckedDv(event.target.checked);
-    };*/
-    
 
     return (
         <Grid onSubmit={postAccount} component="form">
@@ -94,8 +82,6 @@ export default function RegistrationForm() {
             <strong><p style={{color: '#646464', textAlign: 'left', lineHeight: '.2em'}}>Registration</p></strong>
             <hr className="line"></hr>
                 <div className="check">
-                    {/*<FormControlLabel control={<Checkbox checked={checkedOp} onChange={handleChange} sx={{color: '#646464', marginRight: 3}}/>} label="PUV Operator" />
-                    <FormControlLabel control={<Checkbox checked={checkedDv} onChange={handleChange} sx={{marginLeft: 20, marginRight: 3}}/>} label="Driver" />*/}
                     <FormControl>
                     <InputLabel id="demo-simple-select-label" sx={{margin: 1}}>Account Type</InputLabel>
                     <Select
@@ -156,7 +142,6 @@ export default function RegistrationForm() {
             <Button variant="contained" type="submit" style={{backgroundColor: '#D2A857', marginTop: 25, paddingInline: 40}}>Continue</Button><br></br>
             <p style={{color: 'gray', fontSize: '15px'}}>By continuing, you agree to Arangkadas's <a href="https://www.facebook.com/cara.q.encabo"  className="links">Terms of Service</a> and acknowledge you've read our <a href="https://www.facebook.com/cara.q.encabo" className="links">Privacy Policy</a></p>
 
-            {/*<strong><a href="https://localhost:3000/login"  className="links" style={{fontSize: '18px'}}>Have an account? Log in</a></strong>*/}
             <Button className="links" onClick={handleLoginClick} style={{fontSize: '18px'}} variant="text">Have an account? Log in</Button>
         
         </div>

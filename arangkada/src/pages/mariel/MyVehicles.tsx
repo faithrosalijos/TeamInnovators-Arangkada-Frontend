@@ -6,16 +6,12 @@ import MyVehicleCardList from "../../components/mariel/MyVehicleCardList";
 import MyVehicleSearch from "../../components/mariel/MyVehicleSearch";
 import { Vehicle } from "../../api/dataTypes";
 import VehicleService from "../../api/VehicleService";
-import Loading from "../../components/Loading";
-import ResponseError from "../../components/faith/ResponseError";
 import { UserContext, UserContextType } from "../../helpers/UserContext";
 
 
 
 const MyVehicles = () => {
   const { user } = useContext(UserContext) as UserContextType;
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState('');
   const [filteredVehicles, setFilteredVehicles] = useState<Vehicle[]>([])
   const [myVehicles, setVehicles] = useState<Vehicle[]>([]);
 
@@ -44,10 +40,6 @@ const MyVehicles = () => {
   const handleFilterClear = () => {
     setFilteredVehicles(myVehicles);
   }
-
-  // if (loading) return (<Loading />)
-
-  // if (error !== '') return (<ResponseError message={error} />)
 
   return ( 
     <>
