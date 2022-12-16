@@ -16,7 +16,7 @@ const AddVehiclePage = () => {
         <br></br>
         <Instructions
           header="Please provide vehicle details."
-          subheader="Mariel please make og subheader. buhat2 lng gud. hahaha. para dli plain."
+          subheader="The spelling and other information should be entered accurately, and duplicate vehicles are not allowed."
         />
         <br></br>
         <br></br>
