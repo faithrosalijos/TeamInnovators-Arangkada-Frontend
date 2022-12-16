@@ -2,9 +2,7 @@ import { ChangeEvent, useContext, useState } from "react";
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, TextField, } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import VehicleService from "../../api/VehicleService";
-import { Vehicle } from "../../api/dataTypes";
 import { UserContext, UserContextType } from "../../helpers/UserContext";
-import { VehicleContext, VehicleContextType } from "../../helpers/VehicleContext";
 import { SnackbarContext, SnackbarContextType } from "../../helpers/SnackbarContext";
 
 const MyVehicleForm = () => {

@@ -12,7 +12,6 @@ const MyVehicleDeleteForm  = () =>{
     const para = useParams() as { id: string };
     const { user } = useContext(UserContext) as UserContextType;
     const { handleSetMessage } = useContext(SnackbarContext) as SnackbarContextType;
-  
     const [password, setPassword] = useState<string>("");
     const [showPassword, setShowPassword] = useState(false);
     const [passwordError, setPasswordError] = useState<string | null>(null);
@@ -44,15 +43,17 @@ const MyVehicleDeleteForm  = () =>{
             console.log('Deleting data....')
             handleSetMessage("Vehicle Successfully Deleted.");
             navigate('/operator/vehicles')
-        }).catch((error) => {
+        })
+        .catch((error) => {
             handleSetMessage(error.message + ". Failed to delete vehicle.");
-          })
+        })
     }
     };
     useEffect(() => {
         VehicleService.getVehicleByVehicleId(para.id).then((response) => {
         setVehicle(response.data);
-        }).catch((error) => {
+        })
+        .catch((error) => {
         console.log(error);
         })
     }, []);
@@ -92,7 +93,6 @@ const MyVehicleDeleteForm  = () =>{
                 name="password"
                 id="filled-password-input"
                 label="Password"
-                // type={showPassword? "text": "password"} 
                 required
                 InputProps={{ endAdornment: (<InputAdornment position="end"> <IconButton onClick={handlePasswordShow}>{showPassword? <VisibilityOff />: <Visibility />}</IconButton> </InputAdornment>) }} 
                 autoComplete="current-password"
@@ -110,7 +110,7 @@ const MyVehicleDeleteForm  = () =>{
             Are you sure you want to delete this vehicle?
         </h3>
     </Grid>
-    
+
         <Stack spacing={3} direction={{ xs: "column-reverse", md: "row" }} sx={{ marginTop:2, justifyContent: "end", marginLeft: "180px" }}>
           <Button type="submit" color="error" variant="contained" sx={{ width: "250px" }}>Delete</Button>
           <Button  onClick={() => navigate(-1)} color="primary"variant="contained" sx={{ width: "250px"}}>Cancel</Button>
