@@ -21,7 +21,7 @@ const DriverMainLayout = () => {
 
       <Topbar open={open} handleDrawerOpen={handleDrawerOpen} />
 
-      <Navbar user="Driver" open={open} handleDrawerClose={handleDrawerClose} />
+      <Navbar open={open} handleDrawerClose={handleDrawerClose} />
 
       <Box component="main" sx={{ flexGrow: 1, padding: "0 10%" }}>
         <DrawerHeader />

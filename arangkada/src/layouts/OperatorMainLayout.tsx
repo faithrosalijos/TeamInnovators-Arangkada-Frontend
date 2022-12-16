@@ -21,7 +21,7 @@ const OperatorMainLayout = () => {
 
       <Topbar open={open} handleDrawerOpen={handleDrawerOpen} />
 
-      <Navbar user="Operator" open={open} handleDrawerClose={handleDrawerClose} />
+      <Navbar open={open} handleDrawerClose={handleDrawerClose} />
 
       <Box component="main" sx={{ flexGrow: 1, padding: "0 10%" }}>
         <DrawerHeader />
