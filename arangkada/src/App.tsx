@@ -62,6 +62,7 @@ const App = () => {
   const { user } = useContext(UserContext) as UserContextType;
 
   useEffect(() => {
+    console.log("updated");
     window.localStorage.setItem("ARANGKADA_USER", JSON.stringify(user));
   }, [user])
 
@@ -82,7 +83,7 @@ const App = () => {
                 <Route index element={<Rental />} />
                 <Route path="cancel" element={<CancelRental />} />
               </Route>
-              <Route path="payment">
+              <Route path="payments">
                 <Route index element={<Payments />} />
                 <Route path="pay-rent" element={<PayRent />} />
                 <Route path="update" element={<UpdatePayment />}/>
