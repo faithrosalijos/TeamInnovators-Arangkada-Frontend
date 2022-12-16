@@ -21,7 +21,7 @@ export default function OperatorInfo() {
 
 
     useEffect(() => {
-        OperatorService.getOperatorbyOperatorId("28").then((response) => {
+        OperatorService.getOperatorbyOperatorId(para.id).then((response) => {
             setBusinessName(response.data.businessName)
             setPermitNumber(response.data.permitNumber)
         }).catch((error) => {

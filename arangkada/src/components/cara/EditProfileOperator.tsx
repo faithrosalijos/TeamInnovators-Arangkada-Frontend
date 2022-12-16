@@ -1,20 +1,22 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Button, FormControl, Grid, IconButton, InputAdornment, InputLabel, MenuItem, Select, SelectChangeEvent, Stack, TextField } from "@mui/material";
 import axios from "axios";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import AccountService from "../../api/AccountService";
 import OperatorService from "../../api/OperatorService";
+import {UserContext, UserContextType } from "../../helpers/UserContext";
+
 
 
 export default function OperatorInfo() {
     
     const navigate = useNavigate();
     const location = useLocation();
+    const { user, handleSetUser } = useContext(UserContext) as UserContextType;
     const handleCancelClick = () => {
         navigate("/operator/operatorprofile/");
     }
-
     const para = useParams() as { id: string };
 
     const [account, setAccount]= useState({
@@ -34,12 +36,14 @@ export default function OperatorInfo() {
     const { firstname, middlename, lastname, birthdate, age, contactNumber, address, gender, username, password, accountType } = account;
 
     useEffect(() => {
-        OperatorService.getOperatorbyOperatorId("28").then((response) => {
+        if(user != null){
+        OperatorService.getOperatorbyOperatorId(user.userId).then((response) => {
             setAccount(response.data.account);
             console.log(response.data.account)
         }).catch((error) => {
           console.log(error);
         })
+        }
       }, []);
 
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -61,7 +65,20 @@ export default function OperatorInfo() {
             username: account.username,
             password: account.password,
         })
-        .then((res:any)=> {console.log('Editing Data'); navigate("/operator/operatorprofile/");})
+        .then((res:any)=> {
+            console.log('Editing Data'); 
+            navigate("/operator/operatorprofile/");
+            handleSetUser({
+                userId: para.id,
+                type: res.data.account.accountType,
+                username: res.data.account.username,
+                password: res.data.account.password,
+                firstname: res.data.account.firstname,
+                lastname: res.data.account.lastname,
+                accountId: res.data.account.accountId,
+            });
+        
+        })
         .catch((err:string) => console.log(err))
     };
     
