@@ -62,7 +62,6 @@ const App = () => {
   const { user } = useContext(UserContext) as UserContextType;
 
   useEffect(() => {
-    console.log("updated");
     window.localStorage.setItem("ARANGKADA_USER", JSON.stringify(user));
   }, [user])
 
