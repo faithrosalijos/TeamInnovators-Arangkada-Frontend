@@ -12,15 +12,15 @@ import { NavLink, useNavigate } from 'react-router-dom';
 export default function DrawerAppBar() {
 
     const navItems: { text: string, link: string }[] = [
-      { text: "About Us", link: "/aboutus" },
-      { text: "Contact Us", link: "/contactus" },
-      { text: "Login", link: "/login" },
-      { text: "Register", link: "/register" },
+      { text: "About Us", link: "/about-us" },
+      { text: "Contact Us", link: "/contact-us" },
+      { text: "Login", link: "/" },
+      { text: "Register", link: "/registration" },
     ];
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <AppBar component="nav" sx={{ backgroundColor: '#D2A857', height: 70 }}>
+      <AppBar component="nav" sx={{ backgroundColor: '#D2A857', height: 64 }}>
         <Toolbar>
           <Typography
             variant="h5"
@@ -34,8 +34,8 @@ export default function DrawerAppBar() {
           </Typography>
           <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
               {navItems.map((listItem, index) => (
-              <ButtonGroup orientation='horizontal'>
-                <ListItem key={index}>
+              <ButtonGroup orientation='horizontal' key={index}>
+                <ListItem disableGutters>
                   <ListItemButton sx={{ color: '#ffffff'}} {...{ component: NavLink, to: listItem.link }}>
                     {listItem.text}
                   </ListItemButton>
