@@ -10,7 +10,7 @@ export default function OperatorInfo() {
     const navigate = useNavigate();
 
     const handleCancelClick = () => {
-        navigate("/operator/operatorprofile/");
+        navigate("/operator/operator-profile/");
     }
 
     const para = useParams() as { id: string };
@@ -38,7 +38,7 @@ export default function OperatorInfo() {
         await axios.put(`http://localhost:8080/operator/putOperator?operatorId=${para.id}`,{
             businessName: businessName,
         })
-        .then((res:any)=> {console.log('Editing Data'); navigate("/operator/operatorprofile/");})
+        .then((res:any)=> {console.log('Editing Data'); navigate("/operator/operator-profile/");})
         .catch((err:string) => console.log(err))
     };
 

@@ -15,7 +15,7 @@ export default function OperatorInfo() {
     const location = useLocation();
     const { user, handleSetUser } = useContext(UserContext) as UserContextType;
     const handleCancelClick = () => {
-        navigate("/operator/operatorprofile/");
+        navigate("/operator/operator-profile/");
     }
     const para = useParams() as { id: string };
 
@@ -69,7 +69,7 @@ export default function OperatorInfo() {
             .then((res)=> {
                 console.log('Editing Data'); 
                 console.log(res); 
-                navigate("/operator/operatorprofile/");
+                navigate("/operator/operator-profile/");
                 handleSetUser({
                     userId: user.userId,
                     type: res.data.accountType,

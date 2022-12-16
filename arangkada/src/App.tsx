@@ -104,18 +104,18 @@ const App = () => {
             <Route path="discharge/:id" element={<DischargeDriver />} />
           </Route>
           <Route path="rental-applications" element={<RentalApplications />} />
-          <Route path="operatorprofile">
+          <Route path="operator-profile">
             <Route index element={<ProfilePageOp/>} />
-            <Route path="editoperatorprof/:id" element={<EditProfilePageOp/>} />
-            <Route path="editbusinessinfo/:id" element={<EditBusinessInfoPage/>} />
-            <Route path="deleteop/:id" element={<DeleteAccPage/>} />
+            <Route path="edit-operator-prof/:id" element={<EditProfilePageOp/>} />
+            <Route path="edit-business-info/:id" element={<EditBusinessInfoPage/>} />
+            <Route path="delete-op/:id" element={<DeleteAccPage/>} />
           </Route>
         </Route>
 
             {/* Public Pages */}
             <Route path="registration">
               <Route index element={<PublicRoute><RegistrationOneOp /></PublicRoute>} />
-              <Route path="registeroperator" element={<PublicRoute><RegistrationTwoOp /></PublicRoute>} />
+              <Route path="register-operator" element={<PublicRoute><RegistrationTwoOp /></PublicRoute>} />
             </Route>
             <Route path="about-us" element={<PublicRoute><AboutUsPageD /></PublicRoute>} />
             <Route path="contact-us" element={<PublicRoute><ContactUsPage /></PublicRoute>} />

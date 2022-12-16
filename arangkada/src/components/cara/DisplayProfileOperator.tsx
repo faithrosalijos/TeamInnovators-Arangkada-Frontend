@@ -51,14 +51,14 @@ export default function DisplayProfileOperator() {
       }, []);
 
     const handleUserEditClick = () => {
-        navigate("/operator/operatorprofile/editoperatorprof/" + user?.accountId);
+        navigate("/operator/operator-profile/edit-operator-prof/" + user?.accountId);
        
     }
     const handleBusinessEditClick = () => {
-        navigate("/operator/operatorprofile/editbusinessinfo/" + user?.userId);
+        navigate("/operator/operator-profile/edit-business-info/" + user?.userId);
     }
     const handleDeleteClick = () => {
-        navigate("/operator/operatorprofile/deleteop/" + user?.userId);
+        navigate("/operator/operator-profile/delete-op/" + user?.userId);
     }
 
     return (
