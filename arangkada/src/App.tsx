@@ -85,7 +85,7 @@ const App = () => {
               <Route path="payments">
                 <Route index element={<Payments />} />
                 <Route path="pay-rent" element={<PayRent />} />
-                <Route path="update" element={<UpdatePayment />}/>
+                <Route path="update/:id" element={<UpdatePayment />}/>
               </Route>
             </Route>
 
