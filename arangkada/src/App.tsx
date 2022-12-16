@@ -35,6 +35,7 @@ import DischargeDriver from './pages/faith/DischargeDriver';
 import { UserContext, UserContextType } from './helpers/UserContext';
 import { DriverRoute, OperatorRoute, PublicRoute } from './routes/routes';
 import { useContext, useEffect } from 'react';
+import UpdatePayment from './pages/kerr/UpdatePayment';
 
 /* Customize default mui theme */
 const theme = createTheme({
@@ -81,9 +82,10 @@ const App = () => {
                 <Route index element={<Rental />} />
                 <Route path="cancel" element={<CancelRental />} />
               </Route>
-              <Route path="payments">
+              <Route path="payment">
                 <Route index element={<Payments />} />
                 <Route path="pay-rent" element={<PayRent />} />
+                <Route path="update" element={<UpdatePayment />}/>
               </Route>
             </Route>
 
