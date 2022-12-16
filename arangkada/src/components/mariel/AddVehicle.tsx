@@ -4,11 +4,13 @@ import { useNavigate } from "react-router-dom";
 import VehicleService from "../../api/VehicleService";
 import { Vehicle } from "../../api/dataTypes";
 import { UserContext, UserContextType } from "../../helpers/UserContext";
-
+import { VehicleContext, VehicleContextType } from "../../helpers/VehicleContext";
+import { SnackbarContext, SnackbarContextType } from "../../helpers/SnackbarContext";
 
 const MyVehicleForm = () => {
     const { user } = useContext(UserContext) as UserContextType;
     const navigate = useNavigate();
+    const { handleSetMessage } = useContext(SnackbarContext) as SnackbarContextType;
 
     const [data, setData] = useState({
         plateNumber: "",
@@ -24,7 +26,7 @@ const MyVehicleForm = () => {
 
     const onSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
-        
+
         if(user !== null) {
             VehicleService.postVehicle({
                 vehicleId: -1,
@@ -53,12 +55,14 @@ const MyVehicleForm = () => {
                 orStatus: data.orStatus,
                 vehicleCondition: data.vehicleCondition,
                 rented: data.rented,
-            }).then((res: any) => {
+            })
+            .then((res: any) => {
                 console.log('Posting Data')
-                alert("Vehicle Successfully added.")
+                handleSetMessage("Vehicle Successfully Added.");
                 navigate('/operator/vehicles')
-            }).catch((err: string) => {
-                console.log(err)
+            })
+            .catch((error) => {
+                handleSetMessage("Failed to add vehicle. Please check the correct details.");
             })
         }
     }
@@ -70,6 +74,7 @@ const MyVehicleForm = () => {
     }
     return (
         <Grid container spacing={4} onSubmit={onSubmit} component="form">
+           
             <Grid item xs={12} md={4}>
                 <TextField
                     onChange={handleChange}
@@ -119,21 +124,6 @@ const MyVehicleForm = () => {
                 >
                 </TextField>
             </Grid>
-            {/* <Grid item xs={12} md={6}>
-        <TextField 
-            value={operatorId}
-            // disabled
-            required
-            onChange={handleChange} 
-            label="Operator ID" 
-            size="small" 
-            name="operatorId"
-            fullWidth
-            variant="outlined" 
-            // defaultValue={data.operator}
-            sx={{margin: 1,}}>
-        </TextField>
-    </Grid> */}
             <Grid item xs={12} md={6}>
                 <FormControl fullWidth size="small">
                     <InputLabel>OR, CR Status</InputLabel>
@@ -148,7 +138,6 @@ const MyVehicleForm = () => {
                         <MenuItem value={'Updated'}>Updated</MenuItem>
                         <MenuItem value={'Renewed'}>Renewed</MenuItem>
                         <MenuItem value={'Expired'}>Expired</MenuItem>
-                        {/* {myVehicle.orStatus} */}
                     </Select>
                 </FormControl>
             </Grid>
@@ -164,8 +153,7 @@ const MyVehicleForm = () => {
                         onChange={handleSelectChange}
                     >
                         <MenuItem value={'Ready To Use'}>Ready To Use</MenuItem>
-                        <MenuItem value={'Not Ready To Use'}>Not Ready To</MenuItem>
-                        {/* {myVehicle.condition} */}
+                        <MenuItem value={'Not Ready To Use'}>Not Ready To Use</MenuItem>
                     </Select>
                 </FormControl>
             </Grid>
@@ -198,7 +186,6 @@ const MyVehicleForm = () => {
                 <Stack spacing={3} direction={{ xs: "column-reverse", md: "row" }} sx={{ justifyContent: "end" }}>
                     <Button onClick={() => navigate(-1)} color="secondary" variant="contained" sx={{ width: "250px" }}>Cancel</Button>
                     <Button type="submit" variant="contained" sx={{ width: "250px" }}>Add Vehicle</Button>
-                    {/* onClick={(e)=>{e.preventDefault(); console.log(data)}} */}
                 </Stack>
             </Grid>
         </Grid>
