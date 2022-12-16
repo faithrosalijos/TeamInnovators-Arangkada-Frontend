@@ -35,7 +35,7 @@ export default function DeleteAcc() {
     }
 
     const handleCancelClick = () => {
-        navigate("/operator/operatorprofile/");
+        navigate("/operator/operator-profile/");
     }
 
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {

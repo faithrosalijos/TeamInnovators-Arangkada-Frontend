@@ -45,7 +45,7 @@ export default function RegistrationForm() {
                 password: data.password,
                 accountType: data.accountType,
             })
-            .then((res)=> {console.log(res.data); navigate("/registration/registeroperator/", {
+            .then((res)=> {console.log(res.data); navigate("/registration/register-operator/", {
                 state: {
                    accountId: res.data.accountId
                 }
@@ -56,7 +56,7 @@ export default function RegistrationForm() {
         }else{
             //insert driver post here
             //navigate("/registration/registerdriver/");
-            navigate("/operator/operatorprofile/");
+            navigate("/operator/operator-profile/");
         }
         
     }
@@ -71,7 +71,7 @@ export default function RegistrationForm() {
     };
 
     const handleLoginClick = () => {
-        navigate("/login");
+        navigate("/");
     }
 
     const handleSelectChange = (event: SelectChangeEvent) => {

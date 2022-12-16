@@ -48,7 +48,7 @@ const NavbarList = ({ open }: NavbarListProps) => {
       {/* Secondary List */}
       <List>
         <ListItem disablePadding sx={{ display: 'block' }}>
-          <NavbarLink to={user?.type === "Driver" ? "/driver/driverprofile" : "/operator/operatorprofile"} text="Account" icon={<Person />} open={open} end={false} />
+          <NavbarLink to={user?.type === "Driver" ? "/driver/driverprofile" : "/operator/operator-profile"} text="Account" icon={<Person />} open={open} end={false} />
         </ListItem>
         <ListItem disablePadding sx={{ display: 'block' }}>
           <ListItemButton onClick={handleLogout}
