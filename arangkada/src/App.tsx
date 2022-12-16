@@ -3,7 +3,7 @@ import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
 import DriverMainLayout from './layouts/DriverMainLayout';
 import ModalProvider from 'mui-modal-provider';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import DriverDashboard from './pages/faith/DriverDashboard';
 import VehicleRentals from './pages/faith/VehicleRentals';
 import Rental from './pages/faith/Rental';
@@ -16,7 +16,6 @@ import EditBusinessInfoPage from './pages/cara/EditBusinessInfoPage';
 import DeleteAccPage from './pages/cara/DeleteAccPage';
 import RegistrationOneOp from './pages/cara/RegistrationOneOp';
 import RegistrationTwoOp from './pages/cara/RegistrationTwoOp';
-import LandingPage from './pages/karylle/LandingPage';
 import LoginPage from './pages/karylle/LoginPage';
 import ContactUsPage from './pages/cara/ContactUsPage';
 import AboutUsPageD from './pages/karylle/AboutUsPageD';
@@ -33,6 +32,9 @@ import Snackbar from './components/Snackbar';
 import RentalApplications from './pages/faith/RentalApplications';
 import Drivers from './pages/faith/Drivers';
 import DischargeDriver from './pages/faith/DischargeDriver';
+import { UserContext, UserContextType } from './helpers/UserContext';
+import { DriverRoute, OperatorRoute, PublicRoute } from './routes/routes';
+import { useContext, useEffect } from 'react';
 
 /* Customize default mui theme */
 const theme = createTheme({
@@ -56,14 +58,20 @@ const theme = createTheme({
 /* Customize default mui theme */
 
 const App = () => {
+  const { user } = useContext(UserContext) as UserContextType;
+
+  useEffect(() => {
+    window.localStorage.setItem("ARANGKADA_USER", JSON.stringify(user));
+  }, [user])
 
   return (
     <ThemeProvider theme={theme}>
+
       <ModalProvider>
         <SnackbarContextProvider>
           <Routes>
             {/* Driver Pages */}
-            <Route path="driver" element={<DriverMainLayout />}>
+            <Route path="driver" element={<DriverRoute><DriverMainLayout /></DriverRoute>}>
               <Route index element={<DriverDashboard />} />
               <Route path="vehicle-rentals">
                 <Route index element={<VehicleRentals />} />
@@ -80,7 +88,7 @@ const App = () => {
             </Route>
 
             {/* Operator Pages */}
-            <Route path="operator" element={<OperatorMainLayout />}>
+            <Route path="operator" element={<OperatorRoute><OperatorMainLayout /></OperatorRoute>}>
               <Route index element={<OperatorDashboard />} />
               <Route path="vehicles">
                 <Route index element={<MyVehicles />} />
@@ -91,7 +99,7 @@ const App = () => {
               <Route path="add-vehicle" element={<AddVehiclePage />} />
               <Route path="drivers">
                 <Route index element={<Drivers />} />
-                <Route path="discharge" element={<DischargeDriver />} />
+                <Route path="discharge/:id" element={<DischargeDriver />} />
               </Route>
               <Route path="rental-applications" element={<RentalApplications />} />
               <Route path="operatorprofile">
@@ -102,19 +110,18 @@ const App = () => {
               </Route>
             </Route>
 
-            {/* Other pages */}
+            {/* Public Pages */}
             <Route path="registration">
-              <Route index element={<RegistrationOneOp />} />
-              <Route path="operator" element={<RegistrationTwoOp />} />
+              <Route index element={<PublicRoute><RegistrationOneOp /></PublicRoute>} />
+              <Route path="operator" element={<PublicRoute><RegistrationTwoOp /></PublicRoute>} />
             </Route>
+            <Route path="about-us" element={<PublicRoute><AboutUsPageD /></PublicRoute>} />
+            <Route path="contact-us" element={<PublicRoute><ContactUsPage /></PublicRoute>} />
+            <Route path="" element={<PublicRoute><LoginPage /></PublicRoute>} />
 
-        <Route path="landing" element={<LandingPage />} />
-        <Route path="aboutus" element={<AboutUsPageD />} />
-        <Route path="contactus" element={<ContactUsPage />} />
-        <Route path="login" element={<LoginPage />} />
-
-        </Routes>
-        
+            {/* Invalid Path */}
+            |<Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
           <Snackbar />
         </SnackbarContextProvider>
       </ModalProvider>
