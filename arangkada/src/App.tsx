@@ -113,6 +113,8 @@ const App = () => {
         <Route path="contactus" element={<ContactUsPage />} />
         <Route path="login" element={<LoginPage />} />
 
+        </Routes>
+        
           <Snackbar />
         </SnackbarContextProvider>
       </ModalProvider>

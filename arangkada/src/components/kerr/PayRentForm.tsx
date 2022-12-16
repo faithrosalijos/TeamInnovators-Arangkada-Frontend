@@ -1,18 +1,50 @@
 import { Button, Stack, TextField, Grid } from "@mui/material";
 import { useState } from "react";
+import { Rental } from "../../api/dataTypes";
+import { useNavigate, useParams } from "react-router-dom";
+import PaymentService from "../../api/PaymentService";
 
-const PayRentForm = () => {
-    const [amount, setAmount] = useState("");
+type RentalDetailsProps = {
+  rental: Rental,
+}
 
+const PayRentForm = ({rental}: RentalDetailsProps) => {
+    const navigate = useNavigate();
+
+    const [data, setData] = useState({
+      paymentId: "",
+      amount: "",
+      datePaid: "",
+      rental: ""
+    })
   
-    const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setAmount(event.target.value);
+    const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setData({ ...data, [e.target.name]: e.target.value });
     }
   
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-  
-      ///TODO: DatePaid must be set automatically to the current date of today.
+
+      if(Number(data.amount) >= rental.vehicle.rentalFee)
+      {
+        PaymentService.postPayment({
+          paymentId: -1,
+          amount: Number(data.amount),
+          datePaid: new Date(new Date().setHours(0, 0, 0, 0)).toJSON(),
+          rental: rental
+        }).then((response: any) => console.log('Posting Data'))
+          .catch((error: string) => console.log(error))
+          alert("Successfully paid the rent.")
+          navigate('/driver/payments')
+      }
+      else
+      {
+        alert("Amount is not correct.")
+      }
+    }
+
+    const handleBack = () => {
+      navigate("../", { replace: true });
     }
   
     return ( 
@@ -21,17 +53,17 @@ const PayRentForm = () => {
       <Grid item xs={12} md={4}>
          <TextField 
               onChange={handleAmountChange} 
-              value={amount} 
+              value={data.amount} 
+              name="amount"
               label="Amount" 
               size="small"
               fullWidth 
-              required
-              sx={{margin: 1, }}>
+              required>
           </TextField> 
       </Grid>
           <Grid item xs={12} >
           <Stack spacing={3} direction={{ xs: "column-reverse", md: "row" }} sx={{ justifyContent: "end" }}>
-            <Button color="secondary" variant="contained" sx={{ width: "250px" }}>Cancel</Button>
+            <Button onClick={handleBack} color="secondary" variant="contained" sx={{ width: "250px" }}>Cancel</Button>
             <Button type="submit" variant="contained" sx={{ width: "250px"}}>Pay Rent</Button>
           </Stack>
           </Grid>

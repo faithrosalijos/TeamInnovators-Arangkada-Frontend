@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Divider, Typography } from "@mui/material";
 import { Rental } from "../../api/dataTypes";
 
 type RentalDetailsProps = {
@@ -9,16 +9,16 @@ type RentalDetailsProps = {
 
     return (
       <div>
-        <Typography variant="h5">{rental.driver.account.firstname + " " + rental.driver.account.lastname}</Typography>
-        <Typography variant="body1" color="text.secondary">Operator: {rental.vehicle.operator.account.firstname + " " + rental.vehicle.operator.account.firstname}</Typography>
-        <Typography variant="body1" color="text.secondary">Contact Number: {rental.driver.account.contactNumber}</Typography>
+        <Typography variant="h5">PHP {rental.vehicle.rentalFee}.00</Typography>
+        <Typography variant="body1" color="text.secondary">Plate Number: {rental.vehicle.plateNumber}</Typography>
+        <Typography variant="body1" color="text.secondary">Business Name: {rental.vehicle.operator.businessName}</Typography>
         <br></br>
-        <Typography variant="body1">Rental ID: <b>{rental.rentalId}</b> </Typography>
-        <Typography variant="body1">Start Date: <b>{rental.startDate}</b> </Typography>
-        <Typography variant="body1">End Date: <b>{rental.endDate}</b> </Typography>
-        <Typography variant="body1">Status: <b>{rental.status}</b> </Typography>
-        <Typography variant="body1">Vehicle ID: <b>{rental.vehicle.vehicleId}</b> </Typography>
-        <Typography variant="body1">Driver ID: <b>{rental.driver.driverId}</b> </Typography>
+        <Divider/>
+        <br></br>
+        <Typography variant="body2" color="text.secondary">Operator: {rental.vehicle.operator.account.firstname + " " + rental.vehicle.operator.account.lastname}</Typography>
+        <Typography variant="body2" color="text.secondary">Contact Number: {rental.vehicle.operator.account.contactNumber}</Typography>
+        <Typography variant="body2">Start Date: <b>{rental.startDate}</b> </Typography>
+        <Typography variant="body2">Status: <b>{rental.status}</b> </Typography>
       </div>
     );
   }
