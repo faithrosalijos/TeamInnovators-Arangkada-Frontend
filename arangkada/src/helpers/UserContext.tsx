@@ -6,7 +6,8 @@ export type User = {
   password: string,
   firstname: string,
   lastname: string, 
-  userId: string, 
+  userId: string,
+  accountId: string;
 }
 
 export type UserContextType = {
