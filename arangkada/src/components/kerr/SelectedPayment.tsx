@@ -2,7 +2,6 @@ import { Button, FormControl, Grid,  InputLabel, MenuItem, Select, SelectChangeE
 import { useNavigate, useParams } from "react-router-dom";
 import { ChangeEvent, useEffect, useState, useContext } from "react";
 import PaymentService from "../../api/PaymentService";
-import axios from "axios";
 import { SnackbarContext, SnackbarContextType } from "../../helpers/SnackbarContext";
 
 const UpdateSelectedPayment  = () =>{
@@ -20,9 +19,11 @@ const UpdateSelectedPayment  = () =>{
           param.toString(),
           {
             amount: Number(putPayment.amount)
-          })
+           }) // TODO: Update not successful because of CORS policy error.
           .then((response)=> {
             handleSetMessage("Successfully updated Payment No. " + response.data.paymentId);
+            navigate("/driver/payments");
+
           })
           .catch((error) => {
             handleSetMessage("Failed to update payment." + error.message);
@@ -37,12 +38,9 @@ const UpdateSelectedPayment  = () =>{
     })
   }, []);
      
-    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
         setPutPayment({ ...putPayment, [e.target.name]: e.target.value });
     };
-    const handleSelectChange = (event: SelectChangeEvent) => {
-        setPutPayment({ ...putPayment, [event.target.name]: event.target.value });
-    }
 
     return ( 
         <>
@@ -50,12 +48,12 @@ const UpdateSelectedPayment  = () =>{
         <Grid item xs={12} md={4}>
            <TextField 
                 onChange={handleChange} 
-                disabled
                 value={putPayment.amount} 
                 name="amount"
                 label="Amount" 
                 size="small"
                 fullWidth 
+                required
             >
             </TextField> 
         </Grid>
