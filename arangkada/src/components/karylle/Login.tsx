@@ -52,6 +52,7 @@ export default function Login() {
                                     password: account.data.password,
                                     firstname: account.data.firstname,
                                     lastname: account.data.lastname,
+                                    accountId: account.data.accountId,
                                 });
                                 navigate('/operator', { replace: true });
                             }else { setUsernameError("Invalid user.") }
@@ -67,6 +68,7 @@ export default function Login() {
                                     password: account.data.password,
                                     firstname: account.data.firstname,
                                     lastname: account.data.lastname,
+                                    accountId: account.data.accountId,
                                 });
                                 navigate('/driver', { replace: true });
                             }else { setUsernameError("Invalid user.") }
