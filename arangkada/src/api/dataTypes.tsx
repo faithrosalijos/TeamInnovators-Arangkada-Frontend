@@ -72,3 +72,7 @@ export type Payment = {
   datePaid: string,
   rental: Rental
 }
+
+export type PutPayment = {
+  amount: number
+}
