@@ -1,5 +1,5 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Payment } from "../../api/dataTypes";
 import PageHeader from "../../components/PageHeader";
 import Footer from "../../components/Footer";
@@ -8,8 +8,10 @@ import { useNavigate } from "react-router-dom";
 import Loading from "../../components/Loading";
 import ResponseError from "../../components/faith/ResponseError";
 import PaymentCardList from "../../components/kerr/PaymentCardList";
+import { UserContext, UserContextType } from "../../helpers/UserContext";
 
 const Payments = () => {
+    const { user } = useContext(UserContext) as UserContextType;
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const navigate = useNavigate();
@@ -19,15 +21,19 @@ const Payments = () => {
       navigate("/driver/payments/pay-rent/");
   }
     useEffect(() => {
-      PaymentService.getPaymentsByDriverId("1").then((response) => {
-        setPayments(response.data);
-        // console.log(response.data); 
-        setError("");
-      }).catch((error) => {
-        setError(error.message);
-      }).finally(() => {
-        setLoading(false);
-      })
+      if (user !== null) {
+        PaymentService.getPaymentsByDriverId(
+          user.userId
+          ).then((response) => {
+          setPayments(response.data);
+          // console.log(response.data); 
+          setError("");
+        }).catch((error) => {
+          setError(error.message);
+        }).finally(() => {
+          setLoading(false);
+        })
+      }
     }, []);
 
     if (loading) return (<Loading />)
