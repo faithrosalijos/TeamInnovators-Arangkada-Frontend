@@ -66,7 +66,7 @@ const MyVehicleDeleteForm  = () =>{
     }
   return ( 
     <>
-    <Grid container spacing={2} onSubmit={deleteVehicle} component="form" sx={{marginTop: 2, marginBottom: 5}}>
+    <Grid container spacing={2} onSubmit={deleteVehicle} component="form" sx={{marginTop: 0, marginBottom: 5}}>
     <Grid item xs={12} md={6} sx={{marginLeft: 20, marginTop: 3}}>
       <FormControl fullWidth>
             <h2 style={{fontFamily:"sans-serif"}}> Reason for deletion: </h2>
@@ -114,7 +114,7 @@ const MyVehicleDeleteForm  = () =>{
             If you choose to continue, this vehicle will be deleted and will not be visible in your account.
         </p>
     </Grid>
-    <Grid item xs={12} md={12} sx={{marginLeft: 21, marginTop: 4}}>
+    <Grid item xs={12} md={12} sx={{marginLeft: 21, marginTop: 2}}>
         <h3 style={{fontFamily:"sans-serif"}}>
             Are you sure you want to delete this vehicle?
         </h3>
