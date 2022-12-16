@@ -99,9 +99,9 @@ const App = () => {
           <Route path="rental-applications" element={<RentalApplications />} />
           <Route path="operatorprofile">
             <Route index element={<ProfilePageOp/>} />
-            <Route path="editoperatorprof" element={<EditProfilePageOp/>} />
-            <Route path="editbusinessinfo" element={<EditBusinessInfoPage/>} />
-            <Route path="deleteop" element={<DeleteAccPage/>} />
+            <Route path="editoperatorprof/:id" element={<EditProfilePageOp/>} />
+            <Route path="editbusinessinfo/:id" element={<EditBusinessInfoPage/>} />
+            <Route path="deleteop/:id" element={<DeleteAccPage/>} />
           </Route>
         </Route>
 
