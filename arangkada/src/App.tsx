@@ -82,7 +82,7 @@ const App = () => {
                 <Route index element={<Rental />} />
                 <Route path="cancel" element={<CancelRental />} />
               </Route>
-              <Route path="payment">
+              <Route path="payments">
                 <Route index element={<Payments />} />
                 <Route path="pay-rent" element={<PayRent />} />
                 <Route path="update" element={<UpdatePayment />}/>
