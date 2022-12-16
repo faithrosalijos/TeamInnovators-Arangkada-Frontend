@@ -36,7 +36,7 @@ export default function DisplayProfileOperator() {
     
 
     useEffect(() => {
-        OperatorService.getOperatorbyOperatorId("26").then((response) => {
+        OperatorService.getOperatorbyOperatorId("28").then((response) => {
             setAccount(response.data.account);
             console.log(response.data.account)
             setBusinessNameOp(response.data.businessName)
@@ -48,13 +48,13 @@ export default function DisplayProfileOperator() {
       }, []);
 
     const handleUserEditClick = () => {
-        navigate("/operator/operatorprofile/editoperatorprof/");
+        navigate("/operator/operatorprofile/editoperatorprof/47");
     }
     const handleBusinessEditClick = () => {
-        navigate("/operator/operatorprofile/editbusinessinfo/");
+        navigate("/operator/operatorprofile/editbusinessinfo/28");
     }
     const handleDeleteClick = () => {
-        navigate("/operator/operatorprofile/deleteop/");
+        navigate("/operator/operatorprofile/deleteop/28");
     }
 
     return (
