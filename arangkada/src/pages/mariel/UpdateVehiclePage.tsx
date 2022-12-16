@@ -1,4 +1,4 @@
-import { Box, Divider } from "@mui/material";
+import { Box, } from "@mui/material";
 import Footer from "../../components/Footer";
 import ViewVehicle from "../../components/mariel/ViewVehicle";
 import PageHeader from "../../components/PageHeader";

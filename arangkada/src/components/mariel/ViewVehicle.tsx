@@ -182,7 +182,6 @@ const ViewandUpdateVehicle  = () =>{
             <Stack spacing={3} direction={{ xs: "column-reverse", md: "row" }} sx={{ justifyContent: "end" }}>
               <Button  onClick={() => navigate(-1)} color="secondary" variant="contained" sx={{ width: "250px" }}>Cancel</Button>
               <Button  type="submit" variant="contained" sx={{ width: "250px"}}>Save Changes</Button> 
-              {/* onClick={(e)=>{e.preventDefault(); console.log(data)}} */}
             </Stack>
             </Grid>
         </Grid>
