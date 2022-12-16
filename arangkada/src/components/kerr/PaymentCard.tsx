@@ -38,7 +38,7 @@ const PaymentCard = ({ myPayment }: MyPaymentCardProps) => {
               </Typography>
           </CardContent>
           <CardActions sx={{ justifyContent: "end" }}>
-            <Link to={"/driver/payment/update/"+ myPayment.paymentId } style={{ textDecoration: 'none' }}> 
+            <Link to={"/driver/payments/update/"+ myPayment.paymentId } style={{ textDecoration: 'none' }}> 
             <Button
                size="small" 
                variant="contained"
