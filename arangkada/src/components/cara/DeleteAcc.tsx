@@ -49,16 +49,21 @@ export default function DeleteAcc() {
 
      const deleteAccount = async(e: { preventDefault: () => void; })  => {
         e.preventDefault();
-        await axios.delete(`http://localhost:8080/operator/deleteOperator/${para.id}`)
-        .then((res:any)=> {
-            console.log('Deleting Data');
-            console.log(res.data)
-            handleSetUser(null);
-            navigate('/')
-        })
-        .catch((err:string) => console.log(err))
-        console.log(para.id)
-        alert("Account successfully deleted.")
+        if(password !== user?.password){
+            setPasswordError("Password is incorrect.")
+        }else{
+            await axios.delete(`http://localhost:8080/operator/deleteOperator/${para.id}`)
+            .then((res:any)=> {
+                console.log('Deleting Data');
+                console.log(res.data)
+                handleSetUser(null);
+                navigate('/')
+            })
+            .catch((err:string) => console.log(err))
+            console.log(para.id)
+            alert("Account successfully deleted.")
+        }
+        
     };
 
     /*useEffect(() => {
@@ -88,6 +93,8 @@ export default function DeleteAcc() {
                     required
                     autoComplete="current-password"
                     variant="outlined"
+                    error={passwordError !== null}
+                    helperText={passwordError}
                     sx={{margin: 1, width: {sm: 300, md: 300}}}
                     InputProps={{ endAdornment: (<InputAdornment position="end"> <IconButton onClick={handlePasswordShow}>{showPassword? <VisibilityOff />: <Visibility />}</IconButton> </InputAdornment>) }} 
                 />
