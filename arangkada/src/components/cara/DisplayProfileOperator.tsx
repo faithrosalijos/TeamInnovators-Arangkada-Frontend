@@ -1,14 +1,16 @@
 import { Box, Button, FormControl, InputLabel, MenuItem, Select, Stack, TextField } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AccountService from "../../api/AccountService";
 import { Account } from "../../api/dataTypes";
 import OperatorService from "../../api/OperatorService";
+import {UserContext, UserContextType } from "../../helpers/UserContext";
 
 
 export default function DisplayProfileOperator() {
     const navigate = useNavigate();
     const para = useParams() as { id: string };
+    const {user} = useContext(UserContext) as UserContextType;
 
     const [account, setAccount]= useState({
         firstname: "",
@@ -36,25 +38,27 @@ export default function DisplayProfileOperator() {
     
 
     useEffect(() => {
-        OperatorService.getOperatorbyOperatorId("26").then((response) => {
-            setAccount(response.data.account);
-            console.log(response.data.account)
-            setBusinessNameOp(response.data.businessName)
-            setPermitNumberOp(response.data.permitNumber)
-           //console.log(response.data.businessName)
-        }).catch((error) => {
-          console.log(error);
-        })
+        if(user != null){
+            OperatorService.getOperatorbyOperatorId(user.userId).then((response) => {
+                setAccount(response.data.account);
+                console.log(response.data.account)
+                setBusinessNameOp(response.data.businessName)
+                setPermitNumberOp(response.data.permitNumber)
+            }).catch((error) => {
+              console.log(error);
+            })
+        }
       }, []);
 
     const handleUserEditClick = () => {
-        navigate("/operator/operatorprofile/editoperatorprof/");
+        navigate("/operator/operatorprofile/editoperatorprof/" + user?.accountId);
+       
     }
     const handleBusinessEditClick = () => {
-        navigate("/operator/operatorprofile/editbusinessinfo/");
+        navigate("/operator/operatorprofile/editbusinessinfo/" + user?.userId);
     }
     const handleDeleteClick = () => {
-        navigate("/operator/operatorprofile/deleteop/");
+        navigate("/operator/operatorprofile/deleteop/" + user?.userId);
     }
 
     return (

@@ -1,44 +1,77 @@
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 import { Button, Grid, IconButton, InputAdornment, Stack, TextField } from "@mui/material";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import AccountService from "../../api/AccountService";
+import OperatorService from "../../api/OperatorService";
+import {UserContext, UserContextType } from "../../helpers/UserContext";
 
 
 export default function DeleteAcc() {
 
-    const [password, setPassword] = useState("");
     const [showPassword, setShowPassword] = useState(false);
     const [passwordError, setPasswordError] = useState<string | null>(null);
     const navigate = useNavigate();
+    const para = useParams() as { id: string };
+    const { user, handleSetUser } = useContext(UserContext) as UserContextType;
 
-    const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setPassword(event.target.value);
-    };
-
+    const [account, setAccount]= useState({
+        firstname: "",
+        middlename: "",
+        lastname: "",
+        birthdate: "",
+        age: "",
+        contactNumber: "",
+        address: "",
+        gender: "",
+        username: "",
+        password: "",
+        accountType: "",
+    })
+    
     const handlePasswordShow = () => {
         setShowPassword(!showPassword);
-    }
-
-    const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        setPasswordError(null);
-    
-        if (password === "") {
-          setPasswordError("Please enter your password.")
-        /*} else if (password !== "password") {
-          setPasswordError("Password is incorrect.")
-        }*/ 
-        }
     }
 
     const handleCancelClick = () => {
         navigate("/operator/operatorprofile/");
     }
 
+    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        setData({ ...data, [e.target.name]: e.target.value });
+    };
+
+    const [data, setData]= useState({
+        password:"",
+     })
+     const {password} = data;
+
+     const deleteAccount = async(e: { preventDefault: () => void; })  => {
+        e.preventDefault();
+        await axios.delete(`http://localhost:8080/operator/deleteOperator/${para.id}`)
+        .then((res:any)=> {
+            console.log('Deleting Data');
+            console.log(res.data)
+            handleSetUser(null);
+            navigate('/')
+        })
+        .catch((err:string) => console.log(err))
+        console.log(para.id)
+        alert("Account successfully deleted.")
+    };
+
+    /*useEffect(() => {
+        OperatorService.getOperatorbyOperatorId("25").then((response) => {
+        setAccount(response.data);
+        }).catch((error) => {
+        console.log(error);
+        })
+    }, []);*/
 
     return (
-        <div>
-            <Stack component="form" onSubmit={handleSubmit}>
+        
+            <Stack component="form" onSubmit={deleteAccount}>
             <h1 style={{textAlign: 'left', color: '#90794C'}}>Delete your account</h1>
             <hr className="line"></hr>
             <p style={{textAlign: 'left', fontSize: '20px', paddingTop: 40}}>We're sorry to hear you'd like to delete your account. </p>
@@ -46,12 +79,15 @@ export default function DeleteAcc() {
 
             <Stack direction="row" justifyContent="start">
                 <TextField 
-                    onChange={handlePasswordChange}
+                    onChange={handleChange}
                     type={showPassword? "text": "password"} 
                     value={password} 
                     label="Password" 
-                    error={passwordError !== null}
-                    helperText={passwordError}
+                    name="password"
+                    id="filled-password-input"
+                    required
+                    autoComplete="current-password"
+                    variant="outlined"
                     sx={{margin: 1, width: {sm: 300, md: 300}}}
                     InputProps={{ endAdornment: (<InputAdornment position="end"> <IconButton onClick={handlePasswordShow}>{showPassword? <VisibilityOff />: <Visibility />}</IconButton> </InputAdornment>) }} 
                 />
@@ -65,6 +101,6 @@ export default function DeleteAcc() {
             </Stack>
             </Stack>
             
-        </div>
+       
     )
 }

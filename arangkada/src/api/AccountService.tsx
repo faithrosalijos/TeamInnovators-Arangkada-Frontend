@@ -17,6 +17,9 @@ class AccountService {
         return axios.post(ACCOUNT_BASE_URL + "/postAccount",data);
     }
 
+    putAccount = (id: string, data: Account) => {
+        return axios.put(ACCOUNT_BASE_URL + "/putAccount?accountId" + id, data);
+    };
 
 }
 

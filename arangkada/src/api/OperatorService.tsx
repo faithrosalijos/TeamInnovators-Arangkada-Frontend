@@ -18,6 +18,15 @@ class OperatorService {
         return axios.get(OPERATOR_BASE_URL + "/getByOperatorId/" + id);
     }
 
+    putOperator = (id: string, data: Operator) => {
+        return axios.put(OPERATOR_BASE_URL + "/putAccount?operatorId" + id, data);
+    };
+
+    deleteOperator = (id: string) => {
+        return axios.delete(OPERATOR_BASE_URL + "/deleteOperator/" +id);
+    };
+
+
 }
 
 export default new OperatorService();

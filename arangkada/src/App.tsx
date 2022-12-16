@@ -62,6 +62,7 @@ const App = () => {
   const { user } = useContext(UserContext) as UserContextType;
 
   useEffect(() => {
+    console.log("updated");
     window.localStorage.setItem("ARANGKADA_USER", JSON.stringify(user));
   }, [user])
 
@@ -89,33 +90,33 @@ const App = () => {
               </Route>
             </Route>
 
-            {/* Operator Pages */}
-            <Route path="operator" element={<OperatorRoute><OperatorMainLayout /></OperatorRoute>}>
-              <Route index element={<OperatorDashboard />} />
-              <Route path="vehicles">
-                <Route index element={<MyVehicles />} />
-                <Route path="update/:id" element={<UpdateVehiclePage />} />
-                <Route path="delete/:id" element={<DeleteVehiclePage />} />
-                <Route path="view/:id" element={<ViewVehiclePage />} />
-              </Route>
-              <Route path="add-vehicle" element={<AddVehiclePage />} />
-              <Route path="drivers">
-                <Route index element={<Drivers />} />
-                <Route path="discharge/:id" element={<DischargeDriver />} />
-              </Route>
-              <Route path="rental-applications" element={<RentalApplications />} />
-              <Route path="operatorprofile">
-                <Route index element={<ProfilePageOp />} />
-                <Route path="editoperatorprof" element={<EditProfilePageOp />} />
-                <Route path="editbusinessinfo" element={<EditBusinessInfoPage />} />
-                <Route path="deleteop" element={<DeleteAccPage />} />
-              </Route>
-            </Route>
+        {/* Operator Pages */}
+        <Route path="operator" element={<OperatorRoute><OperatorMainLayout /></OperatorRoute>}>
+          <Route index element={<OperatorDashboard/>} />
+          <Route path="vehicles">
+            <Route index element={<MyVehicles />} />
+            <Route path="update/:id" element={<UpdateVehiclePage />} />
+            <Route path="delete/:id" element={<DeleteVehiclePage />} />
+            <Route path="view/:id" element={<ViewVehiclePage />} />
+          </Route>
+          <Route path="add-vehicle" element={<AddVehiclePage />} />
+          <Route path="drivers">
+            <Route index element={<Drivers />} />
+            <Route path="discharge/:id" element={<DischargeDriver />} />
+          </Route>
+          <Route path="rental-applications" element={<RentalApplications />} />
+          <Route path="operatorprofile">
+            <Route index element={<ProfilePageOp/>} />
+            <Route path="editoperatorprof/:id" element={<EditProfilePageOp/>} />
+            <Route path="editbusinessinfo/:id" element={<EditBusinessInfoPage/>} />
+            <Route path="deleteop/:id" element={<DeleteAccPage/>} />
+          </Route>
+        </Route>
 
             {/* Public Pages */}
             <Route path="registration">
               <Route index element={<PublicRoute><RegistrationOneOp /></PublicRoute>} />
-              <Route path="operator" element={<PublicRoute><RegistrationTwoOp /></PublicRoute>} />
+              <Route path="registeroperator" element={<PublicRoute><RegistrationTwoOp /></PublicRoute>} />
             </Route>
             <Route path="about-us" element={<PublicRoute><AboutUsPageD /></PublicRoute>} />
             <Route path="contact-us" element={<PublicRoute><ContactUsPage /></PublicRoute>} />
