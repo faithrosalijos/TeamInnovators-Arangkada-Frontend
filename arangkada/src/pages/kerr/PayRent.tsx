@@ -9,22 +9,26 @@ import PageHeader from "../../components/PageHeader";
 import Footer from "../../components/Footer";
 import Loading from "../../components/Loading";
 import ResponseError from "../../components/faith/ResponseError";
+import { UserContext, UserContextType } from "../../helpers/UserContext";
 
 const PayRent = () => {
+    const { user } = useContext(UserContext) as UserContextType;
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
     const [currentRental, setCurrentRental] = useState<Rental>({} as Rental);
     
     useEffect(() => {
-      RentalService.getRentalById("1").then((response) => {
-        setCurrentRental(response.data)
-        console.log(response.data);
-        setError("");
-      }).catch((error) => {
-        setError(error.message);
-      }).finally(() => {
-        setLoading(false);
-      })
+      if (user !== null) {
+        RentalService.getCurrentRentalByDriver(user.userId).then((response) => {
+          setCurrentRental(response.data)
+          console.log(response.data);
+          setError("");
+        }).catch((error) => {
+          setError(error.message);
+        }).finally(() => {
+          setLoading(false);
+        })
+      }
     }, []);
 
     if (loading) return (<Loading />)
