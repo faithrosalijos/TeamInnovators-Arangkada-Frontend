@@ -34,7 +34,6 @@ const ViewandUpdateVehicle  = () =>{
         <Grid container spacing={4} component="form">
         <Grid item xs={12} md={4}>
            <TextField 
-                id="filled-read-only-input"
                 value={plateNumber} 
                 name="plateNumber"
                 label="Plate Number" 
@@ -45,7 +44,6 @@ const ViewandUpdateVehicle  = () =>{
         </Grid>
         <Grid item xs={12} md={4}>
            <TextField
-                id="filled-read-only-input"
                 value={route} 
                 name="route"
                 label="Route" 
@@ -56,7 +54,6 @@ const ViewandUpdateVehicle  = () =>{
         </Grid>
         <Grid item xs={12} md={4}>
            <TextField 
-                id="filled-read-only-input"
                 value={vehicleType}
                 name="vehicleType"
                 label="Vehicle Type" 
@@ -67,7 +64,6 @@ const ViewandUpdateVehicle  = () =>{
         </Grid>
         <Grid item xs={12} md={6}>
             <TextField 
-                id="filled-read-only-input"
                 value={vin}
                 label="VIN" 
                 name="vin"
@@ -79,7 +75,6 @@ const ViewandUpdateVehicle  = () =>{
             </Grid>
         <Grid item xs={12} md={6}>
             <TextField 
-                id="filled-read-only-input"
                 value={rented===false?"Not Rented" : "Rented"}
                 size="small"
                 label="Rental Status" 
@@ -91,10 +86,8 @@ const ViewandUpdateVehicle  = () =>{
         </Grid>
         <Grid item xs={12} md={6}>
           <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label" >OR, CR Status</InputLabel>
+                <InputLabel >OR, CR Status</InputLabel>
                     <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select-required-label"
                         value={orStatus}
                         label="OR, CR Status"
                         required
@@ -110,10 +103,8 @@ const ViewandUpdateVehicle  = () =>{
         </Grid>
         <Grid item xs={12} md={6}>
             <FormControl fullWidth size="small">
-                <InputLabel id="demo-simple-select-label" >Vehicle Condition</InputLabel>
+                <InputLabel>Vehicle Condition</InputLabel>
                     <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select-required-label"
                         value={vehicleCondition}
                         label="Vehicle Condition"
                         required
@@ -128,7 +119,6 @@ const ViewandUpdateVehicle  = () =>{
         </Grid>
             <Grid item xs={12} md={6}>
                 <TextField 
-                    id="filled-read-only-input" 
                     value={makeModel}label="Make and Model" 
                     size="small"
                     variant="outlined" 
@@ -139,7 +129,6 @@ const ViewandUpdateVehicle  = () =>{
                 </Grid>
                 <Grid item xs={12} md={6}>
                 <TextField 
-                    id="filled-read-only-input"
                     value={rentalFee}
                     label="Rental Fee" 
                     size="small"

@@ -1,5 +1,5 @@
 import { ChangeEvent, useEffect, useState } from "react";
-import { Button, FormControl, Grid,  InputLabel, MenuItem, Select, SelectChangeEvent, Stack, TextField, } from "@mui/material";
+import { Button, FormControl, Grid,  InputLabel, MenuItem, Select, SelectChangeEvent, Stack, TextField, Typography, } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import VehicleService from "../../api/VehicleService";
 import axios from "axios";
@@ -121,10 +121,8 @@ const ViewandUpdateVehicle  = () =>{
         </Grid>
         <Grid item xs={12} md={6}>
           <FormControl fullWidth size="small">
-                <InputLabel id="demo-simple-select-label" >OR, CR Status</InputLabel>
+                <InputLabel >OR, CR Status</InputLabel>
                     <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
                         value={orStatus}
                         label="OR, CR Status"
                         required
@@ -141,10 +139,8 @@ const ViewandUpdateVehicle  = () =>{
         </Grid>
         <Grid item xs={12} md={6}>
             <FormControl fullWidth size="small">
-                <InputLabel id="demo-simple-select-label" >Vehicle Condition</InputLabel>
+                <InputLabel >Vehicle Condition</InputLabel>
                     <Select
-                        labelId="demo-simple-select-label"
-                        id="demo-simple-select"
                         value={vehicleCondition}
                         label="Vehicle Condition"
                         required
