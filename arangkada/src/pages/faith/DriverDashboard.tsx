@@ -30,7 +30,7 @@ const DriverDashboard = () => {
   ]
 
   useEffect(() => {
-    if(user !== null) {
+    if (user !== null) {
       RentalService.getRentalsByDriver(
         user.userId
       ).then((response) => {

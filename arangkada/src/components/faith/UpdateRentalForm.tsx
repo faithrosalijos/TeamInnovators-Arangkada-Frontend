@@ -127,7 +127,7 @@ const UpdateRentalForm = ({ currentRental, handleSetCurrentRental }: UpdateRenta
           }).catch((error) => {
             handleSetMessage(error.message + ". Failed to cancel rental application.");
           })
-          
+
         }).catch((error) => {
           handleSetMessage(error.message + ". Failed to cancel rental application.");
         })

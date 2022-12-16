@@ -18,7 +18,7 @@ const VehicleCard = ({ vehicle }: VehicleCardProps) => {
   const navigate = useNavigate();
 
   const handleRentVehicle = () => {
-    if(user !== null) {
+    if (user !== null) {
       RentalService.getCurrentRentalByDriver(
         user.userId
       ).then((response) => {

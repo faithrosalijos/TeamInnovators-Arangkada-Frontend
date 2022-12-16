@@ -18,7 +18,7 @@ const MyRental = () => {
   const [currentRental, setCurrentRental] = useState<Rental>({} as Rental);
 
   useEffect(() => {
-    if(user !== null) {
+    if (user !== null) {
       RentalService.getCurrentRentalByDriver(
         user.userId
       ).then((response) => {

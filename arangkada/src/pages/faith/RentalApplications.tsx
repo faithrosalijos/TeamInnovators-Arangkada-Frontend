@@ -18,9 +18,9 @@ const RentalApplications = () => {
   const [filteredPendingRentals, setFilteredPendingRentals] = useState<Rental[]>([]);
 
   useEffect(() => {
-    if( user !== null ) {
+    if (user !== null) {
       RentalService.getRentalsByOperatorAndStatus(
-        user.userId, 
+        user.userId,
         "PENDING"
       ).then((response) => {
         setPendingRentals(response.data);

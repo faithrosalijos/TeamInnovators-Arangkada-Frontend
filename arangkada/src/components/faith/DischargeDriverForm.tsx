@@ -61,7 +61,7 @@ const DischargeDriverForm = ({ rental }: DischargeDriverFormProps) => {
     navigate("../", { replace: true });
   }
 
-  return ( 
+  return (
     <Stack spacing={3} component="form" onSubmit={handleSubmit}>
       <TextField
         onChange={(event) => setPassword(event.target.value)}
@@ -87,7 +87,7 @@ const DischargeDriverForm = ({ rental }: DischargeDriverFormProps) => {
         <Button type="submit" variant="contained" sx={{ width: "250px" }}>Yes, Proceed</Button>
       </Stack>
     </Stack>
-   );
+  );
 }
- 
+
 export default DischargeDriverForm;

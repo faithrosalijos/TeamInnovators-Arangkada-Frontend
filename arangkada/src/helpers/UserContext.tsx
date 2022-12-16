@@ -1,5 +1,4 @@
 import { createContext, useState } from "react";
-import { Account } from "../api/dataTypes";
 
 export type User = {
   type: string,

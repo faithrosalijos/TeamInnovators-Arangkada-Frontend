@@ -26,7 +26,7 @@ const RentVehicleForm = () => {
     setEndDateError(null);
     setStartDateError(null);
 
-    if(user !== null) {
+    if (user !== null) {
       if (startDate === null)
         setStartDateError("Please enter a start date.");
       else if (startDate.toString() === "Invalid Date")

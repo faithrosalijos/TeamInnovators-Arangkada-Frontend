@@ -18,7 +18,7 @@ const Drivers = () => {
   const [filteredRentals, setFilteredRentals] = useState<Rental[]>([]);
 
   useEffect(() => {
-    if(user !== null) {
+    if (user !== null) {
       RentalService.getCurrentRentalsByOperator(
         user.userId
       ).then((response) => {
@@ -32,8 +32,8 @@ const Drivers = () => {
   }, [])
 
   useEffect(() => {
-    setFilteredRentals(rentals?.reverse().sort((r1, r2) => 
-      (r1.status > r2.status)? 1: (r1.status < r2.status)? -1: 0
+    setFilteredRentals(rentals?.reverse().sort((r1, r2) =>
+      (r1.status > r2.status) ? 1 : (r1.status < r2.status) ? -1 : 0
     ));
   }, [rentals])
 
