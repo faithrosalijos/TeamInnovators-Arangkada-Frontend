@@ -1,6 +1,6 @@
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { useEffect, useState, useContext } from "react";
-import { Payment, Rental } from "../../api/dataTypes";
+import { Payment } from "../../api/dataTypes";
 import PageHeader from "../../components/PageHeader";
 import Footer from "../../components/Footer";
 import PaymentService from "../../api/PaymentService";
@@ -19,25 +19,25 @@ const Payments = () => {
     const [error, setError] = useState("");
     const navigate = useNavigate();
     const [payments, setPayments] = useState<Payment[]>([]);
-    const [currentRental, setCurrentRental] = useState<Rental>({} as Rental);
 
     const handlePayRentClick = () => {
       if (user !== null) {
         RentalService.getCurrentRentalByDriver(
           user.userId
           ).then((response) => {
-            if(response.data === null){
+            if(response.data.current !== true){
               handleSetMessage("You are not currently renting any vehicles.");
             }
-          setError("");
+            else
+            {
+              navigate("/driver/payments/pay-rent/");
+            }
+            setError("");
         }).catch((error) => {
-          setError(error.message);
+          handleSetMessage(error.message);
         }).finally(() => {
           setLoading(false);
         })
-      }
-      else{
-        navigate("/driver/payments/pay-rent/");
       }
   }
     useEffect(() => {
@@ -46,7 +46,6 @@ const Payments = () => {
           user.userId
           ).then((response) => {
           setPayments(response.data);
-          // console.log(response.data); 
           setError("");
         }).catch((error) => {
           setError(error.message);
