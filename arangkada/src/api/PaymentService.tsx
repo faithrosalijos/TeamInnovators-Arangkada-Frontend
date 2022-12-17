@@ -5,6 +5,10 @@ const PAYMENT_BASE_URL = "http://localhost:8080/payment";
 
 class PaymentService {
 
+    getAllPayments() {
+      return axios.get(PAYMENT_BASE_URL+"/getAllPayments/");
+    }
+
     getPaymentById(id: string) {
       return axios.get(PAYMENT_BASE_URL+"/getPaymentById/"+id);
     }
