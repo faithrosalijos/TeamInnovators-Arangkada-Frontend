@@ -26,7 +26,7 @@ const DischargeDriverForm = ({ rental }: DischargeDriverFormProps) => {
     setPasswordError(null);
 
     if (password === "") {
-      setPasswordError("Please enter your password to confirm cancellation.")
+      setPasswordError("Please enter your password to confirm discharge.")
     } else if (password !== user?.password) {
       setPasswordError("Password is incorrect.")
     } else {
@@ -37,6 +37,7 @@ const DischargeDriverForm = ({ rental }: DischargeDriverFormProps) => {
           endDate: rental.endDate,
           status: "CANCELLED",
           current: false,
+          paid: rental.paid,
         }).then((response) => {
           VehicleService.putVehicleRented(
             response.data.vehicle.vehicleId,
