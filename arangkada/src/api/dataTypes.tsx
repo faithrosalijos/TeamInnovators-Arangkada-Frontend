@@ -51,6 +51,7 @@ export type Rental = {
   current: boolean,
   vehicle: Vehicle,
   driver: Driver,
+  paid: boolean,
 }
 
 export type PostRental = {
@@ -64,7 +65,8 @@ export type PutRental = {
   startDate: string,
   endDate: string,
   status: string,
-  current: boolean
+  current: boolean,
+  paid: boolean,
 }
 
 export type Payment = {
