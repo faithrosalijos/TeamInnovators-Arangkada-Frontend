@@ -1,6 +1,7 @@
 import { Box, Grid, Paper, Typography } from "@mui/material";
 import DashboardCard from "../../components/faith/DashboardCard";
-import { CarRental, Commute, Cancel, DoneAll } from "@mui/icons-material";
+import PriceCheckIcon from '@mui/icons-material/PriceCheck';
+import { CarRental, Commute } from "@mui/icons-material";
 import PageHeader from "../../components/PageHeader";
 import Footer from "../../components/Footer";
 import { useContext, useEffect, useState } from "react";
@@ -66,7 +67,7 @@ const OperatorDashboard = () => {
             </Grid>
             <Grid item xs={12} md={6} lg={3}>
               <DashboardCard title="Paid Drivers" count={rentals.filter((rental) => rental.paid === true).length}>
-                <Cancel fontSize="large" color="error" />
+                <PriceCheckIcon fontSize="large" color="success" />
               </DashboardCard>
             </Grid>
           </Grid>
