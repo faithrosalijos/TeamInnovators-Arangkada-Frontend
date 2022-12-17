@@ -65,7 +65,7 @@ const OperatorDashboard = () => {
               </DashboardCard>
             </Grid>
             <Grid item xs={12} md={6} lg={3}>
-              <DashboardCard title="Paid Drivers" count={rentals.filter((rental) => rental.status === "FINISHED").length}>
+              <DashboardCard title="Paid Drivers" count={rentals.filter((rental) => rental.paid === true).length}>
                 <Cancel fontSize="large" color="error" />
               </DashboardCard>
             </Grid>
