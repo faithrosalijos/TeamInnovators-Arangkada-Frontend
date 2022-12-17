@@ -37,6 +37,7 @@ const CancelRentalForm = ({ rental }: CancelRentalFormProps) => {
           endDate: rental.endDate,
           status: "CANCELLED",
           current: false,
+          paid: rental.paid,
         }).then((response) => {
           VehicleService.putVehicleRented(
             response.data.vehicle.vehicleId,

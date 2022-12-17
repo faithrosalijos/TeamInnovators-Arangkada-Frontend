@@ -41,12 +41,13 @@ const PayRentForm = ({rental}: RentalDetailsProps) => {
           {
             startDate: rental.startDate,
             endDate: rental.endDate,
-            status: "FINISHED",
-            current: false,
+            status: rental.status,
+            current: rental.current,
+            paid: true,
           }).then((response) => {
             VehicleService.putVehicleRented(
               response.data.vehicle.vehicleId,
-              false
+              true
             ).then(() => {})
           }).catch((error) => {
             handleSetMessage(error.message + ". Failed to update previous rental after payment.");
@@ -70,6 +71,7 @@ const PayRentForm = ({rental}: RentalDetailsProps) => {
         endDate: rental.endDate,
         status: "APPROVED",
         current: true,
+        paid: rental.paid,
       }).then((response) => {
         VehicleService.putVehicleRented(
           response.data.vehicle.vehicleId,

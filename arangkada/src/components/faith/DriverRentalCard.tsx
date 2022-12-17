@@ -1,4 +1,4 @@
-import { Button, Card, CardContent, Divider, Typography, Stack, CardActions, CardHeader } from "@mui/material";
+import { Button, Card, CardContent, Divider, Typography, Stack, CardActions, CardHeader, Chip } from "@mui/material";
 import { Home, Phone } from "@mui/icons-material/";
 import { Rental } from "../../api/dataTypes";
 import { useModal } from "mui-modal-provider";
@@ -44,6 +44,7 @@ const DriverRentalCard = ({ rental, handleDriverRentalApprove, handleDriverRenta
           endDate: rental.endDate,
           status: "DECLINED",
           current: false,
+          paid: rental.paid,
         }).then((response) => {
           VehicleService.putVehicleRented(
             response.data.vehicle.vehicleId,
@@ -75,6 +76,7 @@ const DriverRentalCard = ({ rental, handleDriverRentalApprove, handleDriverRenta
           endDate: rental.endDate,
           status: "APPROVED",
           current: rental.current,
+          paid: rental.paid,
         }).then((response) => {
           handleSetMessage("Rental approved.");
           handleDriverRentalApprove!(+response.data.rentalId);
@@ -88,7 +90,13 @@ const DriverRentalCard = ({ rental, handleDriverRentalApprove, handleDriverRenta
   return (
     <Card>
       <CardHeader
-        title={rental.driver.account.firstname + " " + rental.driver.account.lastname}
+        title={
+          <Stack direction="row" spacing={2} alignItems="center">
+            <Typography variant="h5">{rental.driver.account.firstname + " " + rental.driver.account.lastname}</Typography>
+            {/* {rental.paid === false && <Chip label="not paid" color="secondary" variant="outlined" size="small" sx={{ width: "70px" }} />}
+            {rental.paid === true && <Chip label="paid" color="secondary" size="small" sx={{ width: "75px" }} />} */}
+          </Stack>
+        }
         subheader={
           <Stack spacing={1} direction="row" mt={1} justifyContent="space-between" alignItems="end">
             <Stack spacing={{ xs: 1, sm: 2 }} direction={{ xs: "column", sm: "row" }}>
@@ -136,7 +144,6 @@ const DriverRentalCard = ({ rental, handleDriverRentalApprove, handleDriverRenta
                 {rental.status === "FINISHED" && <Status status="Finished" message="Driver is done with his rental." />}
                 <Stack direction={{ xs: "column-reverse", md: "row" }} width="100%" spacing={{ xs: 2, md: 3 }} justifyContent="end" >
                   {rental.status === "APPROVED" && <Button size="small" variant="contained" color="error" sx={{ width: "150px" }} onClick={handleDischarge}>Discharge</Button>}
-                  <Button size="small" variant="contained" sx={{ width: "150px" }} onClick={handleViewPayments}>View Payments</Button>
                 </Stack>
               </>
           }
