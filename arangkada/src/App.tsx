@@ -1,4 +1,5 @@
 import './styles/SupportStyles.css';
+import "@fontsource/inter"
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
 import DriverMainLayout from './layouts/DriverMainLayout';
@@ -51,7 +52,7 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: [
-      'Inter',
+      'inter',
       'sans-serif',
     ].join(','),
   },
