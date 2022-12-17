@@ -12,14 +12,13 @@ const UpdateSelectedPayment  = () =>{
     const [putPayment, setPutPayment]= useState({
         amount: "",
     })
-    //const { amount, rental } = payment;
     const updatePayment = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
         PaymentService.putPayment( 
-          param.toString(),
+          param.id.toString(),
           {
             amount: Number(putPayment.amount)
-           }) // TODO: Update not successful because of CORS policy error.
+           })
           .then((response)=> {
             handleSetMessage("Successfully updated Payment No. " + response.data.paymentId);
             navigate("/driver/payments");
