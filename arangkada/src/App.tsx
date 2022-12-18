@@ -18,7 +18,8 @@ import EditBusinessInfoPage from './pages/cara/EditBusinessInfoPage';
 import DeleteAccPage from './pages/cara/DeleteAccPage';
 import RegistrationOneOp from './pages/cara/RegistrationOneOp';
 import RegistrationTwoOp from './pages/cara/RegistrationTwoOp';
-import Landing from './components/karylle/LandingPage';
+import RegistrationDriver from './pages/karylle/RegisterDriver1';
+import Landing from './components/karylle/Landing';
 import ContactUsPage from './pages/cara/ContactUsPage';
 import AboutUsPageD from './pages/karylle/AboutUsPageD';
 import MyPayments from './pages/kerr/MyPayments';
@@ -34,6 +35,11 @@ import Snackbar from './components/Snackbar';
 import RentalApplications from './pages/faith/RentalApplications';
 import Drivers from './pages/faith/Drivers';
 import DischargeDriver from './pages/faith/DischargeDriver';
+import MainProfileD from './pages/karylle/MainProfileD';
+import EditAccPageD from './pages/karylle/EditAccPageD';
+import EditLicensePage from './pages/karylle/EditLicensePage';
+import DeleteAccPageD from './pages/karylle/DeleteAccPageD';
+import LoginPage from './pages/karylle/LoginPage';
 
 /* Customize default mui theme */
 const theme = createTheme({
@@ -79,6 +85,12 @@ const App = () => {
               <Route path="payrent" element={<PayRent />} />
             </Route>
           <Route path="rental" element={<CurrentRentalProvider><Rental /></CurrentRentalProvider>} />
+          <Route path="driverprofile">
+            <Route index element={<MainProfileD/>} />
+            <Route path="editdriverprof" element={<EditAccPageD/>} />
+            <Route path="editlicense" element={<EditLicensePage/>} />
+            <Route path="deletedr" element={<DeleteAccPageD/>} />
+          </Route>
           </Route>
 
         {/* Operator Pages */}
@@ -108,12 +120,13 @@ const App = () => {
         <Route path="registration">
           <Route index element={<RegistrationOneOp />} />
           <Route path="registeroperator" element={<RegistrationTwoOp />} />
+          <Route path="registerdriver" element={<RegistrationDriver />} />
         </Route>
 
         <Route path="landing" element={<Landing />} />
         <Route path="aboutus" element={<AboutUsPageD />} />
         <Route path="contactus" element={<ContactUsPage />} />
-        <Route path="login" element={<ContactUsPage />} />
+        <Route path="login" element={<LoginPage />} />
 
       </Routes>
 
