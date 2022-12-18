@@ -17,7 +17,7 @@ import EditBusinessInfoPage from './pages/cara/EditBusinessInfoPage';
 import DeleteAccPage from './pages/cara/DeleteAccPage';
 import RegistrationOneOp from './pages/cara/RegistrationOneOp';
 import RegistrationTwoOp from './pages/cara/RegistrationTwoOp';
-import LoginPage from './pages/karylle/LoginPage';
+import Landing from './components/karylle/LandingPage';
 import ContactUsPage from './pages/cara/ContactUsPage';
 import AboutUsPageD from './pages/karylle/AboutUsPageD';
 import Payments from './pages/kerr/Payments';
@@ -33,10 +33,6 @@ import Snackbar from './components/Snackbar';
 import RentalApplications from './pages/faith/RentalApplications';
 import Drivers from './pages/faith/Drivers';
 import DischargeDriver from './pages/faith/DischargeDriver';
-import { UserContext, UserContextType } from './helpers/UserContext';
-import { DriverRoute, OperatorRoute, PublicRoute } from './routes/routes';
-import { useContext, useEffect } from 'react';
-import UpdatePayment from './pages/kerr/UpdatePayment';
 
 /* Customize default mui theme */
 const theme = createTheme({
@@ -89,6 +85,8 @@ const App = () => {
                 <Route path="update/:id" element={<UpdatePayment />}/>
               </Route>
             </Route>
+          <Route path="rental" element={<CurrentRentalProvider><Rental /></CurrentRentalProvider>} />
+          </Route>
 
         {/* Operator Pages */}
         <Route path="operator" element={<OperatorRoute><OperatorMainLayout /></OperatorRoute>}>
@@ -113,21 +111,22 @@ const App = () => {
           </Route>
         </Route>
 
-            {/* Public Pages */}
-            <Route path="registration">
-              <Route index element={<PublicRoute><RegistrationOneOp /></PublicRoute>} />
-              <Route path="register-operator" element={<PublicRoute><RegistrationTwoOp /></PublicRoute>} />
-            </Route>
-            <Route path="about-us" element={<PublicRoute><AboutUsPageD /></PublicRoute>} />
-            <Route path="contact-us" element={<PublicRoute><ContactUsPage /></PublicRoute>} />
-            <Route path="" element={<PublicRoute><LoginPage /></PublicRoute>} />
+        {/* Other pages */}
+        <Route path="registration">
+          <Route index element={<RegistrationOneOp />} />
+          <Route path="registeroperator" element={<RegistrationTwoOp />} />
+        </Route>
 
-            {/* Invalid Path */}
-            |<Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-          <Snackbar />
-        </SnackbarContextProvider>
-      </ModalProvider>
+        <Route path="landing" element={<Landing />} />
+        <Route path="aboutus" element={<AboutUsPageD />} />
+        <Route path="contactus" element={<ContactUsPage />} />
+        <Route path="login" element={<ContactUsPage />} />
+
+      </Routes>
+
+      <Snackbar />
+    </SnackbarContextProvider>
+    </ModalProvider>
     </ThemeProvider>
   );
 }
