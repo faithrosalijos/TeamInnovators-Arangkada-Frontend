@@ -37,6 +37,11 @@ import { DriverRoute, OperatorRoute, PublicRoute } from './routes/routes';
 import { useContext, useEffect } from 'react';
 import UpdatePayment from './pages/kerr/UpdatePayment';
 import LoginPage from './pages/karylle/LoginPage';
+import MainProfileD from './pages/karylle/MainProfileD';
+import EditAccPageD from './pages/karylle/EditAccPageD';
+import EditLicensePage from './pages/karylle/EditLicensePage';
+import DeleteAccPageD from './pages/karylle/DeleteAccPageD';
+import RegisterDriver1 from './pages/karylle/RegisterDriver1';
 
 /* Customize default mui theme */
 const theme = createTheme({
@@ -88,6 +93,13 @@ const App = () => {
                 <Route path="pay-rent" element={<PayRent />} />
                 <Route path="update/:id" element={<UpdatePayment />}/>
               </Route>
+              <Route path="driverprofile">
+              <Route index element={<MainProfileD/>} />
+              <Route path="edit-driver-prof/:id" element={<EditAccPageD/>} />
+              <Route path="edit-license-info/:id" element={<EditLicensePage/>} />
+              <Route path="delete-dr/:id" element={<DeleteAccPageD/>} />
+            </Route>
+
             </Route>
 
         {/* Operator Pages */}
@@ -117,6 +129,7 @@ const App = () => {
         <Route path="registration">
           <Route index element={<PublicRoute><RegistrationOneOp /></PublicRoute>} />
           <Route path="register-operator" element={<PublicRoute><RegistrationTwoOp /></PublicRoute>} />
+          <Route path="registerdriver" element={<PublicRoute><RegisterDriver1 /></PublicRoute>} />
         </Route>
 
         <Route path="about-us" element={<PublicRoute><AboutUsPageD /></PublicRoute>} />
