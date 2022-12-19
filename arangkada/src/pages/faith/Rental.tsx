@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Chip, Stack, Typography } from "@mui/material";
 import { useContext, useEffect, useState } from "react";
 import RentalService from "../../api/RentalService";
 import Status from "../../components/faith/Status";
@@ -48,11 +48,16 @@ const MyRental = () => {
         {
           Object.keys(currentRental).length !== 0 ?
             <>
-              <Typography variant="h5">Rental ID: {currentRental.rentalId}</Typography>
-              <br></br>
-              {currentRental.status === "PENDING" && <Status status="Pending" message="Waiting for operator's response." />}
-              {currentRental.status === "APPROVED" && <Status status="Approved" message="Operator has approved your application." />}
-              {currentRental.status === "FINISHED" && <Status status="Finished" message="You have finished your rental." />}
+              <Stack direction={{ xs: "column-reverse", md: "row" }} spacing={2} alignItems="center">
+                {currentRental.status === "PENDING" && <Status status="Pending" message="Waiting for operator's response." />}
+                {currentRental.status === "APPROVED" && <Status status="Approved" message="Operator has approved your application." />}
+                {currentRental.status === "FINISHED" && <Status status="Finished" message="You have finished your rental." />}
+                <Stack width="100%" alignItems={{ xs: "start", md: "end" }} spacing={1}>
+                  <Typography variant="body2" color="text.secondary"><b>RENTAL ID: {currentRental.rentalId}</b></Typography>
+                  {/* {currentRental.paid === false && <Chip label="not paid" color="secondary" variant="outlined" size="small" sx={{ width: "70px" }} />}
+                  {currentRental.paid === true && <Chip label="paid" color="secondary" size="small" sx={{ width: "75px" }} />} */}
+                </Stack> 
+              </Stack>
               <br></br>
               <VehicleDetails vehicle={currentRental.vehicle} />
               <br></br>

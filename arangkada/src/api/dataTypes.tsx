@@ -40,6 +40,7 @@ export type Vehicle = {
   operator: Operator,
   isDeleted?: boolean,
   rented?: boolean,
+  deletionReason?:String,
 }
 
 export type Rental = {
@@ -50,6 +51,7 @@ export type Rental = {
   current: boolean,
   vehicle: Vehicle,
   driver: Driver,
+  paid: boolean,
 }
 
 export type PostRental = {
@@ -63,7 +65,8 @@ export type PutRental = {
   startDate: string,
   endDate: string,
   status: string,
-  current: boolean
+  current: boolean,
+  paid: boolean,
 }
 
 export type Payment = {
@@ -71,4 +74,12 @@ export type Payment = {
   amount: number,
   datePaid: string,
   rental: Rental
+}
+
+export type PutPayment = {
+  amount: number
+}
+
+export type PutCollected = {
+  collected: boolean
 }

@@ -1,14 +1,16 @@
 import { Box, Button, FormControl, InputLabel, MenuItem, Select, Stack, TextField } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AccountService from "../../api/AccountService";
 import { Account } from "../../api/dataTypes";
 import DriverService from "../../api/DriverService";
+import {UserContext, UserContextType } from "../../helpers/UserContext";
 
 
 export default function DisplayProfileDriver() {
     const navigate = useNavigate();
     const para = useParams() as { id: string };
+    const {user} = useContext(UserContext) as UserContextType;
 
     const [account, setAccount]= useState({
         firstname: "",
@@ -36,25 +38,27 @@ export default function DisplayProfileDriver() {
     
 
     useEffect(() => {
-    DriverService.getDriverbyDriverId("26").then((response) => {
-            setAccount(response.data.account);
-            console.log(response.data.account)
-            setLicenseNumber(response.data.businessName)
-            setLicenseCode(response.data.permitNumber)
-           //console.log(response.data.businessName)
-        }).catch((error) => {
-          console.log(error);
-        })
+        if(user != null){
+            DriverService.getDriverbyDriverId(user.userId).then((response) => {
+                setAccount(response.data.account);
+                console.log(response.data.account)
+                setLicenseNumber(response.data.licenseNumber)
+                setLicenseCode(response.data.licenseCode)
+            }).catch((error) => {
+              console.log(error);
+            })
+        }
       }, []);
 
     const handleUserEditClick = () => {
-        navigate("/driver/driverprofile/editdriverprof/");
+        navigate("/driver/driverprofile/edit-driver-prof/" + user?.accountId);
     }
+    
     const handleLicenseEditClick = () => {
-        navigate("/driver/driverprofile/editlicense/");
+        navigate("/driver/driverprofile/edit-license-info/" + user?.userId);
     }
     const handleDeleteClick = () => {
-        navigate("/driver/driverprofile/deletedr/");
+        navigate("/driver/driverprofile/delete-dr/" + user?.userId);
     }
 
     return (

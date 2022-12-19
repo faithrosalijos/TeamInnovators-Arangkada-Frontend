@@ -1,9 +1,13 @@
 import axios from "axios";
-import { Payment } from "./dataTypes";
+import { Payment, PutPayment, PutCollected } from "./dataTypes";
 
 const PAYMENT_BASE_URL = "http://localhost:8080/payment";
 
 class PaymentService {
+
+    getAllPayments() {
+      return axios.get(PAYMENT_BASE_URL+"/getAllPayments/");
+    }
 
     getPaymentById(id: string) {
       return axios.get(PAYMENT_BASE_URL+"/getPaymentById/"+id);
@@ -17,8 +21,12 @@ class PaymentService {
       return axios.post(PAYMENT_BASE_URL + "/postPayment/", payment);
     }
 
-    putPayment(id: string) {
-      return axios.put(PAYMENT_BASE_URL+"/putPayment/"+id);
+    putPayment(id: string, putPayment: PutPayment) {
+      return axios.put(PAYMENT_BASE_URL+"/putPayment/"+id, putPayment);
+    }
+
+    putCollected(id: string, putCollected: PutCollected) {
+      return axios.put(PAYMENT_BASE_URL+"/putCollected/"+id, putCollected);
     }
 
     deletePayment(id: string) {

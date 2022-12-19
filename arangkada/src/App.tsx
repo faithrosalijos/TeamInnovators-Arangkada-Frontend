@@ -1,4 +1,5 @@
 import './styles/SupportStyles.css';
+import "@fontsource/inter"
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
 import DriverMainLayout from './layouts/DriverMainLayout';
@@ -16,7 +17,6 @@ import EditBusinessInfoPage from './pages/cara/EditBusinessInfoPage';
 import DeleteAccPage from './pages/cara/DeleteAccPage';
 import RegistrationOneOp from './pages/cara/RegistrationOneOp';
 import RegistrationTwoOp from './pages/cara/RegistrationTwoOp';
-import LoginPage from './pages/karylle/LoginPage';
 import ContactUsPage from './pages/cara/ContactUsPage';
 import AboutUsPageD from './pages/karylle/AboutUsPageD';
 import Payments from './pages/kerr/Payments';
@@ -36,6 +36,12 @@ import { UserContext, UserContextType } from './helpers/UserContext';
 import { DriverRoute, OperatorRoute, PublicRoute } from './routes/routes';
 import { useContext, useEffect } from 'react';
 import UpdatePayment from './pages/kerr/UpdatePayment';
+import LoginPage from './pages/karylle/LoginPage';
+import MainProfileD from './pages/karylle/MainProfileD';
+import EditAccPageD from './pages/karylle/EditAccPageD';
+import EditLicensePage from './pages/karylle/EditLicensePage';
+import DeleteAccPageD from './pages/karylle/DeleteAccPageD';
+import RegisterDriver1 from './pages/karylle/RegisterDriver1';
 
 /* Customize default mui theme */
 const theme = createTheme({
@@ -51,7 +57,7 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: [
-      'Inter',
+      'inter',
       'sans-serif',
     ].join(','),
   },
@@ -70,7 +76,7 @@ const App = () => {
 
       <ModalProvider>
         <SnackbarContextProvider>
-          <Routes>
+        <Routes>
             {/* Driver Pages */}
             <Route path="driver" element={<DriverRoute><DriverMainLayout /></DriverRoute>}>
               <Route index element={<DriverDashboard />} />
@@ -87,6 +93,13 @@ const App = () => {
                 <Route path="pay-rent" element={<PayRent />} />
                 <Route path="update/:id" element={<UpdatePayment />}/>
               </Route>
+              <Route path="driverprofile">
+              <Route index element={<MainProfileD/>} />
+              <Route path="edit-driver-prof/:id" element={<EditAccPageD/>} />
+              <Route path="edit-license-info/:id" element={<EditLicensePage/>} />
+              <Route path="delete-dr/:id" element={<DeleteAccPageD/>} />
+            </Route>
+
             </Route>
 
         {/* Operator Pages */}
@@ -112,21 +125,22 @@ const App = () => {
           </Route>
         </Route>
 
-            {/* Public Pages */}
-            <Route path="registration">
-              <Route index element={<PublicRoute><RegistrationOneOp /></PublicRoute>} />
-              <Route path="register-operator" element={<PublicRoute><RegistrationTwoOp /></PublicRoute>} />
-            </Route>
-            <Route path="about-us" element={<PublicRoute><AboutUsPageD /></PublicRoute>} />
-            <Route path="contact-us" element={<PublicRoute><ContactUsPage /></PublicRoute>} />
-            <Route path="" element={<PublicRoute><LoginPage /></PublicRoute>} />
+        {/* Public pages */}
+        <Route path="registration">
+          <Route index element={<PublicRoute><RegistrationOneOp /></PublicRoute>} />
+          <Route path="register-operator" element={<PublicRoute><RegistrationTwoOp /></PublicRoute>} />
+          <Route path="registerdriver" element={<PublicRoute><RegisterDriver1 /></PublicRoute>} />
+        </Route>
 
-            {/* Invalid Path */}
-            |<Route path="*" element={<Navigate to="/" replace />} />
-          </Routes>
-          <Snackbar />
-        </SnackbarContextProvider>
-      </ModalProvider>
+        <Route path="about-us" element={<PublicRoute><AboutUsPageD /></PublicRoute>} />
+        <Route path="contact-us" element={<PublicRoute><ContactUsPage /></PublicRoute>} />
+        <Route path="" element={<PublicRoute><LoginPage /></PublicRoute>} />
+
+        <Route path="*" element={<Navigate to="/" replace />}/>
+      </Routes>
+      <Snackbar />
+    </SnackbarContextProvider>
+    </ModalProvider>
     </ThemeProvider>
   );
 }

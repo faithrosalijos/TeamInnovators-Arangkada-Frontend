@@ -2,7 +2,6 @@ import { Button, FormControl, Grid,  InputLabel, MenuItem, Select, SelectChangeE
 import { useNavigate, useParams } from "react-router-dom";
 import { ChangeEvent, useEffect, useState, useContext } from "react";
 import PaymentService from "../../api/PaymentService";
-import axios from "axios";
 import { SnackbarContext, SnackbarContextType } from "../../helpers/SnackbarContext";
 
 const UpdateSelectedPayment  = () =>{
@@ -10,44 +9,37 @@ const UpdateSelectedPayment  = () =>{
     const navigate = useNavigate();
     const param = useParams() as { id: string };
 
-    const [payment, setPayment]= useState({
-        paymentId: "",
+    const [putPayment, setPutPayment]= useState({
         amount: "",
-        rental: {
-            rentalId: ""
-        }
     })
-    const { amount, rental } = payment;
     const updatePayment = async (e: { preventDefault: () => void; }) => {
         e.preventDefault();
-        await axios.put(`http://localhost:8080/payment/putPayment/${param.id}`,{
-        // VehicleService.putVehicle( {
-        amount: payment.amount,
-        rental: payment.rental
-    })
-    .then((res:any)=> console.log('Editing Data'))
-    .catch((err:string) => console.log(err))
-    // alert("Changes Successfully change")
-    // navigate("/operator/view-payment")
+        PaymentService.putPayment( 
+          param.id.toString(),
+          {
+            amount: Number(putPayment.amount)
+           })
+          .then((response)=> {
+            handleSetMessage("Successfully updated Payment No. " + response.data.paymentId);
+            navigate("/driver/payments");
+
+          })
+          .catch((error) => {
+            handleSetMessage("Failed to update payment." + error.message);
+          })
     };
 
   useEffect(() => {
-    // console.log(isRented)
     PaymentService.getPaymentById(param.id).then((response) => {
-      setPayment(response.data);
-    //   console.log(response.data)
+      setPutPayment(response.data);
     }).catch((error) => {
       console.log(error);
     })
   }, []);
      
-    const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        setPayment({ ...payment, [e.target.name]: e.target.value });
-        //console.log(e.target.name)
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setPutPayment({ ...putPayment, [e.target.name]: e.target.value });
     };
-    const handleSelectChange = (event: SelectChangeEvent) => {
-        setPayment({ ...payment, [event.target.name]: event.target.value });
-    }
 
     return ( 
         <>
@@ -55,32 +47,19 @@ const UpdateSelectedPayment  = () =>{
         <Grid item xs={12} md={4}>
            <TextField 
                 onChange={handleChange} 
-                disabled
-                value={amount} 
+                value={putPayment.amount} 
                 name="amount"
                 label="Amount" 
                 size="small"
                 fullWidth 
+                required
             >
             </TextField> 
-        </Grid>
-        <Grid item xs={12} md={4}>
-           <TextField 
-                onChange={handleChange} 
-                value={rental.rentalId}
-                name="rentalId"
-                disabled
-                label="Rental Id" 
-                size="small" 
-                fullWidth 
-            >
-           </TextField>
         </Grid>
             <Grid item xs={12} >
             <Stack spacing={3} direction={{ xs: "column-reverse", md: "row" }} sx={{ justifyContent: "end" }}>
               <Button  onClick={() => navigate(-1)} color="secondary" variant="contained" sx={{ width: "250px" }}>Cancel</Button>
               <Button  type="submit" variant="contained" sx={{ width: "250px"}}>Save Changes</Button> 
-              {/* onClick={(e)=>{e.preventDefault(); console.log(data)}} */}
             </Stack>
             </Grid>
         </Grid>

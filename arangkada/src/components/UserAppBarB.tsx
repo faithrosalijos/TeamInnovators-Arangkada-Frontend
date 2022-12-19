@@ -14,7 +14,7 @@ export default function DrawerAppBar() {
     const navItems: { text: string, link: string }[] = [
       { text: "About Us", link: "/about-us" },
       { text: "Contact Us", link: "/contact-us" },
-      { text: "Login", link: "/" },
+      { text: "Login", link: "/login" },
       { text: "Register", link: "/registration" },
     ];
 

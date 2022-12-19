@@ -7,7 +7,7 @@ import UserAppbar from "../../components/UserAppbar"
 export default function RegistrationOne() {
     return (
       <Stack className="bgimg">
-        <UserAppbar></UserAppbar>
+
         <Stack 
           direction={{ xs: "column", md: "row" }} 
           sx={{ margin: "auto", width: "90%", padding: "112px 0 32px 0" }} 

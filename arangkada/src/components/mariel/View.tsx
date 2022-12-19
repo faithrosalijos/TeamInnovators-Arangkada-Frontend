@@ -21,6 +21,7 @@ const ViewandUpdateVehicle  = () =>{
         rented: false,
     })
     const { plateNumber, route, vehicleType, makeModel,vin,orStatus,vehicleCondition,rentalFee, rented} = vehicle;
+    
   useEffect(() => {
     VehicleService.getVehicleByVehicleId(para.id).then((response) => {
       setVehicle(response.data);
@@ -97,7 +98,6 @@ const ViewandUpdateVehicle  = () =>{
                         <MenuItem value={'Updated'}>Updated</MenuItem>
                         <MenuItem value={'Renewed'}>Renewed</MenuItem>
                         <MenuItem value={'Expired'}>Expired</MenuItem> 
-                    {/* {myVehicle.orStatus} */}
                     </Select>  
             </FormControl> 
         </Grid>
@@ -111,9 +111,8 @@ const ViewandUpdateVehicle  = () =>{
                         name="vehicleCondition"
                         size="small"
                     >
-                        <MenuItem value={'Ready to use'}>Ready To Use</MenuItem>
+                        <MenuItem value={'Ready To Use'}>Ready To Use</MenuItem>
                         <MenuItem value={'Not Ready To Use'}>Not Ready To Use</MenuItem> 
-                    {/* {myVehicle.condition} */}
                     </Select>  
             </FormControl> 
         </Grid>

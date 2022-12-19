@@ -10,11 +10,10 @@ const VehicleDetails = ({ vehicle }: VehicleDetailsProps) => {
 
   return (
     <div>
-      <Typography variant="h6">{vehicle.operator.businessName}</Typography>
+      <Typography variant="h5">{vehicle.operator.businessName}</Typography>
 
       {/* Operator Information */}
       <Stack spacing={1} direction="column" mt={1}>
-        <Typography variant="body2" color="text.secondary"><b>VEHICLE ID: {vehicle.vehicleId}</b></Typography>
         <Stack spacing={{ xs: 1, sm: 2 }} direction={{ xs: "column", sm: "row" }}>
           <Stack spacing={0.5} direction="row" alignItems="center">
             <Person sx={{ color: "text.secondary" }} />
@@ -29,6 +28,7 @@ const VehicleDetails = ({ vehicle }: VehicleDetailsProps) => {
       <br></br>
 
       {/* Vehicle Information */}
+      <Typography variant="body1">Vehicle ID: <b>{vehicle.vehicleId}</b></Typography>
       <Typography variant="body1">Plate Number: <b>{vehicle.plateNumber}</b></Typography>
       <Typography variant="body1">Vehicle Type: <b>{vehicle.vehicleType}</b></Typography>
       <Typography variant="body1">Vehicle Make: <b>{vehicle.makeModel}</b></Typography>

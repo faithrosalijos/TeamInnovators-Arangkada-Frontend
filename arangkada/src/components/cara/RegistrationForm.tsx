@@ -86,7 +86,7 @@ export default function RegistrationForm() {
     };
 
     const handleLoginClick = () => {
-        navigate("/");
+        navigate("/login");
     }
 
     const handleSelectChange = (event: SelectChangeEvent) => {

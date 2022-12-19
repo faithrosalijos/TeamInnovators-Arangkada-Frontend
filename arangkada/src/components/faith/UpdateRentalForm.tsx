@@ -52,6 +52,7 @@ const UpdateRentalForm = ({ currentRental, handleSetCurrentRental }: UpdateRenta
           endDate: endDate.toJSON(),
           status: currentRental.status,
           current: currentRental.current,
+          paid: currentRental.paid,
         }).then((response) => {
           handleSetCurrentRental(response.data);
           handleSetMessage("Rental updated.");
@@ -62,48 +63,51 @@ const UpdateRentalForm = ({ currentRental, handleSetCurrentRental }: UpdateRenta
   }
 
   const handleCancelRental = () => {
-    navigate("/driver/rental/cancel", { state: { rental: currentRental } });
-
-    // If not paid
-    // const modal = showModal(NoticeModal, {
-    //   title: "Pay your rental fee first.",
-    //   content: "You can only cancel your rental if you have already settled your payments.",
-    //   onOkay: () => { 
-    //     modal.hide();
-    //   }
-    // });
+    if(currentRental.paid === true) {
+      navigate("/driver/rental/cancel", { state: { rental: currentRental } });
+    } else {
+      const modal = showModal(NoticeModal, {
+        title: "Pay your rental fee first.",
+        content: "You can only cancel your rental if you have already settled your payments.",
+        onOkay: () => { 
+          modal.hide();
+        }
+      });
+    }
   }
 
   const handleFinishRental = () => {
-    RentalService.putRental(
-      currentRental.rentalId.toString(),
-      {
-        startDate: currentRental.startDate,
-        endDate: currentRental.endDate,
-        status: currentRental.status,
-        current: false,
-      }).then((response) => {
-        VehicleService.putVehicleRented(
-          response.data.vehicle.vehicleId,
-          false
-        ).then(() => {
-          handleSetCurrentRental({} as Rental);
-          handleSetMessage("Rental finished.");
+    if(currentRental.paid === true) {
+      RentalService.putRental(
+        currentRental.rentalId.toString(),
+        {
+          startDate: currentRental.startDate,
+          endDate: currentRental.endDate,
+          status: currentRental.status,
+          current: false,
+          paid: currentRental.paid,
+        }).then((response) => {
+          VehicleService.putVehicleRented(
+            response.data.vehicle.vehicleId,
+            false
+          ).then(() => {
+            handleSetCurrentRental({} as Rental);
+            handleSetMessage("Rental finished.");
+          }).catch((error) => {
+            handleSetMessage(error.message + ". Failed to finish rental.");
+          })
         }).catch((error) => {
           handleSetMessage(error.message + ". Failed to finish rental.");
         })
-      }).catch((error) => {
-        handleSetMessage(error.message + ". Failed to finish rental.");
-      })
-
-    // If not paid
-    // const modal = showModal(NoticeModal, {
-    //   title: "Pay your rental fee first.",
-    //   content: "You can only finish your rental if you have already settled your payments.",
-    //   onOkay: () => { 
-    //     modal.hide();
-    //   }
-    // });
+    } else {
+      const modal = showModal(NoticeModal, {
+        title: "Pay your rental fee first.",
+        content: "You can only finish your rental if you have already settled your payments.",
+        onOkay: () => { 
+          modal.hide();
+        }
+      });
+    }
   }
 
   const handleCancel = () => {
