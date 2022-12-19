@@ -79,3 +79,7 @@ export type Payment = {
 export type PutPayment = {
   amount: number
 }
+
+export type PutCollected = {
+  collected: boolean
+}

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Payment, PutPayment } from "./dataTypes";
+import { Payment, PutPayment, PutCollected } from "./dataTypes";
 
 const PAYMENT_BASE_URL = "http://localhost:8080/payment";
 
@@ -23,6 +23,10 @@ class PaymentService {
 
     putPayment(id: string, putPayment: PutPayment) {
       return axios.put(PAYMENT_BASE_URL+"/putPayment/"+id, putPayment);
+    }
+
+    putCollected(id: string, putCollected: PutCollected) {
+      return axios.put(PAYMENT_BASE_URL+"/putCollected/"+id, putCollected);
     }
 
     deletePayment(id: string) {
