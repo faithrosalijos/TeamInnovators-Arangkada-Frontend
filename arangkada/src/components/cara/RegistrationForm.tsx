@@ -158,7 +158,7 @@ export default function RegistrationForm() {
                     InputProps={{ endAdornment: (<InputAdornment position="end"> <IconButton onClick={handlePasswordShow}>{showPassword? <VisibilityOff />: <Visibility /> }</IconButton> </InputAdornment>) }} 
                 />
             <Button variant="contained" type="submit" style={{backgroundColor: '#D2A857', marginTop: 25, paddingInline: 40}}>Continue</Button><br></br>
-            <p style={{color: 'gray', fontSize: '15px'}}>By continuing, you agree to Arangkadas's <a href="https://www.facebook.com/cara.q.encabo"  className="links">Terms of Service</a> and acknowledge you've read our <a href="https://www.facebook.com/cara.q.encabo" className="links">Privacy Policy</a></p>
+            <p style={{color: 'gray', fontSize: '15px'}}>By continuing, you agree to Arangkadas's <a href="https://www.lipsum.com/"  className="links">Terms of Service</a> and acknowledge you've read our <a href="https://www.lipsum.com/" className="links">Privacy Policy</a></p>
 
             <Button className="links" onClick={handleLoginClick} style={{fontSize: '18px'}} variant="text">Have an account? Log in</Button>
         
