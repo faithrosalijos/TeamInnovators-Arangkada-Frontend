@@ -12,8 +12,14 @@ import {UserContext, UserContextType } from "../../helpers/UserContext";
 export default function OperatorInfo() {
     
     const navigate = useNavigate();
+    const [showPassword, setShowPassword] = useState(false);
     const location = useLocation();
     const { user, handleSetUser } = useContext(UserContext) as UserContextType;
+
+    const handlePasswordShow = () => {
+        setShowPassword(!showPassword);
+    }
+
     const handleCancelClick = () => {
         navigate("/operator/operator-profile/");
     }
@@ -93,7 +99,7 @@ export default function OperatorInfo() {
             </div>
             <div className="three">
                 <TextField required id="outlined-required" label="Firstname" name="firstname" value={firstname} onChange={handleChange} sx={{margin: 2}}/>
-                <TextField required id="outlined-required" label="Middlename" name="middlename" value={middlename} onChange={handleChange} sx={{margin: 2}}/>
+                <TextField id="outlined-basic" label="Middlename" name="middlename" value={middlename} onChange={handleChange} sx={{margin: 2}}/>
                 <TextField required id="outlined-required" label="Lastname" name="lastname" value={lastname} onChange={handleChange} sx={{margin: 2}}/>
             </div>
             <div className="two">
@@ -121,7 +127,7 @@ export default function OperatorInfo() {
             <div className="one">
                 <TextField required id="outlined-required" label="Address" name="address" value={address} onChange={handleChange} sx={{margin: 2}}/>
                 <TextField required id="outlined-required" label="Username" name="username" value={username} onChange={handleChange} sx={{margin: 2}}/>
-                <TextField required id="outlined-required" label="Password" name="password" value={password} onChange={handleChange} sx={{margin: 2}}/>
+                <TextField required id="outlined-required" type={showPassword? "text": "password"} label="Password" name="password" value={password} InputProps={{ endAdornment: (<InputAdornment position="end"> <IconButton onClick={handlePasswordShow}>{showPassword? <VisibilityOff />: <Visibility />}</IconButton> </InputAdornment>) }} onChange={handleChange} sx={{margin: 2}}/>
             </div>
             
             <Stack direction="row" justifyContent="end" padding={3}>

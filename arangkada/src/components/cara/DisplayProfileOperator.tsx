@@ -98,7 +98,7 @@ export default function DisplayProfileOperator() {
             <div className="one">
                 <TextField id="outlined-read-only-input" name="address" value={address}  label="Address" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
                 <TextField id="outlined-read-only-input" name="username" value={username}  label="Username" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
-                <TextField id="outlined-read-only-input" name="password" value={password}  label="Password" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
+                <TextField id="outlined-read-only-input" name="password" type="password" value={password}  label="Password" InputProps={{readOnly: true,}} sx={{margin: 2}}/>
                 <Stack direction="row" justifyContent="end">
                     <Button variant="contained" onClick={handleUserEditClick} style={{backgroundColor: '#D2A857', marginTop: 25, marginLeft: 15, marginRight: 15, paddingInline: 60}}>Edit</Button>
                 </Stack>
