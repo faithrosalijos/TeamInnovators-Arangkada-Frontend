@@ -13,7 +13,7 @@ const TransactionCard = ({ transactions }: TransactionCardProps) => {
         <>
         <Card>
           <CardHeader 
-            title={transactions.rental.vehicle.plateNumber}
+            title={transactions.rental.driver.account.firstname + " " + transactions.rental.driver.account.lastname}
             subheader={
                 <>
                   <Stack spacing={0.5} direction="row" alignItems="center">
@@ -28,25 +28,40 @@ const TransactionCard = ({ transactions }: TransactionCardProps) => {
           <Divider />
           <CardContent>
               <Typography 
+                  variant="body1">Vehicle Rented: <b>{transactions.rental.vehicle.plateNumber}</b> 
+              </Typography>
+              <Typography 
                   variant="body1">Date Paid: <b>{transactions.datePaid}</b> 
               </Typography>
               <Typography 
-                  variant="body1">Business Name: <b>{transactions.rental.vehicle.operator.businessName}</b> 
-              </Typography>
-              <Typography 
-                  variant="body1">Operator Name: <b>{transactions.rental.vehicle.operator.account.firstname + ' ' + transactions.rental.vehicle.operator.account.lastname}</b>
+                  variant="body1">Contact Number: <b>{transactions.rental.vehicle.operator.account.contactNumber}</b>
               </Typography>
           </CardContent>
+          {transactions.collected === false && 
           <CardActions sx={{ justifyContent: "end" }}>
-            <Link to={"/driver/payments/update/"+ transactions.paymentId } style={{ textDecoration: 'none' }}> 
+            <Link to={"/operator/transactions/collect/"+ transactions.paymentId } style={{ textDecoration: 'none' }}> 
             <Button
                size="small" 
                variant="contained"
                sx={{width:"150px"}}>
-                Edit
+                Collect
               </Button>
               </Link>
           </CardActions>
+          }
+          {transactions.collected === true && 
+          <CardActions sx={{ justifyContent: "end" }}>
+            <Button
+               size="small"
+               disabled 
+               color="info"
+               variant="contained"
+               sx={{width:"225px"}}>
+                Already Collected
+              </Button>
+          </CardActions>
+          }
+          
         </Card>
         </>
       );
