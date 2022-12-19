@@ -14,6 +14,7 @@ type RentalDetailsProps = {
 
 const PayRentForm = ({rental}: RentalDetailsProps) => {
     const navigate = useNavigate();
+    const duration = (new Date(rental.endDate).valueOf() - new Date(rental.startDate).valueOf());
     const { handleSetMessage } = useContext(SnackbarContext) as SnackbarContextType;
     const [data, setData] = useState({
       paymentId: "",
@@ -30,7 +31,7 @@ const PayRentForm = ({rental}: RentalDetailsProps) => {
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
 
-      if(Number(data.amount) >= rental.vehicle.rentalFee)
+      if(Number(data.amount) >= rental.vehicle.rentalFee*(duration/86400000))
       {
         PaymentService.postPayment({
           paymentId: -1,
