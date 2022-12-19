@@ -74,6 +74,7 @@ export type Payment = {
   amount: number,
   datePaid: string,
   rental: Rental
+  collected: boolean
 }
 
 export type PutPayment = {

@@ -19,7 +19,8 @@ const PayRentForm = ({rental}: RentalDetailsProps) => {
       paymentId: "",
       amount: "",
       datePaid: "",
-      rental: ""
+      rental: "",
+      collected: false
     })
   
     const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -35,7 +36,8 @@ const PayRentForm = ({rental}: RentalDetailsProps) => {
           paymentId: -1,
           amount: Number(data.amount),
           datePaid: new Date(new Date().setHours(0, 0, 0, 0)).toJSON(),
-          rental: rental
+          rental: rental,
+          collected: false
         }).then((response) => {
           RentalService.putRental(response.data.rental.rentalId.toString(),
           {
