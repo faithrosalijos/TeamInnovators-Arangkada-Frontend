@@ -1,7 +1,11 @@
 import { Payment } from "../../api/dataTypes";
+import { useEffect, useState, useContext } from "react";
+import { useModal } from "mui-modal-provider";
+import { NoticeModal } from "../../components/Modals";
 import PaymentIcon from '@mui/icons-material/Payment';
 import RentIcon from '@mui/icons-material/CarRental';
-import { Link } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { SnackbarContext, SnackbarContextType } from "../../helpers/SnackbarContext";
 import { Button, Card, CardActions, CardContent, CardHeader, Divider, Stack, Typography } from "@mui/material";
 
 type MyPaymentCardProps = {
@@ -9,6 +13,25 @@ type MyPaymentCardProps = {
   }
 
 const PaymentCard = ({ myPayment }: MyPaymentCardProps) => {
+  const navigate = useNavigate()
+  const { showModal } = useModal();
+
+  const handleEditPaymentClick = () =>{
+    if(myPayment.collected === true)
+        {
+          const modal = showModal(NoticeModal, {
+            title: "You are not allowed to edit this payment.",
+            content: "This payment has already been collected by the operator.",
+            onOkay: () => {
+              modal.hide();
+            }
+          });
+        }
+        else
+        {
+          navigate("/driver/payments/update/"+ myPayment.paymentId);
+        }
+  }
     return (
         <>
         <Card>
@@ -38,14 +61,13 @@ const PaymentCard = ({ myPayment }: MyPaymentCardProps) => {
               </Typography>
           </CardContent>
           <CardActions sx={{ justifyContent: "end" }}>
-            <Link to={"/driver/payments/update/"+ myPayment.paymentId } style={{ textDecoration: 'none' }}> 
             <Button
                size="small" 
                variant="contained"
+               onClick={handleEditPaymentClick}
                sx={{width:"150px"}}>
                 Edit
               </Button>
-              </Link>
           </CardActions>
         </Card>
         </>
