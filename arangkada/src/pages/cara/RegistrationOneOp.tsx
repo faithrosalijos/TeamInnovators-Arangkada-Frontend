@@ -21,7 +21,7 @@ export default function RegistrationOne() {
                   </div>
                 </div>
               </div>
-              <Footer name="Cara Carmel Encabo" course="BSIT" section="G2"/>
+              <Footer name="Cara Carmel Encabo and Karylle Jay Caballero" course="BSIT" section="G2"/>
             </div>
         </div>
       </div>

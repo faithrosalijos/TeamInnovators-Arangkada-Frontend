@@ -10,6 +10,7 @@ export default function RegistrationOne() {
       <div>
         <UserAppBarB></UserAppBarB>
         <ContactUs></ContactUs>
+        <Footer name="Cara Carmel Encabo" course="BSIT" section="G2"/>
       </div>
       
     )
