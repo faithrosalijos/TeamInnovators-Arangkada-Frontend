@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Button, CardActions, Stack, Typography } from "@mui/material";
 import { useEffect, useState, useContext } from "react";
 import { Payment } from "../../api/dataTypes";
 import PageHeader from "../../components/PageHeader";
@@ -12,6 +12,8 @@ import { SnackbarContext, SnackbarContextType } from "../../helpers/SnackbarCont
 
 const Transactions = () => {
     const { handleSetMessage } = useContext(SnackbarContext) as SnackbarContextType;
+    const [flag1, setFlag1] = useState(true);
+    const [flag2, setFlag2] = useState(true);
     const { user } = useContext(UserContext) as UserContextType;
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
@@ -35,14 +37,65 @@ const Transactions = () => {
 
     if (error !== "") return (<ResponseError message={error} />)
 
+    const handleCollected = () => {
+      (!flag2 ? setFlag2(!flag2) : setFlag2(flag2))
+      setFlag1(!flag1);
+      if (user !== null) {
+        PaymentService.getAllCollectedPayments()
+        .then((response) => {
+          setPayments(response.data);
+          setError("");
+        }).catch((error) => {
+          handleSetMessage(error.message);
+        }).finally(() => {
+          setLoading(false);
+        })
+      }
+    }
+
+    const handleUncollected = () => {
+      (!flag1 ? setFlag1(!flag1) : setFlag1(flag1))
+      setFlag2(!flag2);
+      if (user !== null) {
+        PaymentService.getAllUnCollectedPayments()
+        .then((response) => {
+          setPayments(response.data);
+          setError("");
+        }).catch((error) => {
+          handleSetMessage(error.message);
+        }).finally(() => {
+          setLoading(false);
+        })
+      }
+    }
+
     return (
         <>
         <Box mt="12px" display="flex" flexDirection="column" sx={{ minHeight: "80vh" }}>
           <PageHeader title="My Driver's Transactions" />
           <br></br>
-            {payments.length !== 0 && <TransactionCardList transactions={payments} />}
-            {payments.length === 0 && <Typography variant="body1" color="text.secondary">No drivers has paid any rents yet.</Typography>}
-            <Footer name="Kerr Labajo" course="BSCS" section="F1" />
+          <Stack spacing={0.5} direction={{ xs: "column-reverse", md: "row" }} sx={{ justifyContent: "end" }}>
+            <Button
+                size="small"
+                onClick={handleCollected}
+                color={flag1 ? "primary" : "secondary"}
+                variant="contained"
+                sx={{width:"150px"}}>
+                Collected
+            </Button>
+            <Button
+                size="small"
+                onClick={handleUncollected}
+                color={flag2 ? "primary" : "secondary"}
+                variant="contained"
+                sx={{width:"150px"}}>
+                Uncollected
+            </Button>
+          </Stack>
+            
+          {payments.length !== 0 && <TransactionCardList transactions={payments} />}
+          {payments.length === 0 && <Typography variant="body1" color="text.secondary">No drivers has paid any rents yet.</Typography>}
+          <Footer name="Kerr Labajo" course="BSCS" section="F1" />
         </Box>
         </>
         );
