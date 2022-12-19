@@ -18,6 +18,14 @@ class DriverService {
         return axios.get(DRIVER_BASE_URL + "/getByDriverId/" + id);
     }
 
+    putDriver = (id: string, data: Driver) => {
+        return axios.put(DRIVER_BASE_URL + "/putAccount?driverId" + id, data);
+    };
+
+    deleteDriver = (id: string) => {
+        return axios.delete(DRIVER_BASE_URL + "/deleteDriver/" +id);
+    };
+
 }
 
 export default new DriverService();

@@ -52,8 +52,27 @@ export default function RegistrationForm() {
             
         }else{
             //insert driver post here
-            //navigate("/registration/registerdriver/");
-            navigate("/operator/operator-profile/");
+            AccountService.postAccount(  {
+                accountId:-1,
+                firstname: data.firstname,
+                middlename:data.middlename,
+                lastname: data.lastname,
+                birthdate:data.birthdate,
+                age:Number(data.age),
+                contactNumber:data.contactNumber,
+                address:data.address,
+                gender: data.gender,
+                username: data.username,
+                password: data.password,
+                accountType: data.accountType,
+            })
+            .then((res)=> {console.log(res.data); navigate("/registration/registerdriver/", {
+                state: {
+                   accountId: res.data.accountId
+                }
+            });} )
+            .catch((err:string) => console.log(err))
+           
         }
         
     }
@@ -68,7 +87,7 @@ export default function RegistrationForm() {
     };
 
     const handleLoginClick = () => {
-        navigate("/");
+        navigate("/login");
     }
 
     const handleSelectChange = (event: SelectChangeEvent) => {
@@ -102,7 +121,7 @@ export default function RegistrationForm() {
                 
                 <div className="three">
                     <TextField required id="outlined-basic" label="Firstname" variant="outlined" value={data.firstname} onChange={handleChange} name="firstname" sx={{margin: 1}}/>
-                    <TextField required id="outlined-basic" label="Middlename" variant="outlined" value={data.middlename} onChange={handleChange} name="middlename" sx={{margin: 1}}/>
+                    <TextField id="outlined-basic" label="Middlename" variant="outlined" value={data.middlename} onChange={handleChange} name="middlename" sx={{margin: 1}}/>
                     <TextField required id="outlined-basic" label="Lastname" variant="outlined" value={data.lastname} onChange={handleChange} name="lastname" sx={{margin: 1}}/>
                 </div>
                 <div className="two">

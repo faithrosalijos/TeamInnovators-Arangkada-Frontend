@@ -1,6 +1,11 @@
 import { Box } from '@mui/material';
 import ProfileF from '../../images/ProfilepicF.png';
 import ProfileM from '../../images/ProfilepicM.png';
+import ProfileMariel from '../../images/mariel.png';
+import ProfileFaith from '../../images/ProfilepicM.png';
+import ProfileKerr from '../../images/kerr.png';
+import ProfileCara from '../../images/cara.png';
+import ProfileKarylle from '../../images/karylle.png';
 
 export default function ContactUs() {
     return (
@@ -26,10 +31,10 @@ export default function ContactUs() {
                 <p style={{color: 'grey', fontSize: 15,  textAlign:'center'}}> Meet the entire team</p></p>
 
                 <div style={{backgroundColor: '#ffffff', borderRadius: 30, padding: 5, maxWidth: 300, marginLeft: 560}}>
-                    <img src={ProfileF} alt={"profile female"} style={{width: 150, height: 150}}/>
+                    <img src={ProfileMariel} alt={"profile female"} style={{width: 150, height: 150}}/>
                     <div className='contain3'>
-                        <p style={{color: 'black', fontSize: 14,  textAlign:'center'}}> Team Leader Name
-                        <p style={{color: 'grey', fontSize: 12, textAlign:'center'}}> Team Member Role</p>
+                        <p style={{color: 'black', fontSize: 14,  textAlign:'center'}}> Mariel Genodiala
+                        <p style={{color: 'grey', fontSize: 12, textAlign:'center'}}> Founder</p>
                         <p style={{color: 'black', fontSize: 13,  textAlign:'center'}}> 
                         Lorem ipsum dolor sit amet, <br></br>consectetur adipiscing elit.</p></p>
                     </div>
@@ -40,8 +45,8 @@ export default function ContactUs() {
                     <div style={{backgroundColor: '#ffffff', borderRadius: 30, padding: 5, maxWidth: 300, marginLeft: 80}}>
                         <img src={ProfileF} alt={"profile female"} style={{width: 150, height: 150}}/>
                     <div className='contain3'>
-                        <p style={{color: 'black', fontSize: 14,  textAlign:'center'}}> Team Member Name
-                        <p style={{color: 'grey', fontSize: 12, textAlign:'center'}}> Team Member Role</p>
+                        <p style={{color: 'black', fontSize: 14,  textAlign:'center'}}> Faith Abigail Rosalijos
+                        <p style={{color: 'grey', fontSize: 12, textAlign:'center'}}> Co-founder</p>
                         <p style={{color: 'black', fontSize: 13,  textAlign:'center'}}> 
                         Lorem ipsum dolor sit amet, <br></br>consectetur adipiscing elit.</p></p>
                     </div>
@@ -49,10 +54,10 @@ export default function ContactUs() {
                   </div>
                   <div className='rightL'>
                   <div style={{backgroundColor: '#ffffff', borderRadius: 30, padding: 5, maxWidth: 300, marginLeft: 180}}>
-                    <img src={ProfileM} alt={"profile male"} style={{width: 150, height: 150}}/>
+                    <img src={ProfileKerr} alt={"profile male"} style={{width: 150, height: 150}}/>
                     <div className='contain3'>
-                        <p style={{color: 'black', fontSize: 14,  textAlign:'center'}}> Team Member Name
-                        <p style={{color: 'grey', fontSize: 12, textAlign:'center'}}> Team Member Role</p>
+                        <p style={{color: 'black', fontSize: 14,  textAlign:'center'}}> Kerr Labajo
+                        <p style={{color: 'grey', fontSize: 12, textAlign:'center'}}> Co-founder</p>
                         <p style={{color: 'black', fontSize: 13,  textAlign:'center'}}> 
                         Lorem ipsum dolor sit amet, <br></br>consectetur adipiscing elit.</p></p>
                     </div>
@@ -62,10 +67,10 @@ export default function ContactUs() {
             <div className="wrapperA">
                   <div className='leftA'>
                     <div style={{backgroundColor: '#ffffff', borderRadius: 30, padding: 5, maxWidth: 300, marginLeft: 80, marginTop:20}}>
-                        <img src={ProfileF} alt={"profile female"} style={{width: 150, height: 150}}/>
+                        <img src={ProfileCara} alt={"profile female"} style={{width: 150, height: 150}}/>
                     <div className='contain3'>
-                        <p style={{color: 'black', fontSize: 14,  textAlign:'center'}}> Team Member Name
-                        <p style={{color: 'grey', fontSize: 12, textAlign:'center'}}> Team Member Role</p>
+                        <p style={{color: 'black', fontSize: 14,  textAlign:'center'}}> Cara Carmel Encabo
+                        <p style={{color: 'grey', fontSize: 12, textAlign:'center'}}> Co-founder</p>
                         <p style={{color: 'black', fontSize: 13,  textAlign:'center'}}> 
                         Lorem ipsum dolor sit amet, <br></br>consectetur adipiscing elit.</p></p>
                     </div>
@@ -73,10 +78,10 @@ export default function ContactUs() {
                   </div>
                   <div className='rightL'>
                   <div style={{backgroundColor: '#ffffff', borderRadius: 30, padding: 5, maxWidth: 300, marginLeft: 180, marginTop:20}}>
-                    <img src={ProfileF} alt={"profile female"} style={{width: 150, height: 150}}/>
+                    <img src={ProfileKarylle} alt={"profile female"} style={{width: 150, height: 150}}/>
                     <div className='contain3'>
-                        <p style={{color: 'black', fontSize: 14,  textAlign:'center'}}> Team Member Name
-                        <p style={{color: 'grey', fontSize: 12, textAlign:'center'}}> Team Member Role</p>
+                        <p style={{color: 'black', fontSize: 14,  textAlign:'center'}}> Karylle Jay Caballero
+                        <p style={{color: 'grey', fontSize: 12, textAlign:'center'}}> Co-founder</p>
                         <p style={{color: 'black', fontSize: 13,  textAlign:'center'}}> 
                         Lorem ipsum dolor sit amet, <br></br>consectetur adipiscing elit.</p></p>
                     </div>

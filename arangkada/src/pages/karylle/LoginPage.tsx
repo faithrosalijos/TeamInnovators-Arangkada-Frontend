@@ -7,7 +7,7 @@ import UserAppbar from "../../components/UserAppbar"
 export default function RegistrationOne() {
     return (
       <Stack className="bgimg">
-        <UserAppbar></UserAppbar>
+
         <Stack 
           direction={{ xs: "column", md: "row" }} 
           sx={{ margin: "auto", width: "90%", padding: "112px 0 32px 0" }} 
@@ -17,7 +17,7 @@ export default function RegistrationOne() {
           <Welcome line1='Welcome to' line2='Arangkada' line3='We get you moving!'></Welcome>
           <Login></Login>
         </Stack> 
-        <Footer name="Karylle Jay Caballero" course="BSIT 3" section="G1" />
+        <Footer name="Karylle Jay Caballero" course="BSIT" section="G2" />
       </Stack>
     )
 }
