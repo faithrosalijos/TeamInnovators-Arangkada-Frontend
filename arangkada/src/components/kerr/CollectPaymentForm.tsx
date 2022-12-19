@@ -25,7 +25,7 @@ const CollectPaymentForm = ({ payment }: CollectPaymentProps) => {
             collected: true
         }).then(() => {
             handleSetMessage("Successfully collected the payment.");
-            navigate("operator/transactions");
+            navigate('/operator/transactions');
         }).catch((error) => {
             handleSetMessage(error.message + ". Failed to collect the payment.");
         })
