@@ -1,11 +1,9 @@
 import { Payment } from "../../api/dataTypes";
-import { useEffect, useState, useContext } from "react";
 import { useModal } from "mui-modal-provider";
 import { NoticeModal } from "../../components/Modals";
 import PaymentIcon from '@mui/icons-material/Payment';
 import RentIcon from '@mui/icons-material/CarRental';
 import { useNavigate, useParams } from "react-router-dom";
-import { SnackbarContext, SnackbarContextType } from "../../helpers/SnackbarContext";
 import { Button, Card, CardActions, CardContent, CardHeader, Divider, Stack, Typography } from "@mui/material";
 
 type MyPaymentCardProps = {
@@ -20,8 +18,8 @@ const PaymentCard = ({ myPayment }: MyPaymentCardProps) => {
     if(myPayment.collected === true)
         {
           const modal = showModal(NoticeModal, {
-            title: "You are not allowed to edit this payment.",
-            content: "This payment has already been collected by the operator.",
+            title: "You are not allowed to edit this payment anymore.",
+            content: "This payment has already been collected by the operator. Contact the operator if this was not intented.",
             onOkay: () => {
               modal.hide();
             }
