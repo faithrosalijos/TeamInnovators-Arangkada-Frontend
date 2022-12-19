@@ -94,7 +94,7 @@ const Transactions = () => {
           </Stack>
             
           {payments.length !== 0 && <TransactionCardList transactions={payments} />}
-          {payments.length === 0 && <Typography variant="body1" color="text.secondary">No drivers has paid any rents yet.</Typography>}
+          {payments.length === 0 && <Typography variant="body1" color="text.secondary">No entries.</Typography>}
           <Footer name="Kerr Labajo" course="BSCS" section="F1" />
         </Box>
         </>
