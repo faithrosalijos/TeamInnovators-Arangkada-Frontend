@@ -8,7 +8,7 @@ import DriverService from "../../api/DriverService";
 import driver from '../../images/driver.png';
 
 
-export default function RegisterationDriver() {
+export default function RegistrationDriver() {
 
     const navigate = useNavigate();
     const location = useLocation();
@@ -52,9 +52,8 @@ export default function RegisterationDriver() {
 
         })
         .catch((err:string) => console.log(err))
-        
-        // console.log(account.accountId)
-        // console.log(location.state.accountId)
+
+
     
         navigate("/landing"); 
         
@@ -62,7 +61,7 @@ export default function RegisterationDriver() {
 
     const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setData({ ...data, [e.target.name]: e.target.value });
-        //console.log(e.target.name)
+
     };
 
     const handleSubmitClick = () => {
