@@ -1,5 +1,6 @@
 import { Divider, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from '@mui/material';
 import { Logout, Person, Dashboard, Payment, Commute, People, Mail, DriveEta } from '@mui/icons-material';
+import PaymentIcon from '@mui/icons-material/Payment';
 import { NavbarLink } from './NavbarLink';
 import { useContext } from 'react';
 import { UserContext, UserContextType } from '../helpers/UserContext';
@@ -19,6 +20,7 @@ const NavbarList = ({ open }: NavbarListProps) => {
     { text: "Add Vehicles", icon: <DriveEta />, link: "/operator/add-vehicle", end: false },
     { text: "Drivers", icon: <People />, link: "/operator/drivers", end: false },
     { text: "Rental Applications", icon: <Mail />, link: "/operator/rental-applications", end: false },
+    { text: "Transactions", icon: <PaymentIcon />, link: "/operator/transactions", end: false },
   ];
 
   const driverList: { text: string, icon: React.ReactNode, link: string, end: boolean }[] = [

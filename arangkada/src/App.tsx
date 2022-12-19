@@ -42,6 +42,8 @@ import EditAccPageD from './pages/karylle/EditAccPageD';
 import EditLicensePage from './pages/karylle/EditLicensePage';
 import DeleteAccPageD from './pages/karylle/DeleteAccPageD';
 import RegisterDriver1 from './pages/karylle/RegisterDriver1';
+import Transactions from './pages/kerr/Transactions';
+import CollectPayment from './pages/kerr/CollectPayment';
 
 /* Customize default mui theme */
 const theme = createTheme({
@@ -117,6 +119,10 @@ const App = () => {
             <Route path="discharge/:id" element={<DischargeDriver />} />
           </Route>
           <Route path="rental-applications" element={<RentalApplications />} />
+          <Route path="transactions">
+            <Route index element={<Transactions />} />
+            <Route path="collect/:id" element={<CollectPayment />}/>
+          </Route>
           <Route path="operator-profile">
             <Route index element={<ProfilePageOp/>} />
             <Route path="edit-operator-prof/:id" element={<EditProfilePageOp/>} />

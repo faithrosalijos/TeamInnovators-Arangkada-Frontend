@@ -6,10 +6,11 @@ type RentalDetailsProps = {
   }
 
   const RentalDetails = ({ rental }: RentalDetailsProps) => {
+    const duration = (new Date(rental.endDate).valueOf() - new Date(rental.startDate).valueOf());
 
     return (
       <div>
-        <Typography variant="h5">PHP {rental.vehicle.rentalFee}.00</Typography>
+        <Typography variant="h5">PHP {rental.vehicle.rentalFee*(duration/86400000)}.00</Typography>
         <Typography variant="body1" color="text.secondary">Plate Number: {rental.vehicle.plateNumber}</Typography>
         <Typography variant="body1" color="text.secondary">Business Name: {rental.vehicle.operator.businessName}</Typography>
         <br></br>

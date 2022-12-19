@@ -9,6 +9,14 @@ class PaymentService {
       return axios.get(PAYMENT_BASE_URL+"/getAllPayments/");
     }
 
+    getAllCollectedPayments() {
+      return axios.get(PAYMENT_BASE_URL+"/getAllCollectedPayments/");
+    }
+
+    getAllUnCollectedPayments() {
+      return axios.get(PAYMENT_BASE_URL+"/getAllUnCollectedPayments/");
+    }
+
     getPaymentById(id: string) {
       return axios.get(PAYMENT_BASE_URL+"/getPaymentById/"+id);
     }
