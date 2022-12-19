@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import ProfileF from '../../images/ProfilepicF.png';
 import ProfileM from '../../images/ProfilepicM.png';
 import ProfileMariel from '../../images/mariel.png';
-import ProfileFaith from '../../images/ProfilepicM.png';
+import ProfileFaith from '../../images/faith.png';
 import ProfileKerr from '../../images/kerr.png';
 import ProfileCara from '../../images/cara.png';
 import ProfileKarylle from '../../images/karylle.png';
@@ -43,7 +43,7 @@ export default function ContactUs() {
                 <div className="wrapperA">
                   <div className='leftA'>
                     <div style={{backgroundColor: '#ffffff', borderRadius: 30, padding: 5, maxWidth: 300, marginLeft: 80}}>
-                        <img src={ProfileF} alt={"profile female"} style={{width: 150, height: 150}}/>
+                        <img src={ProfileFaith} alt={"profile female"} style={{width: 150, height: 150}}/>
                     <div className='contain3'>
                         <p style={{color: 'black', fontSize: 14,  textAlign:'center'}}> Faith Abigail Rosalijos
                         <p style={{color: 'grey', fontSize: 12, textAlign:'center'}}> Co-founder</p>
