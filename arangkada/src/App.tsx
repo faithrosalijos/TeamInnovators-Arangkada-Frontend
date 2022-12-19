@@ -38,6 +38,7 @@ import { useContext, useEffect } from 'react';
 import UpdatePayment from './pages/kerr/UpdatePayment';
 import LoginPage from './pages/karylle/LoginPage';
 import Transactions from './pages/kerr/Transactions';
+import CollectPayment from './pages/kerr/CollectPayment';
 
 /* Customize default mui theme */
 const theme = createTheme({
@@ -106,7 +107,10 @@ const App = () => {
             <Route path="discharge/:id" element={<DischargeDriver />} />
           </Route>
           <Route path="rental-applications" element={<RentalApplications />} />
-          <Route path="transactions" element={<Transactions />} />
+          <Route path="transactions">
+            <Route index element={<Transactions />} />
+            <Route path="collect/:id" element={<CollectPayment />}/>
+          </Route>
           <Route path="operator-profile">
             <Route index element={<ProfilePageOp/>} />
             <Route path="edit-operator-prof/:id" element={<EditProfilePageOp/>} />
