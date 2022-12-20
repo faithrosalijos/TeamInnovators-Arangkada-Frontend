@@ -21,7 +21,7 @@ const Transactions = () => {
 
     useEffect(() => {
         if (user !== null) {
-          PaymentService.getAllPayments()
+          PaymentService.getAllPayments(user.userId)
           .then((response) => {
             setPayments(response.data);
             setError("");
@@ -41,7 +41,7 @@ const Transactions = () => {
       (!flag2 ? setFlag2(!flag2) : setFlag2(flag2))
       setFlag1(!flag1);
       if (user !== null) {
-        PaymentService.getAllCollectedPayments()
+        PaymentService.getAllCollectedPayments(user.userId)
         .then((response) => {
           setPayments(response.data);
           setError("");
@@ -57,7 +57,7 @@ const Transactions = () => {
       (!flag1 ? setFlag1(!flag1) : setFlag1(flag1))
       setFlag2(!flag2);
       if (user !== null) {
-        PaymentService.getAllUnCollectedPayments()
+        PaymentService.getAllUnCollectedPayments(user.userId)
         .then((response) => {
           setPayments(response.data);
           setError("");
